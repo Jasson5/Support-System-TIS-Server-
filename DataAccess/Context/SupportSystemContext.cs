@@ -14,6 +14,9 @@ namespace DataAccess.Context
         }
 
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Calendar> Calendars { get; set; }
+        public DbSet<Homework> Homeworks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

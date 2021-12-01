@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Support_System_Server_v2.Migrations
 {
-    public partial class SupportSystemServer : Migration
+    public partial class SupportSystem : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,20 +47,71 @@ namespace Support_System_Server_v2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Attendances",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AttendanceDate = table.Column<DateTime>(nullable: false),
+                    Note = table.Column<string>(nullable: true),
+                    AttendanceStatus = table.Column<int>(nullable: false),
+                    AttendanceGrade = table.Column<int>(nullable: false),
+                    POVGrade = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attendances", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Calendars",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DayDate = table.Column<DateTime>(nullable: false),
+                    DayDescription = table.Column<string>(nullable: false),
+                    DayObsevation = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Calendars", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Companies",
                 columns: table => new
                 {
-                    ShortName = table.Column<string>(nullable: false),
+                    ShortName = table.Column<string>(maxLength: 50, nullable: false),
                     Id = table.Column<int>(nullable: false),
-                    LongName = table.Column<string>(nullable: true),
-                    Society = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
+                    LongName = table.Column<string>(maxLength: 100, nullable: false),
+                    Society = table.Column<string>(maxLength: 5, nullable: false),
+                    Address = table.Column<string>(maxLength: 100, nullable: true),
                     Telephone = table.Column<int>(nullable: false),
-                    CmpanyEmail = table.Column<string>(nullable: true)
+                    CmpanyEmail = table.Column<string>(nullable: true),
+                    CmpanyStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.ShortName);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Homeworks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tittle = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(maxLength: 300, nullable: true),
+                    HomeworkFileLink = table.Column<string>(nullable: true),
+                    DeliveryDate = table.Column<DateTime>(nullable: false),
+                    HomeworkStatus = table.Column<int>(nullable: false),
+                    Grade = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Homeworks", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -250,7 +301,16 @@ namespace Support_System_Server_v2.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Attendances");
+
+            migrationBuilder.DropTable(
+                name: "Calendars");
+
+            migrationBuilder.DropTable(
                 name: "Companies");
+
+            migrationBuilder.DropTable(
+                name: "Homeworks");
 
             migrationBuilder.DropTable(
                 name: "Users");
