@@ -6,5 +6,7 @@ namespace Entities
     {
         public int Id { get; set; }
 
+        public DateTime? DateCreation { get; set; }
+
     }
 }

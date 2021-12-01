@@ -1,5 +1,4 @@
-﻿using Authentication.Entities;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Entities
@@ -7,11 +6,7 @@ namespace Entities
     public class Announcement : Entity
     {
         [Required]
-        public User User { get; set; }
-
-        [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateAnnouncement { get; set; }
 
         [Required]

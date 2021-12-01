@@ -7,7 +7,6 @@ namespace Entities
     {
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime AttendanceDate { get; set; }
 
         public string Note { get; set; }
