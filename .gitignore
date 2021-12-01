@@ -1,0 +1,15 @@
+/.vs
+/packages
+/Support-System-Server-v2/bin
+/Support-System-Server-v2/obj
+/Support-System-Server-v2/logs
+/DataAccess/obj
+/DataAccess/bin
+/Entities/obj
+/Entities/bin
+/Services/obj
+/Services/bin
+/Authentication/obj
+/Authentication/bin
+/Report/obj
+/Report/bin
