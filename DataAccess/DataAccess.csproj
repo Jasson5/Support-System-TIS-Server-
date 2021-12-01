@@ -28,6 +28,5 @@
   <ItemGroup>
     <Folder Include="Interfaces\" />
     <Folder Include="Scripts\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 </Project>
