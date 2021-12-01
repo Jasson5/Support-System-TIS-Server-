@@ -47,20 +47,85 @@ namespace Support_System_Server_v2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Attendances",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AttendanceDate = table.Column<DateTime>(nullable: false),
+                    Note = table.Column<string>(nullable: true),
+                    AttendanceStatus = table.Column<int>(nullable: false),
+                    AttendanceGrade = table.Column<int>(nullable: false),
+                    POVGrade = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attendances", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Calendars",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DayDate = table.Column<DateTime>(nullable: false),
+                    DayDescription = table.Column<string>(nullable: false),
+                    DayObsevation = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Calendars", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Companies",
                 columns: table => new
                 {
-                    ShortName = table.Column<string>(nullable: false),
+                    ShortName = table.Column<string>(maxLength: 50, nullable: false),
                     Id = table.Column<int>(nullable: false),
-                    LongName = table.Column<string>(nullable: true),
-                    Society = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
+                    LongName = table.Column<string>(maxLength: 100, nullable: false),
+                    Society = table.Column<string>(maxLength: 5, nullable: false),
+                    Address = table.Column<string>(maxLength: 100, nullable: true),
                     Telephone = table.Column<int>(nullable: false),
-                    CmpanyEmail = table.Column<string>(nullable: true)
+                    CmpanyEmail = table.Column<string>(nullable: true),
+                    CmpanyStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.ShortName);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Homeworks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tittle = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(maxLength: 300, nullable: true),
+                    HomeworkFileLink = table.Column<string>(nullable: true),
+                    DeliveryDate = table.Column<DateTime>(nullable: false),
+                    HomeworkStatus = table.Column<int>(nullable: false),
+                    Grade = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Homeworks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Semesters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NameSemester = table.Column<string>(maxLength: 7, nullable: false),
+                    CodeSemester = table.Column<string>(maxLength: 7, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Semesters", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -187,10 +252,69 @@ namespace Support_System_Server_v2.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Announcements",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: false),
+                    DateAnnouncement = table.Column<DateTime>(nullable: false),
+                    DescriptionAnnouncement = table.Column<string>(maxLength: 500, nullable: false),
+                    DocumentAnnouncement = table.Column<string>(maxLength: 1000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Announcements", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Announcements_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Offers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: false),
+                    TitleOffer = table.Column<string>(maxLength: 50, nullable: false),
+                    DescriptionOffer = table.Column<string>(maxLength: 500, nullable: false),
+                    DateEndOffer = table.Column<DateTime>(nullable: false),
+                    SemesterId = table.Column<int>(nullable: false),
+                    DocuementOffer = table.Column<string>(maxLength: 1000, nullable: false),
+                    minUsers = table.Column<int>(nullable: false),
+                    maxUsers = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Offers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Offers_Semesters_SemesterId",
+                        column: x => x.SemesterId,
+                        principalTable: "Semesters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Offers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "GivenName", "IsEnabled", "LastName", "Username" },
                 values: new object[] { 1, "jeysonerikvaldiviabernal@gmail.com", "Admin", "jeyson", true, "Admin", "admin" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Announcements_UserId",
+                table: "Announcements",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -230,10 +354,23 @@ namespace Support_System_Server_v2.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Offers_SemesterId",
+                table: "Offers",
+                column: "SemesterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Offers_UserId",
+                table: "Offers",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Announcements");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -250,16 +387,31 @@ namespace Support_System_Server_v2.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Attendances");
+
+            migrationBuilder.DropTable(
+                name: "Calendars");
+
+            migrationBuilder.DropTable(
                 name: "Companies");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Homeworks");
+
+            migrationBuilder.DropTable(
+                name: "Offers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Semesters");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
