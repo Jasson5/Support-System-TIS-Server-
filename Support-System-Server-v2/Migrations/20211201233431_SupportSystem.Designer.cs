@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Support_System_Server_v2.Migrations
 {
     [DbContext(typeof(SupportSystemContext))]
-    [Migration("20211201215132_SupportSystem")]
+    [Migration("20211201233431_SupportSystem")]
     partial class SupportSystem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
