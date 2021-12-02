@@ -21,12 +21,23 @@ namespace Services
             return newSemester;
         }
 
+        public void DeleteSemester(int id)
+        {
+            var semester = _semesterRepository.FindById(id);
+
+            if (semester != null)
+            {
+                _semesterRepository.Delete(semester);
+            }
+        }
+
+
         public Semester GeyById(int id)
         {
             return _semesterRepository.FindById(id);
         }
 
-        public ICollection<Semester> ListSemester()
+        public ICollection<Semester> ListSemesters()
         {
             var semester = _semesterRepository.List;
 
@@ -38,5 +49,4 @@ namespace Services
             _semesterRepository.Update(semester);
         }
     }
-
 }

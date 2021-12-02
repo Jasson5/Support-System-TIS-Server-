@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Entities;
+using Services.Interfaces;
 
 namespace Support_System_Server_v2.Controllers
 {
@@ -32,7 +33,7 @@ namespace Support_System_Server_v2.Controllers
         [Route("")]
         public ActionResult<ICollection<Semester>> Get()
         {
-            return Ok(_semesterService.ListSemester());
+            return Ok(_semesterService.ListSemesters());
         }
 
         [HttpGet]

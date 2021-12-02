@@ -7,7 +7,7 @@ namespace Services.Interfaces
     public interface IAnnouncementService
     {
         Announcement AddAnnouncement(Announcement announcement);
-        ICollection<Announcement> ListAnnouncement();
+        ICollection<Announcement> ListAnnouncements();
         void DeleteAnnouncement(int id);
         void UpdateAnnouncement(Announcement announcement);
         Announcement GeyById(int id);

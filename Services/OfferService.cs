@@ -21,12 +21,23 @@ namespace Services
             return newOffer;
         }
 
+        public void DeleteOffer(int id)
+        {
+            var offer = _offerRepository.FindById(id);
+
+            if (offer != null)
+            {
+                _offerRepository.Delete(offer);
+            }
+        }
+
+
         public Offer GeyById(int id)
         {
             return _offerRepository.FindById(id);
         }
 
-        public ICollection<Offer> ListOffer()
+        public ICollection<Offer> ListOffers()
         {
             var offer = _offerRepository.List;
 

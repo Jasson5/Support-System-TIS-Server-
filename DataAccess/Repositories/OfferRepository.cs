@@ -1,9 +1,7 @@
-﻿using Entities;
+﻿using DataAccess.Interfaces;
+using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DataAccess.Repositories
 {
@@ -33,7 +31,8 @@ namespace DataAccess.Repositories
 
         public void Delete(Offer entity)
         {
-            throw new System.NotImplementedException();
+            _context.Set<Offer>().Remove(entity);
+            _context.SaveChanges();
         }
 
         public Offer FindById(int id)
@@ -58,10 +57,10 @@ namespace DataAccess.Repositories
 
         public void Update(Offer entity)
         {
-            var matter = _context.Set<Offer>().Find(entity.Id);
+            /*var matter = _context.Set<Subject>().Find(entity.Id);
 
-            matter.NameSemester = entity.NameSemester;
-            matter.CodeSemester = entity.CodeSemester;
+            matter.Name = entity.Name;
+            matter.Docente = entity.Docente;*/
 
             _context.SaveChanges();
         }

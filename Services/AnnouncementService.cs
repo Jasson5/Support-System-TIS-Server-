@@ -21,12 +21,23 @@ namespace Services
             return newAnnouncement;
         }
 
+        public void DeleteAnnouncement(int id)
+        {
+            var announcement = _announcementRepository.FindById(id);
+
+            if (announcement != null)
+            {
+                _announcementRepository.Delete(announcement);
+            }
+        }
+
+
         public Announcement GeyById(int id)
         {
             return _announcementRepository.FindById(id);
         }
 
-        public ICollection<Announcement> ListAnnouncement()
+        public ICollection<Announcement> ListAnnouncements()
         {
             var announcement = _announcementRepository.List;
 

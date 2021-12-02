@@ -6,6 +6,7 @@ using Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces;
 
 namespace Support_System_Server_v2.Controllers
 {
@@ -32,7 +33,7 @@ namespace Support_System_Server_v2.Controllers
         [Route("")]
         public ActionResult<ICollection<Announcement>> Get()
         {
-            return Ok(_announcementService.ListAnnouncement());
+            return Ok(_announcementService.ListAnnouncements());
         }
 
         [HttpGet]
