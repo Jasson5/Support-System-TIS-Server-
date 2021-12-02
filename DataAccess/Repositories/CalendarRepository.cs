@@ -57,10 +57,12 @@ namespace DataAccess.Repositories
 
         public void Update(Calendar entity)
         {
-            /*var matter = _context.Set<Subject>().Find(entity.Id);
+            var calendar = _context.Set<Calendar>().Find(entity.Id);
 
-            matter.Name = entity.Name;
-            matter.Docente = entity.Docente;*/
+            calendar.DayDate = entity.DayDate;
+            calendar.DayDescription = entity.DayDescription;
+            calendar.DayObservation = entity.DayObservation;
+            calendar.Company = entity.Company;
 
             _context.SaveChanges();
         }

@@ -57,10 +57,10 @@ namespace DataAccess.Repositories
 
         public void Update(Company entity)
         {
-            /*var matter = _context.Set<Subject>().Find(entity.Id);
+            var company = _context.Set<Company>()
+                .FirstOrDefault(c => c.Id == entity.Id);
 
-            matter.Name = entity.Name;
-            matter.Docente = entity.Docente;*/
+            company.CmpanyStatus = entity.CmpanyStatus;
 
             _context.SaveChanges();
         }

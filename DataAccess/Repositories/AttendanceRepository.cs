@@ -62,6 +62,12 @@ namespace DataAccess.Repositories
             matter.Name = entity.Name;
             matter.Docente = entity.Docente;*/
 
+            var attendance = _context.Set<Attendance>()
+                .FirstOrDefault(c => c.Id == entity.Id);
+
+            attendance.AttendanceStatus = entity.AttendanceStatus;
+
+
             _context.SaveChanges();
         }
     }

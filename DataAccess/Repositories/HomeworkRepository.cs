@@ -57,10 +57,14 @@ namespace DataAccess.Repositories
 
         public void Update(Homework entity)
         {
-            /*var matter = _context.Set<Subject>().Find(entity.Id);
+            var homework = _context.Set<Homework>().Find(entity.Id);
 
-            matter.Name = entity.Name;
-            matter.Docente = entity.Docente;*/
+            homework.Tittle = entity.Tittle;
+            homework.Description = entity.Description;
+            homework.HomeworkFileLink = entity.HomeworkFileLink;
+            homework.DeliveryDate = entity.DeliveryDate;
+            homework.HomeworkStatus = entity.HomeworkStatus;
+            homework.Grade = entity.Grade;
 
             _context.SaveChanges();
         }
