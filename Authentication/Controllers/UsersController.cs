@@ -34,6 +34,7 @@ namespace Authentication.Controllers
             return Ok(user);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("complete-user")]
         public async Task<ActionResult<User>> PostCompleteUser([FromBody] User user)
