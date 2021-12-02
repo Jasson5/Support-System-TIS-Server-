@@ -18,6 +18,10 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Authentication.Entities;
 using Authentication.DataAccess.Context;
 using DataAccess.Context;
+using DataAccess.Interfaces;
+using Services.Interfaces;
+using Services;
+using DataAccess.Repositories;
 
 namespace Support_System_Server_v2
 {
@@ -144,6 +148,34 @@ namespace Support_System_Server_v2
         {
             //Context
             services.AddTransient<IdentityDbContext, SupportSystemContext>();
+
+            //Announcement
+            services.AddTransient<IRepository<Announcement>, AnnouncementRepository>();
+            services.AddTransient<IAnnouncementService, AnnouncementService>();
+
+            //Attendance
+            services.AddTransient<IRepository<Attendance>, AttendanceRepository>();
+            services.AddTransient<IAttendanceService, AttendanceService>();
+
+            //Calendar
+            services.AddTransient<IRepository<Calendar>, CalendarRepository>();
+            services.AddTransient<ICalendarService, CalendarService>();
+
+            //Company
+            services.AddTransient<IRepository<Company>, CompanyRepository>();
+            services.AddTransient<ICompanyService, CompanyService>();
+
+            //Homework
+            services.AddTransient<IRepository<Homework>, HomeworkRepository>();
+            services.AddTransient<IHomeworkService, HomeworkService>();
+
+            //Offer
+            services.AddTransient<IRepository<Offer>, OfferRepository>();
+            services.AddTransient<IOfferService, OfferService>();
+
+            //Semester
+            services.AddTransient<IRepository<Semester>, SemesterRepository>();
+            services.AddTransient<ISemesterService, SemesterService>();
         }
     }
 }

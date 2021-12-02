@@ -6,27 +6,23 @@ namespace Entities
     public class Offer : Entity
     {
         [Required]
-        [StringLength(50)]
-        public string TitleOffer { get; set; }
-
-        [Required]
         [StringLength(500)]
-        public string DescriptionOffer { get; set; }
+        public string Description { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime DateEndOffer { get; set; }
+        public DateTime DateEnd { get; set; }
 
-        [Required]
+       // [Required]
         public Semester Semester { get; set; }
 
         [Required]
-        public string DocuementOffer { get; set; }
+        public string DocumentOfferUrl { get; set; }
 
         [Required]
-        public int minUsers { get; set; }
+        public int MinUsers { get; set; }
 
         [Required]
-        public int maxUsers { get; set; }
+        public int MaxUsers { get; set; }
     }
 }

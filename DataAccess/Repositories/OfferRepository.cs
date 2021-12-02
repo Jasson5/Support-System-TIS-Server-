@@ -61,13 +61,12 @@ namespace DataAccess.Repositories
             /*
             matter.Name = entity.Name;
             matter.Docente = entity.Docente;*/
-            offer.TitleOffer = entity.TitleOffer;
-            offer.DescriptionOffer = entity.DescriptionOffer;
-            offer.DateEndOffer = entity.DateEndOffer;
+            offer.Description = entity.Description;
+            offer.DateEnd = entity.DateEnd;
             offer.Semester = entity.Semester;
-            offer.DocuementOffer = entity.DocuementOffer;
-            offer.minUsers = entity.minUsers;
-            offer.maxUsers = entity.maxUsers;
+            offer.DocumentOfferUrl = entity.DocumentOfferUrl;
+            offer.MinUsers = entity.MinUsers;
+            offer.MaxUsers = entity.MaxUsers;
 
             _context.SaveChanges();
         }

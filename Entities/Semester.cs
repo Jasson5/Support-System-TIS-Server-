@@ -6,11 +6,11 @@ namespace Entities
     {
         [Required]
         [StringLength(7)]
-        public string NameSemester { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(7)]
-        public string CodeSemester { get; set; }
+        public string Code { get; set; }
 
     }
 

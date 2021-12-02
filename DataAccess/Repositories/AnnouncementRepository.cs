@@ -59,9 +59,8 @@ namespace DataAccess.Repositories
         {
             var announcement = _context.Set<Announcement>().Find(entity.Id);
 
-            announcement.DateAnnouncement = entity.DateAnnouncement;
-            announcement.DescriptionAnnouncement = entity.DescriptionAnnouncement;
-            announcement.DocumentAnnouncement = entity.DocumentAnnouncement;
+            announcement.Description = entity.Description;
+            announcement.DocumentUrl = entity.DocumentUrl;
 
             _context.SaveChanges();
         }

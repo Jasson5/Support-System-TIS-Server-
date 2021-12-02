@@ -59,8 +59,8 @@ namespace DataAccess.Repositories
         {
             var semester = _context.Set<Semester>().Find(entity.Id);
 
-            semester.NameSemester = entity.NameSemester;
-            semester.CodeSemester = entity.CodeSemester;
+            semester.Name = entity.Name;
+            semester.Code = entity.Code;
 
             _context.SaveChanges();
         }
