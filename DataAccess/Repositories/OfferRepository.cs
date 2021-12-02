@@ -57,10 +57,17 @@ namespace DataAccess.Repositories
 
         public void Update(Offer entity)
         {
-            /*var matter = _context.Set<Subject>().Find(entity.Id);
-
+            var offer = _context.Set<Offer>().Find(entity.Id);
+            /*
             matter.Name = entity.Name;
             matter.Docente = entity.Docente;*/
+            offer.TitleOffer = entity.TitleOffer;
+            offer.DescriptionOffer = entity.DescriptionOffer;
+            offer.DateEndOffer = entity.DateEndOffer;
+            offer.Semester = entity.Semester;
+            offer.DocuementOffer = entity.DocuementOffer;
+            offer.minUsers = entity.minUsers;
+            offer.maxUsers = entity.maxUsers;
 
             _context.SaveChanges();
         }
