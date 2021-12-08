@@ -1,4 +1,4 @@
-﻿using Entities;
+﻿using Authentication.Entities;
 using System.Collections.Generic;
 
 namespace DataAccess.Interfaces
@@ -6,9 +6,7 @@ namespace DataAccess.Interfaces
     public interface ISemesterRepository
     {
         Semester Add(Semester semester);
-        ICollection<Semester> ListSemesters(string search);
-        void Update(Semester semester);
+        ICollection<Semester> List();
         Semester FindById(int id);
-        void Delete(Semester semester);
     }
 }

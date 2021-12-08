@@ -162,7 +162,7 @@ namespace Support_System_Server_v2
             services.AddTransient<ICalendarService, CalendarService>();
 
             //Company
-            services.AddTransient<IRepository<Company>, CompanyRepository>();
+            services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<ICompanyService, CompanyService>();
 
             //Homework

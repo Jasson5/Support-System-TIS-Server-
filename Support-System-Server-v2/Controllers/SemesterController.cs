@@ -1,14 +1,15 @@
-﻿using Entities;
+﻿using Authentication.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Services.Helpers;
 using Services.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Support_System_Server_v2.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/semester")]
     [ApiController]
     public class SemesterController : ControllerBase
     {
@@ -23,7 +24,17 @@ namespace Support_System_Server_v2.Controllers
         [Route("")]
         public ActionResult<Semester> Post(Semester semester)
         {
-            return _semesterService.AddSemester(semester);
+            if (!ModelState.IsValid)
+            {
+                var errors = string.Join("\n", ModelState.Values.SelectMany(e => e.Errors.Select(er => er.ErrorMessage)).ToArray());
+
+                return BadRequest(errors);
+            }
+
+            semester.DateCreation = TimeZoneHelper.GetSaWesternStandardTime();
+            var newSemester = _semesterService.AddSemester(semester);
+
+            return Created("api/semesters", newSemester);
         }
 
         [HttpGet]
@@ -37,25 +48,7 @@ namespace Support_System_Server_v2.Controllers
         [Route("{id}")]
         public ActionResult<Semester> GetById(int id)
         {
-            var semester = _semesterService.GeyById(id);
-
-            return Ok(semester);
-        }
-
-        [HttpDelete]
-        [Route("{id}")]
-        public ActionResult Delete(int id)
-        {
-            _semesterService.DeleteSemester(id);
-
-            return Ok();
-        }
-
-        [HttpPatch]
-        [Route("{id}")]
-        public ActionResult<Semester> Update(Semester semester)
-        {
-            _semesterService.UpdateSemester(semester);
+            var semester = _semesterService.FindById(id);
 
             return Ok(semester);
         }

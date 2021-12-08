@@ -1,7 +1,6 @@
-﻿using DataAccess.Interfaces;
-using Entities;
+﻿using Authentication.Entities;
+using DataAccess.Interfaces;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,7 +22,6 @@ namespace DataAccess.Repositories
 
             return semester;
         }
-
         public void Delete(Semester semester)
         {
             _dataAccess.Set<Semester>().Remove(semester);
@@ -32,25 +30,12 @@ namespace DataAccess.Repositories
 
         public Semester FindById(int id)
         {
-            var semester = _dataAccess.Set<Semester>().FromSqlRaw($"dbo.GetSemesterById '{id}'").AsEnumerable().SingleOrDefault();
-
-            return semester;
+            throw new System.NotImplementedException();
         }
 
-        public ICollection<Semester> ListSemesters(string search)
+        public ICollection<Semester> List()
         {
-            var semesters = _dataAccess.Set<Semester>().FromSqlRaw($"dbo.GetSemesters'{search}'").AsEnumerable();
-
-            return semesters.ToList();
-        }
-
-        public void Update(Semester semester)
-        {
-            var SemesterToEdit = _dataAccess.Set<Semester>().Find(semester.Id);
-
-            SemesterToEdit.Name = semester.Name;
-            SemesterToEdit.Code = semester.Code;
-            _dataAccess.SaveChanges();
+            return _dataAccess.Set<Semester>().ToList();  
         }
     }
 }

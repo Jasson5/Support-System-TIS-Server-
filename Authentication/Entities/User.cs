@@ -44,5 +44,11 @@ namespace Authentication.Entities
 
         [NotMapped]
         public ICollection<Role> Roles { get; set; }
+
+        [NotMapped]
+        public ICollection<Company> Companies { get; set; }
+
+        [NotMapped]
+        public ICollection<Semester> Semesters { get; set; }
     }
 }

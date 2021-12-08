@@ -1,8 +1,7 @@
-﻿using Entities;
+﻿using Authentication.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Support_System_Server_v2.Controllers
@@ -37,7 +36,7 @@ namespace Support_System_Server_v2.Controllers
         [Route("{id}")]
         public ActionResult<Company> GetById(int id)
         {
-            var company = _companyService.GeyById(id);
+            var company = _companyService.FindById(id);
 
             return Ok(company);
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Authentication.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Entities
@@ -13,7 +14,7 @@ namespace Entities
         [DataType(DataType.Date)]
         public DateTime DateEnd { get; set; }
 
-       // [Required]
+        [Required]
         public Semester Semester { get; set; }
 
         [Required]

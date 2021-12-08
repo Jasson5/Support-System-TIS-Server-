@@ -1,4 +1,5 @@
-﻿using DataAccess.Interfaces;
+﻿using Authentication.Entities;
+using DataAccess.Interfaces;
 using Entities;
 using Services.Interfaces;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ namespace Services
 {
     public class CompanyService : ICompanyService
     {
-        private readonly IRepository<Company> _companyRepository;
+        private readonly ICompanyRepository _companyRepository;
 
-        public CompanyService(IRepository<Company> companyRepository)
+        public CompanyService(ICompanyRepository companyRepository)
         {
             this._companyRepository = companyRepository;
         }
@@ -32,14 +33,14 @@ namespace Services
         }
 
 
-        public Company GeyById(int id)
+        public Company FindById(int id)
         {
             return _companyRepository.FindById(id);
         }
 
         public ICollection<Company> ListCompanys()
         {
-            var company = _companyRepository.List;
+            var company = _companyRepository.List();
 
             return company.ToList();
         }
