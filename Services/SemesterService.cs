@@ -1,4 +1,5 @@
-﻿using DataAccess.Interfaces;
+﻿using Authentication.Entities;
+using DataAccess.Interfaces;
 using Entities;
 using Services.Interfaces;
 using System.Collections.Generic;
@@ -8,12 +9,13 @@ namespace Services
 {
     public class SemesterService : ISemesterService
     {
-        private readonly IRepository<Semester> _semesterRepository;
+        private readonly ISemesterRepository _semesterRepository;
 
-        public SemesterService(IRepository<Semester> semesterRepository)
+        public SemesterService(ISemesterRepository semesterRepository)
         {
             this._semesterRepository = semesterRepository;
         }
+
         public Semester AddSemester(Semester semester)
         {
             var newSemester = _semesterRepository.Add(semester);
@@ -21,32 +23,16 @@ namespace Services
             return newSemester;
         }
 
-        public void DeleteSemester(int id)
-        {
-            var semester = _semesterRepository.FindById(id);
-
-            if (semester != null)
-            {
-                _semesterRepository.Delete(semester);
-            }
-        }
-
-
-        public Semester GeyById(int id)
+        public Semester FindById(int id)
         {
             return _semesterRepository.FindById(id);
         }
 
         public ICollection<Semester> ListSemesters()
         {
-            var semester = _semesterRepository.List;
+            var semester = _semesterRepository.List();
 
             return semester.ToList();
-        }
-
-        public void UpdateSemester(Semester semester)
-        {
-            _semesterRepository.Update(semester);
         }
     }
 }

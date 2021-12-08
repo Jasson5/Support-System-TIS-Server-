@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Authentication.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Entities

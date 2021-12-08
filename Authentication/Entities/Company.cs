@@ -1,12 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Authentication.Entities;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Entities
+namespace Authentication.Entities
 {
-    public class Company: Entity
+    public class Company 
     {
         [Key]
         [StringLength(50)]
         public string ShortName { get; set; }
+
+        public int Id { get; set; }
+
+        public DateTime? DateCreation { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -26,5 +35,10 @@ namespace Entities
 
         [Required]
         public int CmpanyStatus { get; set; }
+
+        [NotMapped]
+        public ICollection<User> Members { get; set;}
+
+        public Semester Semester { get; set; }
     }
 }

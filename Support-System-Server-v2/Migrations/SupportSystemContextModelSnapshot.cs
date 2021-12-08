@@ -19,6 +19,74 @@ namespace Support_System_Server_v2.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Authentication.Entities.Company", b =>
+                {
+                    b.Property<string>("ShortName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("CmpanyEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CmpanyStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateCreation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LongName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("SemesterCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Society")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("Telephone")
+                        .HasColumnType("int");
+
+                    b.HasKey("ShortName");
+
+                    b.HasIndex("SemesterCode");
+
+                    b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("Authentication.Entities.Semester", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("DateCreation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("Semesters");
+                });
+
             modelBuilder.Entity("Authentication.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -61,6 +129,50 @@ namespace Support_System_Server_v2.Migrations
                             LastName = "Admin",
                             Username = "admin"
                         });
+                });
+
+            modelBuilder.Entity("Authentication.Entities.UserSemesters", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("SemesterCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SemesterCode");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserSemesters");
+                });
+
+            modelBuilder.Entity("Authentication.Entities.UsersCompanies", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CompanyShortName")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyShortName");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UsersCompanies");
                 });
 
             modelBuilder.Entity("Entities.Announcement", b =>
@@ -149,46 +261,6 @@ namespace Support_System_Server_v2.Migrations
                     b.ToTable("Calendars");
                 });
 
-            modelBuilder.Entity("Entities.Company", b =>
-                {
-                    b.Property<string>("ShortName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("CmpanyEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CmpanyStatus")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DateCreation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LongName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("Society")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(5)")
-                        .HasMaxLength(5);
-
-                    b.Property<int>("Telephone")
-                        .HasColumnType("int");
-
-                    b.HasKey("ShortName");
-
-                    b.ToTable("Companies");
-                });
-
             modelBuilder.Entity("Entities.Homework", b =>
                 {
                     b.Property<int>("Id")
@@ -253,39 +325,15 @@ namespace Support_System_Server_v2.Migrations
                     b.Property<int>("MinUsers")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SemesterId")
-                        .HasColumnType("int");
+                    b.Property<string>("SemesterCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SemesterId");
+                    b.HasIndex("SemesterCode");
 
                     b.ToTable("Offers");
-                });
-
-            modelBuilder.Entity("Entities.Semester", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(7)")
-                        .HasMaxLength(7);
-
-                    b.Property<DateTime?>("DateCreation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(7)")
-                        .HasMaxLength(7);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Semesters");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -484,18 +532,49 @@ namespace Support_System_Server_v2.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Authentication.Entities.Company", b =>
+                {
+                    b.HasOne("Authentication.Entities.Semester", "Semester")
+                        .WithMany()
+                        .HasForeignKey("SemesterCode");
+                });
+
+            modelBuilder.Entity("Authentication.Entities.UserSemesters", b =>
+                {
+                    b.HasOne("Authentication.Entities.Semester", "Semester")
+                        .WithMany()
+                        .HasForeignKey("SemesterCode");
+
+                    b.HasOne("Authentication.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Authentication.Entities.UsersCompanies", b =>
+                {
+                    b.HasOne("Authentication.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyShortName");
+
+                    b.HasOne("Authentication.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Entities.Calendar", b =>
                 {
-                    b.HasOne("Entities.Company", "Company")
+                    b.HasOne("Authentication.Entities.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyShortName");
                 });
 
             modelBuilder.Entity("Entities.Offer", b =>
                 {
-                    b.HasOne("Entities.Semester", "Semester")
+                    b.HasOne("Authentication.Entities.Semester", "Semester")
                         .WithMany()
-                        .HasForeignKey("SemesterId");
+                        .HasForeignKey("SemesterCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

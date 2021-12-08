@@ -162,7 +162,7 @@ namespace Support_System_Server_v2
             services.AddTransient<ICalendarService, CalendarService>();
 
             //Company
-            services.AddTransient<IRepository<Company>, CompanyRepository>();
+            services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<ICompanyService, CompanyService>();
 
             //Homework
@@ -174,7 +174,7 @@ namespace Support_System_Server_v2
             services.AddTransient<IOfferService, OfferService>();
 
             //Semester
-            services.AddTransient<IRepository<Semester>, SemesterRepository>();
+            services.AddTransient<ISemesterRepository, SemesterRepository>();
             services.AddTransient<ISemesterService, SemesterService>();
         }
     }

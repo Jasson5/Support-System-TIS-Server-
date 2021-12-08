@@ -1,24 +1,18 @@
-﻿using DataAccess.Interfaces;
-using Entities;
+﻿using Authentication.Entities;
+using DataAccess.Interfaces;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
 {
-    public class CompanyRepository : IRepository<Company>
+    public class CompanyRepository : ICompanyRepository
     {
         private readonly IdentityDbContext _context;
 
         public CompanyRepository(IdentityDbContext context)
         {
             this._context = context;
-        }
-        public IQueryable<Company> List
-        {
-            get
-            {
-                return _context.Set<Company>();
-            }
         }
 
         public Company Add(Company entity)
@@ -29,10 +23,9 @@ namespace DataAccess.Repositories
             return entity;
         }
 
-        public void Delete(Company entity)
+        public void Delete(Company company)
         {
-            _context.Set<Company>().Remove(entity);
-            _context.SaveChanges();
+            throw new System.NotImplementedException();
         }
 
         public Company FindById(int id)
@@ -40,17 +33,7 @@ namespace DataAccess.Repositories
             return _context.Set<Company>().Find(id);
         }
 
-        public Company FindByIdWithIncludeArray<TInclude>(int id, System.Linq.Expressions.Expression<System.Func<Company, System.Collections.Generic.ICollection<TInclude>>> includeFunc)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IQueryable<Company> ListWithInclude<TInclude>(System.Linq.Expressions.Expression<System.Func<Company, TInclude>> includeFunc) where TInclude : Entity
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IQueryable<Company> ListWithIncludeArray<TInclude>(System.Linq.Expressions.Expression<System.Func<Company, System.Collections.Generic.ICollection<TInclude>>> includeFunc) where TInclude : Entity
+        public ICollection<Company> List()
         {
             throw new System.NotImplementedException();
         }
