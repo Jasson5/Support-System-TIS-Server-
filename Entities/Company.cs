@@ -26,5 +26,7 @@ namespace Entities
 
         [Required]
         public int CmpanyStatus { get; set; }
+
+        /*Aniadir semestre*/
     }
 }

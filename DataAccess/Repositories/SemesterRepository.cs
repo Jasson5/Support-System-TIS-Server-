@@ -1,68 +1,56 @@
 ﻿using DataAccess.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
 {
-    public class SemesterRepository : IRepository<Semester>
+    public class SemesterRepository : ISemesterRepository
     {
-        private readonly IdentityDbContext _context;
+        private readonly IdentityDbContext _dataAccess;
 
-        public SemesterRepository(IdentityDbContext context)
+        public SemesterRepository(IdentityDbContext dataAccess)
         {
-            this._context = context;
-        }
-        public IQueryable<Semester> List
-        {
-            get
-            {
-                return _context.Set<Semester>();
-            }
+            _dataAccess = dataAccess;
         }
 
-        public Semester Add(Semester entity)
+        public Semester Add(Semester semester)
         {
-            _context.Set<Semester>().Add(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Semester>().Add(semester);
+            _dataAccess.SaveChanges();
 
-            return entity;
+            return semester;
         }
 
-        public void Delete(Semester entity)
+        public void Delete(Semester semester)
         {
-            _context.Set<Semester>().Remove(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Semester>().Remove(semester);
+            _dataAccess.SaveChanges();
         }
 
         public Semester FindById(int id)
         {
-            return _context.Set<Semester>().Find(id);
+            var semester = _dataAccess.Set<Semester>().FromSqlRaw($"dbo.GetSemesterById '{id}'").AsEnumerable().SingleOrDefault();
+
+            return semester;
         }
 
-        public Semester FindByIdWithIncludeArray<TInclude>(int id, System.Linq.Expressions.Expression<System.Func<Semester, System.Collections.Generic.ICollection<TInclude>>> includeFunc)
+        public ICollection<Semester> ListSemesters(string search)
         {
-            throw new System.NotImplementedException();
+            var semesters = _dataAccess.Set<Semester>().FromSqlRaw($"dbo.GetSemesters'{search}'").AsEnumerable();
+
+            return semesters.ToList();
         }
 
-        public IQueryable<Semester> ListWithInclude<TInclude>(System.Linq.Expressions.Expression<System.Func<Semester, TInclude>> includeFunc) where TInclude : Entity
+        public void Update(Semester semester)
         {
-            throw new System.NotImplementedException();
-        }
+            var SemesterToEdit = _dataAccess.Set<Semester>().Find(semester.Id);
 
-        public IQueryable<Semester> ListWithIncludeArray<TInclude>(System.Linq.Expressions.Expression<System.Func<Semester, System.Collections.Generic.ICollection<TInclude>>> includeFunc) where TInclude : Entity
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update(Semester entity)
-        {
-            var semester = _context.Set<Semester>().Find(entity.Id);
-
-            semester.Name = entity.Name;
-            semester.Code = entity.Code;
-
-            _context.SaveChanges();
+            SemesterToEdit.Name = semester.Name;
+            SemesterToEdit.Code = semester.Code;
+            _dataAccess.SaveChanges();
         }
     }
 }

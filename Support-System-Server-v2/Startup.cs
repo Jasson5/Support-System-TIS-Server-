@@ -150,15 +150,15 @@ namespace Support_System_Server_v2
             services.AddTransient<IdentityDbContext, SupportSystemContext>();
 
             //Announcement
-            services.AddTransient<IRepository<Announcement>, AnnouncementRepository>();
+            services.AddTransient<IAnnouncementRepository, AnnouncementRepository>();
             services.AddTransient<IAnnouncementService, AnnouncementService>();
 
             //Attendance
-            services.AddTransient<IRepository<Attendance>, AttendanceRepository>();
+            services.AddTransient<IAttendanceRepository, AttendanceRepository>();
             services.AddTransient<IAttendanceService, AttendanceService>();
 
             //Calendar
-            services.AddTransient<IRepository<Calendar>, CalendarRepository>();
+            services.AddTransient<ICalendarRepository, CalendarRepository>();
             services.AddTransient<ICalendarService, CalendarService>();
 
             //Company
@@ -166,15 +166,15 @@ namespace Support_System_Server_v2
             services.AddTransient<ICompanyService, CompanyService>();
 
             //Homework
-            services.AddTransient<IRepository<Homework>, HomeworkRepository>();
+            services.AddTransient<IHomeworkRepository, HomeworkRepository>();
             services.AddTransient<IHomeworkService, HomeworkService>();
 
             //Offer
-            services.AddTransient<IRepository<Offer>, OfferRepository>();
+            services.AddTransient<IOfferRepository, OfferRepository>();
             services.AddTransient<IOfferService, OfferService>();
 
             //Semester
-            services.AddTransient<IRepository<Semester>, SemesterRepository>();
+            services.AddTransient<ISemesterRepository, SemesterRepository>();
             services.AddTransient<ISemesterService, SemesterService>();
         }
     }

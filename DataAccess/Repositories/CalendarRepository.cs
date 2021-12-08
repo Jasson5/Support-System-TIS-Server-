@@ -1,70 +1,58 @@
 ﻿using DataAccess.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
 {
-    public class CalendarRepository : IRepository<Calendar>
+    public class CalendarRepository : ICalendarRepository
     {
-        private readonly IdentityDbContext _context;
+        private readonly IdentityDbContext _dataAccess;
 
-        public CalendarRepository(IdentityDbContext context)
+        public CalendarRepository(IdentityDbContext dataAccess)
         {
-            this._context = context;
-        }
-        public IQueryable<Calendar> List
-        {
-            get
-            {
-                return _context.Set<Calendar>();
-            }
+            _dataAccess = dataAccess;
         }
 
-        public Calendar Add(Calendar entity)
+        public Calendar Add(Calendar calendar)
         {
-            _context.Set<Calendar>().Add(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Calendar>().Add(calendar);
+            _dataAccess.SaveChanges();
 
-            return entity;
+            return calendar;
         }
 
-        public void Delete(Calendar entity)
+        public void Delete(Calendar calendar)
         {
-            _context.Set<Calendar>().Remove(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Calendar>().Remove(calendar);
+            _dataAccess.SaveChanges();
         }
 
         public Calendar FindById(int id)
         {
-            return _context.Set<Calendar>().Find(id);
+            var calendar = _dataAccess.Set<Calendar>().FromSqlRaw($"dbo.GetCalendarById '{id}'").AsEnumerable().SingleOrDefault();
+
+            return calendar;
         }
 
-        public Calendar FindByIdWithIncludeArray<TInclude>(int id, System.Linq.Expressions.Expression<System.Func<Calendar, System.Collections.Generic.ICollection<TInclude>>> includeFunc)
+        public ICollection<Calendar> ListCalendars(string search)
         {
-            throw new System.NotImplementedException();
+            var calendars = _dataAccess.Set<Calendar>().FromSqlRaw($"dbo.GetCalendars'{search}'").AsEnumerable();
+
+            return calendars.ToList();
         }
 
-        public IQueryable<Calendar> ListWithInclude<TInclude>(System.Linq.Expressions.Expression<System.Func<Calendar, TInclude>> includeFunc) where TInclude : Entity
+        public void Update(Calendar calendar)
         {
-            throw new System.NotImplementedException();
-        }
+            var CalendarToEdit = _dataAccess.Set<Calendar>().Find(calendar.Id);
 
-        public IQueryable<Calendar> ListWithIncludeArray<TInclude>(System.Linq.Expressions.Expression<System.Func<Calendar, System.Collections.Generic.ICollection<TInclude>>> includeFunc) where TInclude : Entity
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update(Calendar entity)
-        {
-            var calendar = _context.Set<Calendar>().Find(entity.Id);
-
-            calendar.DayDate = entity.DayDate;
-            calendar.DayDescription = entity.DayDescription;
-            calendar.DayObservation = entity.DayObservation;
-            calendar.Company = entity.Company;
-
-            _context.SaveChanges();
+            CalendarToEdit.DayDate = calendar.DayDate;
+            CalendarToEdit.DayDescription = calendar.DayDescription;
+            CalendarToEdit.DayObservation = calendar.DayObservation;
+            CalendarToEdit.Company = calendar.Company;
+            _dataAccess.SaveChanges();
         }
     }
 }
