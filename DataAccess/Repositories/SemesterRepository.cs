@@ -8,29 +8,34 @@ namespace DataAccess.Repositories
 {
     public class SemesterRepository : ISemesterRepository
     {
-        private readonly IdentityDbContext _context;
+        private readonly IdentityDbContext _dataAccess;
 
-        public SemesterRepository(IdentityDbContext context)
+        public SemesterRepository(IdentityDbContext dataAccess)
         {
-            this._context = context;
+            _dataAccess = dataAccess;
         }
 
-        public Semester Add(Semester entity)
+        public Semester Add(Semester semester)
         {
-            _context.Set<Semester>().Add(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Semester>().Add(semester);
+            _dataAccess.SaveChanges();
 
-            return entity;
+            return semester;
+        }
+        public void Delete(Semester semester)
+        {
+            _dataAccess.Set<Semester>().Remove(semester);
+            _dataAccess.SaveChanges();
         }
 
         public Semester FindById(int id)
         {
-            return _context.Set<Semester>().Find(id);
+            throw new System.NotImplementedException();
         }
 
         public ICollection<Semester> List()
         {
-            return _context.Set<Semester>().ToList();            
+            return _dataAccess.Set<Semester>().ToList();  
         }
     }
 }

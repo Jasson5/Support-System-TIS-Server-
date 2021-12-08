@@ -1,72 +1,68 @@
 ﻿using DataAccess.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
 {
-    public class HomeworkRepository : IRepository<Homework>
+    public class HomeworkRepository : IHomeworkRepository
     {
-        private readonly IdentityDbContext _context;
+        private readonly IdentityDbContext _dataAccess;
 
-        public HomeworkRepository(IdentityDbContext context)
+        public HomeworkRepository(IdentityDbContext dataAccess)
         {
-            this._context = context;
-        }
-        public IQueryable<Homework> List
-        {
-            get
-            {
-                return _context.Set<Homework>();
-            }
+            _dataAccess = dataAccess;
         }
 
-        public Homework Add(Homework entity)
+        public Homework Add(Homework homework)
         {
-            _context.Set<Homework>().Add(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Homework>().Add(homework);
+            _dataAccess.SaveChanges();
 
-            return entity;
+            return homework;
         }
 
-        public void Delete(Homework entity)
+        public void Delete(Homework homework)
         {
-            _context.Set<Homework>().Remove(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Homework>().Remove(homework);
+            _dataAccess.SaveChanges();
+        }
+
+        public Homework FindByTittle(string tittle)
+        {
+            var homework = _dataAccess.Set<Homework>().FromSqlRaw($"dbo.GetHomeworkByTittle '{tittle}'").AsEnumerable().SingleOrDefault();
+
+            return homework;
         }
 
         public Homework FindById(int id)
         {
-            return _context.Set<Homework>().Find(id);
+            var homework = _dataAccess.Set<Homework>().FromSqlRaw($"dbo.GetHomeworkById '{id}'").AsEnumerable().SingleOrDefault();
+
+            return homework;
         }
 
-        public Homework FindByIdWithIncludeArray<TInclude>(int id, System.Linq.Expressions.Expression<System.Func<Homework, System.Collections.Generic.ICollection<TInclude>>> includeFunc)
+        public ICollection<Homework> ListHomeworks(string search)
         {
-            throw new System.NotImplementedException();
+            var homeworks = _dataAccess.Set<Homework>().FromSqlRaw($"dbo.GetHomeworks'{search}'").AsEnumerable();
+
+            return homeworks.ToList();
         }
 
-        public IQueryable<Homework> ListWithInclude<TInclude>(System.Linq.Expressions.Expression<System.Func<Homework, TInclude>> includeFunc) where TInclude : Entity
+        public void Update(Homework homework)
         {
-            throw new System.NotImplementedException();
-        }
+            var HomeworkToEdit = _dataAccess.Set<Homework>().Find(homework.Id);
 
-        public IQueryable<Homework> ListWithIncludeArray<TInclude>(System.Linq.Expressions.Expression<System.Func<Homework, System.Collections.Generic.ICollection<TInclude>>> includeFunc) where TInclude : Entity
-        {
-            throw new System.NotImplementedException();
-        }
+            HomeworkToEdit.Tittle = homework.Tittle;
+            HomeworkToEdit.Description = homework.Description;
+            HomeworkToEdit.HomeworkFileLink = homework.HomeworkFileLink;
+            HomeworkToEdit.DeliveryDate = homework.DeliveryDate;
+            HomeworkToEdit.HomeworkStatus = homework.HomeworkStatus;
+            HomeworkToEdit.Grade = homework.Grade;
 
-        public void Update(Homework entity)
-        {
-            var homework = _context.Set<Homework>().Find(entity.Id);
-
-            homework.Tittle = entity.Tittle;
-            homework.Description = entity.Description;
-            homework.HomeworkFileLink = entity.HomeworkFileLink;
-            homework.DeliveryDate = entity.DeliveryDate;
-            homework.HomeworkStatus = entity.HomeworkStatus;
-            homework.Grade = entity.Grade;
-
-            _context.SaveChanges();
+            _dataAccess.SaveChanges();
         }
     }
 }

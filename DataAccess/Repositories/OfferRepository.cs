@@ -1,74 +1,60 @@
 ﻿using DataAccess.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
 {
-    public class OfferRepository : IRepository<Offer>
+    public class OfferRepository : IOfferRepository
     {
-        private readonly IdentityDbContext _context;
+        private readonly IdentityDbContext _dataAccess;
 
-        public OfferRepository(IdentityDbContext context)
+        public OfferRepository(IdentityDbContext dataAccess)
         {
-            this._context = context;
-        }
-        public IQueryable<Offer> List
-        {
-            get
-            {
-                return _context.Set<Offer>();
-            }
+            _dataAccess = dataAccess;
         }
 
-        public Offer Add(Offer entity)
+        public Offer Add(Offer offer)
         {
-            _context.Set<Offer>().Add(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Offer>().Add(offer);
+            _dataAccess.SaveChanges();
 
-            return entity;
+            return offer;
         }
 
-        public void Delete(Offer entity)
+        public void Delete(Offer offer)
         {
-            _context.Set<Offer>().Remove(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Offer>().Remove(offer);
+            _dataAccess.SaveChanges();
         }
 
         public Offer FindById(int id)
         {
-            return _context.Set<Offer>().Find(id);
+            var offer = _dataAccess.Set<Offer>().FromSqlRaw($"dbo.GetOfferById '{id}'").AsEnumerable().SingleOrDefault();
+
+            return offer;
         }
 
-        public Offer FindByIdWithIncludeArray<TInclude>(int id, System.Linq.Expressions.Expression<System.Func<Offer, System.Collections.Generic.ICollection<TInclude>>> includeFunc)
+        public ICollection<Offer> ListOffers(string search)
         {
-            throw new System.NotImplementedException();
+            var offers = _dataAccess.Set<Offer>().FromSqlRaw($"dbo.GetOffers'{search}'").AsEnumerable();
+
+            return offers.ToList();
         }
 
-        public IQueryable<Offer> ListWithInclude<TInclude>(System.Linq.Expressions.Expression<System.Func<Offer, TInclude>> includeFunc) where TInclude : Entity
+        public void Update(Offer offer)
         {
-            throw new System.NotImplementedException();
-        }
+            var OfferToEdit = _dataAccess.Set<Offer>().Find(offer.Id);
 
-        public IQueryable<Offer> ListWithIncludeArray<TInclude>(System.Linq.Expressions.Expression<System.Func<Offer, System.Collections.Generic.ICollection<TInclude>>> includeFunc) where TInclude : Entity
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update(Offer entity)
-        {
-            var offer = _context.Set<Offer>().Find(entity.Id);
-            /*
-            matter.Name = entity.Name;
-            matter.Docente = entity.Docente;*/
-            offer.Description = entity.Description;
-            offer.DateEnd = entity.DateEnd;
-            offer.Semester = entity.Semester;
-            offer.DocumentOfferUrl = entity.DocumentOfferUrl;
-            offer.MinUsers = entity.MinUsers;
-            offer.MaxUsers = entity.MaxUsers;
-
-            _context.SaveChanges();
+            OfferToEdit.Description = offer.Description;
+            OfferToEdit.DateEnd = offer.DateEnd;
+            OfferToEdit.Semester = offer.Semester;
+            OfferToEdit.DocumentOfferUrl = offer.DocumentOfferUrl;
+            OfferToEdit.MinUsers = offer.MinUsers;
+            OfferToEdit.MaxUsers = offer.MaxUsers;
+            _dataAccess.SaveChanges();
         }
     }
 }

@@ -1,74 +1,59 @@
 ﻿using DataAccess.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
 {
-    public class AttendanceRepository : IRepository<Attendance>
+    public class AttendanceRepository : IAttendanceRepository
     {
-        private readonly IdentityDbContext _context;
+        private readonly IdentityDbContext _dataAccess;
 
-        public AttendanceRepository(IdentityDbContext context)
+        public AttendanceRepository(IdentityDbContext dataAccess)
         {
-            this._context = context;
-        }
-        public IQueryable<Attendance> List
-        {
-            get
-            {
-                return _context.Set<Attendance>();
-            }
+            _dataAccess = dataAccess;
         }
 
-        public Attendance Add(Attendance entity)
+        public Attendance Add(Attendance attendance)
         {
-            _context.Set<Attendance>().Add(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Attendance>().Add(attendance);
+            _dataAccess.SaveChanges();
 
-            return entity;
+            return attendance;
         }
 
-        public void Delete(Attendance entity)
+        public void Delete(Attendance attendance)
         {
-            _context.Set<Attendance>().Remove(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Attendance>().Remove(attendance);
+            _dataAccess.SaveChanges();
         }
 
         public Attendance FindById(int id)
         {
-            return _context.Set<Attendance>().Find(id);
+            var attendance = _dataAccess.Set<Attendance>().FromSqlRaw($"dbo.GetAttendanceById '{id}'").AsEnumerable().SingleOrDefault();
+
+            return attendance;
         }
 
-        public Attendance FindByIdWithIncludeArray<TInclude>(int id, System.Linq.Expressions.Expression<System.Func<Attendance, System.Collections.Generic.ICollection<TInclude>>> includeFunc)
+        public ICollection<Attendance> ListAttendances(string search)
         {
-            throw new System.NotImplementedException();
+            var attendances = _dataAccess.Set<Attendance>().FromSqlRaw($"dbo.GetAttendances'{search}'").AsEnumerable();
+
+            return attendances.ToList();
         }
 
-        public IQueryable<Attendance> ListWithInclude<TInclude>(System.Linq.Expressions.Expression<System.Func<Attendance, TInclude>> includeFunc) where TInclude : Entity
+        public void Update(Attendance attendance)
         {
-            throw new System.NotImplementedException();
-        }
+            var AttendanceToEdit = _dataAccess.Set<Attendance>().Find(attendance.Id);
 
-        public IQueryable<Attendance> ListWithIncludeArray<TInclude>(System.Linq.Expressions.Expression<System.Func<Attendance, System.Collections.Generic.ICollection<TInclude>>> includeFunc) where TInclude : Entity
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update(Attendance entity)
-        {
-            /*var matter = _context.Set<Subject>().Find(entity.Id);
-
-            matter.Name = entity.Name;
-            matter.Docente = entity.Docente;*/
-
-            var attendance = _context.Set<Attendance>()
-                .FirstOrDefault(c => c.Id == entity.Id);
-
-            attendance.AttendanceStatus = entity.AttendanceStatus;
-
-
-            _context.SaveChanges();
+            AttendanceToEdit.AttendanceDate = attendance.AttendanceDate;
+            AttendanceToEdit.Note = attendance.Note;
+            AttendanceToEdit.AttendanceStatus = attendance.AttendanceStatus;
+            AttendanceToEdit.AttendanceGrade = attendance.AttendanceGrade;
+            AttendanceToEdit.POVGrade = attendance.POVGrade;
+            _dataAccess.SaveChanges();
         }
     }
 }

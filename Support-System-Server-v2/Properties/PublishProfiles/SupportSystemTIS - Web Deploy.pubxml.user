@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAR0RtaSHlFEOwZrjN5eAf2gAAAAACAAAAAAAQZgAAAAEAACAAAAD2GMVkwzmkCxHUF5mC9vJrmGrFpaaZgbDyNBUu1/rZOAAAAAAOgAAAAAIAACAAAAADoohRp3wVQZSOPM+/h7Qp1oI0LlFjYQKAge6RqVUKIoAAAADtgTdkXTYDYIKPHypA3TamgzlMxd+SCNOywcbg/UBjL7CATM/5I9l2LoowyxvZ1p8gyhNbUTFKGgCDwexBhzlopz+pcvQJLNJ20ZIL6vQFzB/hsXXDjJ9DvpN5ikiXgQgGuAM/Mgn+ueEOkqJJ5S0hC7gQyZKtCzlMyNtUp5z3VkAAAACfUsr+r9AJkR5BchgazoH58qiMcihFqzMDcA1/lSOpYK3wDcTqlsXhiCWF4p7WdNtPhHQNdEMP7ahsiquw7tnh</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="SupportSystemTISDatabase">
+      <Value>Data Source=tcp:support-system-server-v2dbserver.database.windows.net,1433%3bInitial Catalog=Support-System-Server-v2_db%3bUser Id=DocenteTIS%40support-system-server-v2dbserver%3bPassword=Escalera123%24</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="DataAccess.Context.SupportSystemContext">
+      <Value>Data Source=tcp:support-system-server-v2dbserver.database.windows.net,1433%3bInitial Catalog=Support-System-Server-v2_db%3bUser Id=DocenteTIS%40support-system-server-v2dbserver%3bPassword=Escalera123%24</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

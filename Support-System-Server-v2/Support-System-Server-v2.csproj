@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Support_System_Server_v2</RootNamespace>
+    <UserSecretsId>2b08af55-6101-40d8-ab4b-6568c5b592d2</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="5.3.0" />

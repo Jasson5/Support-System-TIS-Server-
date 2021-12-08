@@ -1,68 +1,56 @@
 ﻿using DataAccess.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
 {
-    public class AnnouncementRepository : IRepository<Announcement>
+    public class AnnouncementRepository : IAnnouncementRepository
     {
-        private readonly IdentityDbContext _context;
+        private readonly IdentityDbContext _dataAccess;
 
-        public AnnouncementRepository(IdentityDbContext context)
+        public AnnouncementRepository(IdentityDbContext dataAccess)
         {
-            this._context = context;
-        }
-        public IQueryable<Announcement> List
-        {
-            get
-            {
-                return _context.Set<Announcement>();
-            }
+            _dataAccess = dataAccess;
         }
 
-        public Announcement Add(Announcement entity)
+        public Announcement Add(Announcement announcement)
         {
-            _context.Set<Announcement>().Add(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Announcement>().Add(announcement);
+            _dataAccess.SaveChanges();
 
-            return entity;
+            return announcement;
         }
 
-        public void Delete(Announcement entity)
+        public void Delete(Announcement announcement)
         {
-            _context.Set<Announcement>().Remove(entity);
-            _context.SaveChanges();
+            _dataAccess.Set<Announcement>().Remove(announcement);
+            _dataAccess.SaveChanges();
         }
 
         public Announcement FindById(int id)
         {
-            return _context.Set<Announcement>().Find(id);
+            var announcement = _dataAccess.Set<Announcement>().FromSqlRaw($"dbo.GetAnnouncementById '{id}'").AsEnumerable().SingleOrDefault();
+
+            return announcement;
         }
 
-        public Announcement FindByIdWithIncludeArray<TInclude>(int id, System.Linq.Expressions.Expression<System.Func<Announcement, System.Collections.Generic.ICollection<TInclude>>> includeFunc)
+        public ICollection<Announcement> ListAnnouncements(string search) 
         {
-            throw new System.NotImplementedException();
+            var announcements = _dataAccess.Set<Announcement>().FromSqlRaw($"dbo.GetAnnouncements'{search}'").AsEnumerable();
+
+            return announcements.ToList();
         }
 
-        public IQueryable<Announcement> ListWithInclude<TInclude>(System.Linq.Expressions.Expression<System.Func<Announcement, TInclude>> includeFunc) where TInclude : Entity
+        public void Update(Announcement announcement) 
         {
-            throw new System.NotImplementedException();
-        }
+            var AnnouncementToEdit = _dataAccess.Set<Announcement>().Find(announcement.Id);
 
-        public IQueryable<Announcement> ListWithIncludeArray<TInclude>(System.Linq.Expressions.Expression<System.Func<Announcement, System.Collections.Generic.ICollection<TInclude>>> includeFunc) where TInclude : Entity
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update(Announcement entity)
-        {
-            var announcement = _context.Set<Announcement>().Find(entity.Id);
-
-            announcement.Description = entity.Description;
-            announcement.DocumentUrl = entity.DocumentUrl;
-
-            _context.SaveChanges();
+            AnnouncementToEdit.Description = announcement.Description;
+            AnnouncementToEdit.DocumentUrl = announcement.DocumentUrl;
+            _dataAccess.SaveChanges();   
         }
     }
 }
