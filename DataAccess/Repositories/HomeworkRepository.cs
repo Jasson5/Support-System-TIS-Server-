@@ -30,13 +30,6 @@ namespace DataAccess.Repositories
             _dataAccess.SaveChanges();
         }
 
-        public Homework FindByTittle(string tittle)
-        {
-            var homework = _dataAccess.Set<Homework>().FromSqlRaw($"dbo.GetHomeworkByTittle '{tittle}'").AsEnumerable().SingleOrDefault();
-
-            return homework;
-        }
-
         public Homework FindById(int id)
         {
             var homework = _dataAccess.Set<Homework>().FromSqlRaw($"dbo.GetHomeworkById '{id}'").AsEnumerable().SingleOrDefault();
@@ -44,9 +37,9 @@ namespace DataAccess.Repositories
             return homework;
         }
 
-        public ICollection<Homework> ListHomeworks(string search)
+        public ICollection<Homework> ListHomeworks()
         {
-            var homeworks = _dataAccess.Set<Homework>().FromSqlRaw($"dbo.GetHomeworks'{search}'").AsEnumerable();
+            var homeworks = _dataAccess.Set<Homework>().FromSqlRaw($"dbo.GetHomeworks").AsEnumerable();
 
             return homeworks.ToList();
         }

@@ -37,9 +37,9 @@ namespace DataAccess.Repositories
             return announcement;
         }
 
-        public ICollection<Announcement> ListAnnouncements(string search) 
+        public ICollection<Announcement> ListAnnouncements() 
         {
-            var announcements = _dataAccess.Set<Announcement>().FromSqlRaw($"dbo.GetAnnouncements'{search}'").AsEnumerable();
+            var announcements = _dataAccess.Set<Announcement>().FromSqlRaw($"dbo.GetAnnouncements").AsEnumerable();
 
             return announcements.ToList();
         }

@@ -8,9 +8,9 @@ namespace Services
 {
     public class OfferService : IOfferService
     {
-        private readonly IRepository<Offer> _offerRepository;
+        private readonly IOfferRepository _offerRepository;
 
-        public OfferService(IRepository<Offer> offerRepository)
+        public OfferService(IOfferRepository offerRepository)
         {
             this._offerRepository = offerRepository;
         }
@@ -39,7 +39,7 @@ namespace Services
 
         public ICollection<Offer> ListOffers()
         {
-            var offer = _offerRepository.List;
+            var offer = _offerRepository.ListOffers();
 
             return offer.ToList();
         }

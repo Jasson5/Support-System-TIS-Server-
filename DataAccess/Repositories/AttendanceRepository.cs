@@ -37,9 +37,9 @@ namespace DataAccess.Repositories
             return attendance;
         }
 
-        public ICollection<Attendance> ListAttendances(string search)
+        public ICollection<Attendance> ListAttendances()
         {
-            var attendances = _dataAccess.Set<Attendance>().FromSqlRaw($"dbo.GetAttendances'{search}'").AsEnumerable();
+            var attendances = _dataAccess.Set<Attendance>().FromSqlRaw($"dbo.GetAttendances").AsEnumerable();
 
             return attendances.ToList();
         }

@@ -8,9 +8,9 @@ namespace Services
 {
     public class CalendarService : ICalendarService
     {
-        private readonly IRepository<Calendar> _calendarRepository;
+        private readonly ICalendarRepository _calendarRepository;
 
-        public CalendarService(IRepository<Calendar> calendarRepository)
+        public CalendarService(ICalendarRepository calendarRepository)
         {
             this._calendarRepository = calendarRepository;
         }
@@ -39,7 +39,7 @@ namespace Services
 
         public ICollection<Calendar> ListCalendars()
         {
-            var calendar = _calendarRepository.List;
+            var calendar = _calendarRepository.ListCalendars();
 
             return calendar.ToList();
         }

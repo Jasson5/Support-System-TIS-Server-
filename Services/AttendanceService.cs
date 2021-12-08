@@ -8,9 +8,9 @@ namespace Services
 {
     public class AttendanceService : IAttendanceService
     {
-        private readonly IRepository<Attendance> _attendanceRepository;
+        private readonly IAttendanceRepository _attendanceRepository;
 
-        public AttendanceService(IRepository<Attendance> attendanceRepository)
+        public AttendanceService(IAttendanceRepository attendanceRepository)
         {
             this._attendanceRepository = attendanceRepository;
         }
@@ -39,7 +39,7 @@ namespace Services
 
         public ICollection<Attendance> ListAttendances()
         {
-            var attendance = _attendanceRepository.List;
+            var attendance = _attendanceRepository.ListAttendances();
 
             return attendance.ToList();
         }

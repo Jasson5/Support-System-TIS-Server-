@@ -8,9 +8,9 @@ namespace Services
 {
     public class AnnouncementService : IAnnouncementService
     {
-        private readonly IRepository<Announcement> _announcementRepository;
+        private readonly IAnnouncementRepository _announcementRepository;
 
-        public AnnouncementService(IRepository<Announcement> announcementRepository)
+        public AnnouncementService(IAnnouncementRepository announcementRepository)
         {
             this._announcementRepository = announcementRepository;
         }
@@ -39,7 +39,7 @@ namespace Services
 
         public ICollection<Announcement> ListAnnouncements()
         {
-            var announcement = _announcementRepository.List;
+            var announcement = _announcementRepository.ListAnnouncements();
 
             return announcement.ToList();
         }

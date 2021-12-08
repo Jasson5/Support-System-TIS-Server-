@@ -8,9 +8,9 @@ namespace Services
 {
     public class HomeworkService : IHomeworkService
     {
-        private readonly IRepository<Homework> _homeworkRepository;
+        private readonly IHomeworkRepository _homeworkRepository;
 
-        public HomeworkService(IRepository<Homework> homeworkRepository)
+        public HomeworkService(IHomeworkRepository homeworkRepository)
         {
             this._homeworkRepository = homeworkRepository;
         }
@@ -39,7 +39,7 @@ namespace Services
 
         public ICollection<Homework> ListHomeworks()
         {
-            var homework = _homeworkRepository.List;
+            var homework = _homeworkRepository.ListHomeworks();
 
             return homework.ToList();
         }

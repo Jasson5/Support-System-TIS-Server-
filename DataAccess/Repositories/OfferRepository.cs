@@ -37,9 +37,9 @@ namespace DataAccess.Repositories
             return offer;
         }
 
-        public ICollection<Offer> ListOffers(string search)
+        public ICollection<Offer> ListOffers()
         {
-            var offers = _dataAccess.Set<Offer>().FromSqlRaw($"dbo.GetOffers'{search}'").AsEnumerable();
+            var offers = _dataAccess.Set<Offer>().FromSqlRaw($"dbo.GetOffers").AsEnumerable();
 
             return offers.ToList();
         }
