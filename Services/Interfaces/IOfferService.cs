@@ -9,5 +9,6 @@ namespace Services.Interfaces
         Offer AddOffer(Offer offer);
         ICollection<Offer> ListOffers(string code);
         void UpdateOffer(Offer offer);
+        Offer FindById(int id);
     }
 }

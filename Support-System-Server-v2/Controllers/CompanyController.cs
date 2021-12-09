@@ -28,14 +28,14 @@ namespace Support_System_Server_v2.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        public ActionResult<ICollection<Company>> Get()
+        [Route("{statusId}")]
+        public ActionResult<ICollection<Company>> Get(int statusId)
         {
-            return Ok(_companyService.ListCompanys());
+            return Ok(_companyService.ListCompanys(statusId));
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("find-by-id/{id}")]
         public ActionResult<Company> GetById(int id)
         {
             var company = _companyService.FindById(id);

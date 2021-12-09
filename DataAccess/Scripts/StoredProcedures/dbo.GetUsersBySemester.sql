@@ -9,7 +9,7 @@ CREATE PROCEDURE dbo.GetUsersBySemester
 @Code NVARCHAR(MAX),
 @Search NVARCHAR(MAX)
 AS
-	SELECT  u.Id, u.FirstName, u.LastName, u.Email
+	SELECT  u.[Id], u.[FirstName], u.[LastName], u.[Email]
 	FROM  UserSemesters us, Users u
 	WHERE us.SemesterCode=@Code and us.UserId=u.Id and 
 	((u.FirstName like '%' + @Search + '%')

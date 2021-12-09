@@ -1,5 +1,6 @@
 ﻿using Authentication.DataAccess.Context;
 using Authentication.Entities;
+using DataAccess.Model;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,6 +25,8 @@ namespace DataAccess.Context
         public DbSet<UsersCompanies> UsersCompanies { get; set; }
         public DbSet<UserSemesters> UserSemesters { get; set; }
 
+        //CUSTOM
+        public virtual DbSet<OfferWithSemester> OfferWithSemesters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -21,6 +21,13 @@ namespace Services
             return newOffer;
         }
 
+        public Offer FindById(int id)
+        {
+            var offer = _offerRepository.FindById(id);
+
+            return offer;
+        }
+
         public ICollection<Offer> ListOffers(string code)
         {
             var offer = _offerRepository.ListOffers(code);

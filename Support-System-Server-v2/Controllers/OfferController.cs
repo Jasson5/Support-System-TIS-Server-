@@ -35,6 +35,15 @@ namespace Support_System_Server_v2.Controllers
             return Ok(_offerService.ListOffers(code));
         }
 
+        [HttpGet]
+        [Route("find-by-id/{id}")]
+        public ActionResult<Offer> GetByCode(int id)
+        {
+            var semester = _offerService.FindById(id);
+
+            return Ok(semester);
+        }
+
         [HttpPatch]
         [Route("{id}")]
         public ActionResult<Offer> Update(Offer offer)

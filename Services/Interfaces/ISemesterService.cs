@@ -1,4 +1,5 @@
 ﻿using Authentication.Entities;
+using Entities.RequestParameters;
 using System.Collections.Generic;
 
 namespace Services.Interfaces
@@ -10,6 +11,7 @@ namespace Services.Interfaces
         ICollection<Semester> ListByUserId(int userId);
         Semester FindByCode(string code);
         void AddUserToSemester(int userId, string semesterCode);
+        ICollection<User> ListUsersBySemester(UsersRequestParameters query);
 
     }
 }

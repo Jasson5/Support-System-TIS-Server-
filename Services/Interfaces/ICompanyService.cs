@@ -8,7 +8,7 @@ namespace Services.Interfaces
     public interface ICompanyService
     {
         Company AddCompany(Company company);
-        ICollection<Company> ListCompanys();
+        ICollection<Company> ListCompanys(int status);
         void DeleteCompany(int id);
         void UpdateCompany(Company company);
         Company FindById(int id);

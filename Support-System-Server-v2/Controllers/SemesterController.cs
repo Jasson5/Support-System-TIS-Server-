@@ -1,4 +1,5 @@
 ﻿using Authentication.Entities;
+using Entities.RequestParameters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Helpers;
@@ -63,6 +64,14 @@ namespace Support_System_Server_v2.Controllers
             return Ok(semester);
         }
 
+        [HttpGet]
+        [Route("list-users-by-semester")]
+        public ActionResult<Semester> LisUsersBySemester([FromQuery] UsersRequestParameters query)
+        {
+            var semester = _semesterService.ListUsersBySemester(query);
+
+            return Ok(semester);
+        }
 
         [HttpGet]
         [Route("join-to-semester/{userId}/{semesterCode}")]

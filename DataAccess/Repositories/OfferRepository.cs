@@ -1,5 +1,6 @@
 ﻿using Authentication.Entities;
 using DataAccess.Interfaces;
+using DataAccess.Model;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,23 @@ namespace DataAccess.Repositories
 
             _dataAccess.Set<Offer>().Add(offer);
             _dataAccess.SaveChanges();
+
+            return offer;
+        }
+
+        public Offer FindById(int id)
+        {
+            var result = _dataAccess.Set<OfferWithSemester>().FromSqlRaw($"dbo.GetOfferById '{id}'").AsEnumerable().SingleOrDefault();
+            var offer = new Offer
+            {
+                Id = result.id,
+                Description = result.Description,
+                DateEnd = result.DateEnd,
+                DocumentOfferUrl = result.DocumentOfferUrl,
+                MinUsers = result.MinUsers,
+                MaxUsers = result.MaxUsers,
+                Semester = new Semester { Code = result.SemesterCode}
+            };
 
             return offer;
         }

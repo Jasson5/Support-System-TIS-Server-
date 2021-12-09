@@ -10,5 +10,7 @@ namespace DataAccess.Interfaces
         ICollection<Semester> ListByUserId(int userId);
         Semester FindByCode(string code);
         UserSemesters AddUserToSemester(UserSemesters userSemesters);
+        ICollection<User> ListUsersBySemester(string search, string code);
+
     }
 }

@@ -2,6 +2,7 @@
 using Authentication.Entities;
 using Authentication.Services.Interfaces;
 using DataAccess.Interfaces;
+using Entities.RequestParameters;
 using Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,13 @@ namespace Services
             var semester = _semesterRepository.List();
 
             return semester.ToList();
+        }
+
+        public ICollection<User> ListUsersBySemester(UsersRequestParameters query)
+        {
+            var users = _semesterRepository.ListUsersBySemester(query.Search, query.Code);
+
+            return users.ToList();
         }
     }
 }

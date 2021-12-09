@@ -1,6 +1,7 @@
 ﻿using Authentication.Entities;
 using DataAccess.Interfaces;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,12 +16,21 @@ namespace DataAccess.Repositories
             this._context = context;
         }
 
-        public Company Add(Company entity)
+        public Company Add(Company company)
         {
-            _context.Set<Company>().Add(entity);
+            if (company.Semester != null)
+            {
+                var semester = _context.Set<Semester>().Find(company.Semester.Code);
+
+                if (semester != null)
+                {
+                    company.Semester = semester;
+                }
+            }
+            _context.Set<Company>().Add(company);
             _context.SaveChanges();
 
-            return entity;
+            return company;
         }
 
         public void Delete(Company company)
@@ -33,9 +43,11 @@ namespace DataAccess.Repositories
             return _context.Set<Company>().Find(id);
         }
 
-        public ICollection<Company> List()
+        public ICollection<Company> List(int status)
         {
-            throw new System.NotImplementedException();
+            var offers = _context.Set<Company>().FromSqlRaw($"dbo.GetCompanies '{status}'").AsEnumerable();
+
+            return offers.ToList();
         }
 
         public void Update(Company entity)

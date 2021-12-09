@@ -38,9 +38,9 @@ namespace Services
             return _companyRepository.FindById(id);
         }
 
-        public ICollection<Company> ListCompanys()
+        public ICollection<Company> ListCompanys(int status)
         {
-            var company = _companyRepository.List();
+            var company = _companyRepository.List(status);
 
             return company.ToList();
         }

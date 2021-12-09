@@ -8,7 +8,7 @@ namespace DataAccess.Interfaces
     public interface ICompanyRepository
     {
         Company Add(Company company);
-        ICollection<Company> List();
+        ICollection<Company> List(int status);
         void Delete(Company company);
         void Update(Company company);
         Company FindById(int id);

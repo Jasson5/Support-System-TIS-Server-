@@ -51,5 +51,12 @@ namespace DataAccess.Repositories
 
             return semesters.ToList();
         }
+
+        public ICollection<User> ListUsersBySemester(string search = "", string code = "")
+        {
+            var users = _dataAccess.Set<User>().FromSqlRaw($"dbo.GetUsersBySemester '{code}', '{search}'").AsEnumerable();
+
+            return users.ToList();
+        }
     }
 }
