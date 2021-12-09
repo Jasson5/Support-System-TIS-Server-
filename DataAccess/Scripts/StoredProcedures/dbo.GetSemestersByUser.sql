@@ -10,7 +10,7 @@ CREATE PROCEDURE dbo.GetSemestersByUser
 AS
 	SELECT  s.Code, s.DateCreation, s.Name, s.StatusId
 	FROM  UserSemesters us, Semesters s
-	WHERE us.UserId = @UserId
+	WHERE us.UserId = @UserId and us.SemesterCode=s.Code
 GO
 
 CREATE PROCEDURE dbo.GetOfferBySemester
@@ -19,4 +19,12 @@ AS
 	SELECT  *
 	FROM  Offers o 
 	WHERE o.Semester=@Code
+GO
+
+CREATE PROCEDURE dbo.GetUsersBySemester
+@Code NVARCHAR(MAX)
+AS
+	SELECT  u.Id, u.FirstName, u.LastName, u.Email
+	FROM  UserSemesters us, Users u
+	WHERE us.SemesterCode=@Code and us.UserId=u.Id
 GO
