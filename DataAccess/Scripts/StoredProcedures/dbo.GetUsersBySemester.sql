@@ -6,9 +6,14 @@ IF OBJECT_ID('dbo.GetUsersBySemester', 'P') IS NOT NULL
 GO
 
 CREATE PROCEDURE dbo.GetUsersBySemester
-@Code NVARCHAR(MAX)
+@Code NVARCHAR(MAX),
+@Search NVARCHAR(MAX)
 AS
 	SELECT  u.Id, u.FirstName, u.LastName, u.Email
 	FROM  UserSemesters us, Users u
-	WHERE us.SemesterCode=@Code and us.UserId=u.Id
+	WHERE us.SemesterCode=@Code and us.UserId=u.Id and 
+	((u.FirstName like '%' + @Search + '%')
+	or (u.LastName like '%' + @Search + '%')
+	or (u.Email like '%' + @Search + '%'))
 GO
+
