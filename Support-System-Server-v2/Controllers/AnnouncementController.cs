@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Services.Helpers;
 using Services.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace Support_System_Server_v2.Controllers
         [Route("")]
         public ActionResult<Announcement> Post(Announcement announcement)
         {
+            announcement.DateCreation = TimeZoneHelper.GetSaWesternStandardTime();
             return _announcementService.AddAnnouncement(announcement);
         }
 

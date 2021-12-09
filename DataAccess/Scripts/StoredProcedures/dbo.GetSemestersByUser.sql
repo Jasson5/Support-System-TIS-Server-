@@ -12,3 +12,11 @@ AS
 	FROM  UserSemesters us, Semesters s
 	WHERE us.UserId = @UserId
 GO
+
+CREATE PROCEDURE dbo.GetOfferBySemester
+@Code NVARCHAR(MAX)
+AS
+	SELECT  *
+	FROM  Offers o 
+	WHERE o.Semester=@Code
+GO

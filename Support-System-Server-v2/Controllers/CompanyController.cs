@@ -1,6 +1,7 @@
 ﻿using Authentication.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Services.Helpers;
 using Services.Interfaces;
 using System.Collections.Generic;
 
@@ -22,6 +23,7 @@ namespace Support_System_Server_v2.Controllers
         [Route("")]
         public ActionResult<Company> Post(Company company)
         {
+            company.DateCreation = TimeZoneHelper.GetSaWesternStandardTime();
             return _companyService.AddCompany(company);
         }
 
