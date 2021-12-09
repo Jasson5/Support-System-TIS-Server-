@@ -40,6 +40,11 @@ namespace Services
             return _semesterRepository.FindByCode(code);
         }
 
+        public ICollection<Semester> ListByUserId(int userId)
+        {
+            return _semesterRepository.ListByUserId(userId);
+        }
+
         public ICollection<Semester> ListSemesters()
         {
             var semester = _semesterRepository.List();

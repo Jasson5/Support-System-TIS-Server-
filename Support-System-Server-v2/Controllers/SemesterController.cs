@@ -46,10 +46,19 @@ namespace Support_System_Server_v2.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public ActionResult<Semester> GetById(string code)
+        [Route("{code}")]
+        public ActionResult<Semester> GetByCode(string code)
         {
             var semester = _semesterService.FindByCode(code);
+
+            return Ok(semester);
+        }
+
+        [HttpGet]
+        [Route("list-by-user/{userId}")]
+        public ActionResult<Semester> GetByUserId(int userId)
+        {
+            var semester = _semesterService.ListByUserId(userId);
 
             return Ok(semester);
         }

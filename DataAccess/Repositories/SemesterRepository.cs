@@ -1,6 +1,7 @@
 ﻿using Authentication.Entities;
 using DataAccess.Interfaces;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -46,6 +47,13 @@ namespace DataAccess.Repositories
         public ICollection<Semester> List()
         {
             return _dataAccess.Set<Semester>().ToList();  
+        }
+
+        public ICollection<Semester> ListByUserId(int userId)
+        {
+            var offer = _dataAccess.Set<Semester>().FromSqlRaw($"dbo.GetSemestersByUser '{userId}'").AsEnumerable();
+
+            return offer.ToList();
         }
     }
 }
