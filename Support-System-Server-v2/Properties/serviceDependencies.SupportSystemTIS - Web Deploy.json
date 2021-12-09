@@ -5,6 +5,12 @@
       "type": "mssql.azure",
       "connectionId": "SupportSystemTISDatabase",
       "secretStore": "AzureAppSettings"
+    },
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/support-system-server-v2dbserver/databases/Support-System-Server-v2_db3",
+      "type": "mssql.azure",
+      "connectionId": "SupportSystemTISDatabase",
+      "secretStore": "AzureAppSettings"
     }
   }
 }
