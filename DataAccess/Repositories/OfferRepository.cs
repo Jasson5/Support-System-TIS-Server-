@@ -55,9 +55,18 @@ namespace DataAccess.Repositories
 
         public ICollection<Offer> ListOffers(string code)
         {
-            var offers = _dataAccess.Set<Offer>().FromSqlRaw($"dbo.GetOfferBySemester '{code}'").AsEnumerable();
+            var offers = _dataAccess.Set<OfferWithSemester>().FromSqlRaw($"dbo.GetOfferBySemester '{code}'").AsEnumerable();
 
-            return offers.ToList();
+            return offers.Select(o => new Offer
+            {
+                Id = o.id,
+                Description = o.Description,
+                DateEnd = o.DateEnd,
+                DocumentOfferUrl = o.DocumentOfferUrl,
+                MinUsers = o.MinUsers,
+                MaxUsers = o.MaxUsers,
+                Semester = new Semester { Code = o.SemesterCode }
+            }).ToList();
         }
 
         public void Update(Offer offer)

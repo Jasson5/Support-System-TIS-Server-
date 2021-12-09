@@ -1,4 +1,5 @@
-﻿using DataAccess.Interfaces;
+﻿using Authentication.Entities;
+using DataAccess.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,25 @@ namespace DataAccess.Repositories
 
         public Attendance Add(Attendance attendance)
         {
+            if (attendance.Semester != null)
+            {
+                var semester = _dataAccess.Set<Semester>().Find(attendance.Semester.Code);
+
+                if (semester != null)
+                {
+                    attendance.Semester = semester;
+                }
+            }
+
+            if (attendance.User != null)
+            {
+                var user = _dataAccess.Set<User>().Find(attendance.Semester.Code);
+
+                if (user != null)
+                {
+                    attendance.User = user;
+                }
+            }
             _dataAccess.Set<Attendance>().Add(attendance);
             _dataAccess.SaveChanges();
 
