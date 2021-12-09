@@ -12,19 +12,3 @@ AS
 	FROM  UserSemesters us, Semesters s
 	WHERE us.UserId = @UserId and us.SemesterCode=s.Code
 GO
-
-CREATE PROCEDURE dbo.GetOfferBySemester
-@Code NVARCHAR(MAX)
-AS
-	SELECT  *
-	FROM  Offers o 
-	WHERE o.Semester=@Code
-GO
-
-CREATE PROCEDURE dbo.GetUsersBySemester
-@Code NVARCHAR(MAX)
-AS
-	SELECT  u.Id, u.FirstName, u.LastName, u.Email
-	FROM  UserSemesters us, Users u
-	WHERE us.SemesterCode=@Code and us.UserId=u.Id
-GO

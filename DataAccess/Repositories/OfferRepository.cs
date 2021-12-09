@@ -1,4 +1,5 @@
-﻿using DataAccess.Interfaces;
+﻿using Authentication.Entities;
+using DataAccess.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,28 +19,25 @@ namespace DataAccess.Repositories
 
         public Offer Add(Offer offer)
         {
+            if (offer.Semester != null)
+            {
+                var semester = _dataAccess.Set<Semester>().Find(offer.Semester.Code);
+
+                if (semester != null)
+                {
+                    offer.Semester = semester;
+                }
+            }
+
             _dataAccess.Set<Offer>().Add(offer);
             _dataAccess.SaveChanges();
 
             return offer;
         }
 
-        public void Delete(Offer offer)
+        public ICollection<Offer> ListOffers(string code)
         {
-            _dataAccess.Set<Offer>().Remove(offer);
-            _dataAccess.SaveChanges();
-        }
-
-        public Offer FindById(int id)
-        {
-            var offer = _dataAccess.Set<Offer>().FromSqlRaw($"dbo.GetOfferById '{id}'").AsEnumerable().SingleOrDefault();
-
-            return offer;
-        }
-
-        public ICollection<Offer> ListOffers()
-        {
-            var offers = _dataAccess.Set<Offer>().FromSqlRaw($"dbo.GetOffers").AsEnumerable();
+            var offers = _dataAccess.Set<Offer>().FromSqlRaw($"dbo.GetOfferBySemester '{code}'").AsEnumerable();
 
             return offers.ToList();
         }

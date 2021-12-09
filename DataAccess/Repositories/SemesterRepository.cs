@@ -40,8 +40,9 @@ namespace DataAccess.Repositories
 
         public Semester FindByCode(string code)
         {
-            return _dataAccess.Set<Semester>()
-                .SingleOrDefault(s => s.Code == code);
+            var semester = _dataAccess.Set<Semester>().FromSqlRaw($"dbo.GetSemestersByCode '{code}'").AsEnumerable().FirstOrDefault();
+
+            return semester;
         }
 
         public ICollection<Semester> List()
@@ -51,9 +52,9 @@ namespace DataAccess.Repositories
 
         public ICollection<Semester> ListByUserId(int userId)
         {
-            var offer = _dataAccess.Set<Semester>().FromSqlRaw($"dbo.GetSemestersByUser '{userId}'").AsEnumerable();
+            var semesters = _dataAccess.Set<Semester>().FromSqlRaw($"dbo.GetSemestersByUser '{userId}'").AsEnumerable();
 
-            return offer.ToList();
+            return semesters.ToList();
         }
     }
 }

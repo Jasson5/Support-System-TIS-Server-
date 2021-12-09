@@ -29,28 +29,10 @@ namespace Support_System_Server_v2.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        public ActionResult<ICollection<Offer>> Get()
+        [Route("{code}")]
+        public ActionResult<ICollection<Offer>> Get(string code)
         {
-            return Ok(_offerService.ListOffers());
-        }
-
-        [HttpGet]
-        [Route("{id}")]
-        public ActionResult<Offer> GetById(int id)
-        {
-            var offer = _offerService.GeyById(id);
-
-            return Ok(offer);
-        }
-
-        [HttpDelete]
-        [Route("{id}")]
-        public ActionResult Delete(int id)
-        {
-            _offerService.DeleteOffer(id);
-
-            return Ok();
+            return Ok(_offerService.ListOffers(code));
         }
 
         [HttpPatch]

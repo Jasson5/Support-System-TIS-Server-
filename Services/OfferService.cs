@@ -21,25 +21,9 @@ namespace Services
             return newOffer;
         }
 
-        public void DeleteOffer(int id)
+        public ICollection<Offer> ListOffers(string code)
         {
-            var offer = _offerRepository.FindById(id);
-
-            if (offer != null)
-            {
-                _offerRepository.Delete(offer);
-            }
-        }
-
-
-        public Offer GeyById(int id)
-        {
-            return _offerRepository.FindById(id);
-        }
-
-        public ICollection<Offer> ListOffers()
-        {
-            var offer = _offerRepository.ListOffers();
+            var offer = _offerRepository.ListOffers(code);
 
             return offer.ToList();
         }

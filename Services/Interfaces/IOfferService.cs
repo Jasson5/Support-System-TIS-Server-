@@ -7,9 +7,7 @@ namespace Services.Interfaces
     public interface IOfferService
     {
         Offer AddOffer(Offer offer);
-        ICollection<Offer> ListOffers();
-        void DeleteOffer(int id);
+        ICollection<Offer> ListOffers(string code);
         void UpdateOffer(Offer offer);
-        Offer GeyById(int id);
     }
 }
