@@ -7,7 +7,8 @@ namespace Services.Interfaces
     {
         Semester AddSemester(Semester semester);
         ICollection<Semester> ListSemesters();
-        Semester FindById(int id);
+        Semester FindByCode(string code);
+        void AddUserToSemester(int userId, string semesterCode);
 
     }
 }

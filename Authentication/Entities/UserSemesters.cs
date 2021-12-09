@@ -10,8 +10,8 @@ namespace Authentication.Entities
         [Key]
         public int Id { get; set; }
 
-        public User User { get; set; }
+        public int UserId { get; set; }
 
-        public Semester Semester { get; set; }
+        public string SemesterCode { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using Services.Helpers;
 using Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Support_System_Server_v2.Controllers
 {
@@ -46,11 +47,28 @@ namespace Support_System_Server_v2.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<Semester> GetById(int id)
+        public ActionResult<Semester> GetById(string code)
         {
-            var semester = _semesterService.FindById(id);
+            var semester = _semesterService.FindByCode(code);
 
             return Ok(semester);
+        }
+
+
+        [HttpGet]
+        [Route("join-to-semester/{userId}/{semesterCode}")]
+        public async Task<ActionResult> JoinToSemester(int userId, string semesterCode)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = string.Join("\n", ModelState.Values.SelectMany(e => e.Errors.Select(er => er.ErrorMessage)).ToArray());
+
+                return BadRequest(errors);
+            }
+
+            _semesterService.AddUserToSemester(userId, semesterCode);
+
+            return Ok();
         }
     }
 

@@ -22,15 +22,25 @@ namespace DataAccess.Repositories
 
             return semester;
         }
+
+        public UserSemesters AddUserToSemester(UserSemesters userSemesters)
+        {
+            _dataAccess.Set<UserSemesters>().Add(userSemesters);
+            _dataAccess.SaveChanges();
+
+            return userSemesters;
+        }
+
         public void Delete(Semester semester)
         {
             _dataAccess.Set<Semester>().Remove(semester);
             _dataAccess.SaveChanges();
         }
 
-        public Semester FindById(int id)
+        public Semester FindByCode(string code)
         {
-            throw new System.NotImplementedException();
+            return _dataAccess.Set<Semester>()
+                .SingleOrDefault(s => s.Code == code);
         }
 
         public ICollection<Semester> List()

@@ -7,6 +7,7 @@ namespace DataAccess.Interfaces
     {
         Semester Add(Semester semester);
         ICollection<Semester> List();
-        Semester FindById(int id);
+        Semester FindByCode(string code);
+        UserSemesters AddUserToSemester(UserSemesters userSemesters);
     }
 }
