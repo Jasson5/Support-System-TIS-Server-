@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Support_System_Server_v2.Migrations
@@ -104,7 +103,7 @@ namespace Support_System_Server_v2.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: false),
-                    CompanyId = table.Column<int>(nullable: false)
+                    ShortName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -463,7 +462,6 @@ namespace Support_System_Server_v2.Migrations
                 name: "IX_Offers_SemesterCode",
                 table: "Offers",
                 column: "SemesterCode");
-
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

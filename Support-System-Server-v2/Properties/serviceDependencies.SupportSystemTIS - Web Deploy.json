@@ -1,19 +1,13 @@
 {
   "dependencies": {
-    "mssql1": {
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/support-system-server-v2dbserver/databases/Support-System-Server-v2_db2",
-      "type": "mssql.azure",
-      "connectionId": "SupportSystemTISDatabase",
-      "secretStore": "AzureAppSettings"
-    },
-    "mssql2": {
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/support-system-server-v2dbserver/databases/Support-System-Server-v2_db3",
-      "type": "mssql.azure",
-      "connectionId": "SupportSystemTISDatabase",
-      "secretStore": "AzureAppSettings"
-    },
     "mssql3": {
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/supportsystemtisdbserver/databases/SupportSystemTIS",
+      "type": "mssql.azure",
+      "connectionId": "SupportSystemTISDatabase",
+      "secretStore": "AzureAppSettings"
+    },
+    "mssql4": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/supportsystemtisdbserver/databases/SupportSystemTIS2",
       "type": "mssql.azure",
       "connectionId": "SupportSystemTISDatabase",
       "secretStore": "AzureAppSettings"

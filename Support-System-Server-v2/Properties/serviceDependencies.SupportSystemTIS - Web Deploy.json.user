@@ -1,16 +1,12 @@
 {
   "dependencies": {
+    "mssql4": {
+      "restored": true,
+      "restoreTime": "2021-12-09T23:06:28.4043006Z"
+    },
     "mssql3": {
       "restored": true,
       "restoreTime": "2021-12-09T12:17:37.2622488Z"
-    },
-    "mssql2": {
-      "restored": true,
-      "restoreTime": "2021-12-09T02:50:43.6399146Z"
-    },
-    "mssql1": {
-      "restored": true,
-      "restoreTime": "2021-12-02T03:29:56.2240183Z"
     }
   },
   "parameters": {
@@ -18,21 +14,13 @@
       "Type": "subscription",
       "Value": "0ce4a2e8-2fb5-4728-bdf2-27132ec401be"
     },
-    "mssql2.subscriptionId": {
+    "mssql4.resourceGroupName": {
+      "Type": "resourceGroup",
+      "Value": "DefaultResourceGroup-CQ"
+    },
+    "mssql4.subscriptionId": {
       "Type": "subscription",
       "Value": "0ce4a2e8-2fb5-4728-bdf2-27132ec401be"
-    },
-    "mssql2.resourceGroupName": {
-      "Type": "resourceGroup",
-      "Value": "Support-System-Server-v220211201231847ResourceGroup"
-    },
-    "mssql1.subscriptionId": {
-      "Type": "subscription",
-      "Value": "0ce4a2e8-2fb5-4728-bdf2-27132ec401be"
-    },
-    "mssql1.resourceGroupName": {
-      "Type": "resourceGroup",
-      "Value": "Support-System-Server-v220211201231847ResourceGroup"
     },
     "mssql3.resourceGroupName": {
       "Type": "resourceGroup",

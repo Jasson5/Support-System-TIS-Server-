@@ -12,7 +12,7 @@ namespace Authentication.Entities
 
         public int UserId { get; set; }
 
-        public int CompanyId { get; set; }
+        public string ShortName { get; set; }
 
     }
 }

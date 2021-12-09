@@ -1,14 +1,10 @@
 {
   "dependencies": {
-    "mssql1": {
-      "type": "mssql",
-      "connectionId": "SupportSystemTISDatabase"
-    },
-    "mssql2": {
-      "type": "mssql",
-      "connectionId": "SupportSystemTISDatabase"
-    },
     "mssql3": {
+      "type": "mssql",
+      "connectionId": "SupportSystemTISDatabase"
+    },
+    "mssql4": {
       "type": "mssql",
       "connectionId": "SupportSystemTISDatabase"
     }

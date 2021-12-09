@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Support_System_Server_v2.Migrations
 {
     [DbContext(typeof(SupportSystemContext))]
-    [Migration("20211209122059_SupportSystem")]
+    [Migration("20211209230831_SupportSystem")]
     partial class SupportSystem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,8 +155,8 @@ namespace Support_System_Server_v2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
+                    b.Property<string>("ShortName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
