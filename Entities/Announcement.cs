@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Authentication.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Entities
@@ -12,5 +13,8 @@ namespace Entities
         [Required]
         [StringLength(1000)]
         public string DocumentUrl { get; set; }
+
+        [Required]
+        public Semester Semester { get; set; }
     }
 }

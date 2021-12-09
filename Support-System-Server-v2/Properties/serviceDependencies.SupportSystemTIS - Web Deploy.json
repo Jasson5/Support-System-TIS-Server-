@@ -11,6 +11,12 @@
       "type": "mssql.azure",
       "connectionId": "SupportSystemTISDatabase",
       "secretStore": "AzureAppSettings"
+    },
+    "mssql3": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/supportsystemtisdbserver/databases/SupportSystemTIS",
+      "type": "mssql.azure",
+      "connectionId": "SupportSystemTISDatabase",
+      "secretStore": "AzureAppSettings"
     }
   }
 }

@@ -10,12 +10,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <DestinationConnectionStrings Include="SupportSystemTISDatabase">
-      <Value>Data Source=tcp:support-system-server-v2dbserver.database.windows.net,1433%3bInitial Catalog=Support-System-Server-v2_db3%3bUser Id=DocenteTIS%40support-system-server-v2dbserver%3bPassword=Escalera123%24</Value>
+      <Value>Data Source=tcp:supportsystemtisdbserver.database.windows.net,1433%3bInitial Catalog=SupportSystemTIS%3bUser Id=DocenteTIS%40supportsystemtisdbserver%3bPassword=Escalera123%24</Value>
     </DestinationConnectionStrings>
   </ItemGroup>
   <ItemGroup>
     <EFMigrations Include="DataAccess.Context.SupportSystemContext">
-      <Value>Data Source=tcp:support-system-server-v2dbserver.database.windows.net,1433%3bInitial Catalog=Support-System-Server-v2_db3%3bUser Id=DocenteTIS%40support-system-server-v2dbserver%3bPassword=Escalera123%24</Value>
+      <Value>Data Source=tcp:supportsystemtisdbserver.database.windows.net,1433%3bInitial Catalog=SupportSystemTIS%3bUser Id=DocenteTIS%40supportsystemtisdbserver%3bPassword=Escalera123%24</Value>
     </EFMigrations>
   </ItemGroup>
 </Project>

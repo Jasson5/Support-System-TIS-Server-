@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Authentication.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Entities
@@ -21,5 +22,8 @@ namespace Entities
         public int HomeworkStatus { get; set; }
 
         public int Grade { get; set; }
+
+        [Required]
+        public Company Company { get; set; }
     }
 }

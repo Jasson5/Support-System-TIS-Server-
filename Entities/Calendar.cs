@@ -16,6 +16,7 @@ namespace Entities
         [Required]
         public string DayObservation { get; set; }
 
+        [Required]
         public Company Company { get; set; }
 
     }

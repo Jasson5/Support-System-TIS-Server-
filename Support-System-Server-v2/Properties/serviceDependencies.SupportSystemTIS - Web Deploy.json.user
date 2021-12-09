@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "mssql3": {
+      "restored": true,
+      "restoreTime": "2021-12-09T12:17:37.2622488Z"
+    },
     "mssql2": {
       "restored": true,
       "restoreTime": "2021-12-09T02:50:43.6399146Z"
@@ -10,6 +14,10 @@
     }
   },
   "parameters": {
+    "mssql3.subscriptionId": {
+      "Type": "subscription",
+      "Value": "0ce4a2e8-2fb5-4728-bdf2-27132ec401be"
+    },
     "mssql2.subscriptionId": {
       "Type": "subscription",
       "Value": "0ce4a2e8-2fb5-4728-bdf2-27132ec401be"
@@ -25,6 +33,10 @@
     "mssql1.resourceGroupName": {
       "Type": "resourceGroup",
       "Value": "Support-System-Server-v220211201231847ResourceGroup"
+    },
+    "mssql3.resourceGroupName": {
+      "Type": "resourceGroup",
+      "Value": "DefaultResourceGroup-CQ"
     }
   }
 }

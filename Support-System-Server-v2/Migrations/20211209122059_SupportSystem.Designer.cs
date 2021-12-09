@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Support_System_Server_v2.Migrations
 {
     [DbContext(typeof(SupportSystemContext))]
-    [Migration("20211209044644_Support")]
-    partial class Support
+    [Migration("20211209122059_SupportSystem")]
+    partial class SupportSystem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -166,6 +166,36 @@ namespace Support_System_Server_v2.Migrations
                     b.ToTable("UsersCompanies");
                 });
 
+            modelBuilder.Entity("DataAccess.Model.OfferWithSemester", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocumentOfferUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MaxUsers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinUsers")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SemesterCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("OfferWithSemesters");
+                });
+
             modelBuilder.Entity("Entities.Announcement", b =>
                 {
                     b.Property<int>("Id")
@@ -186,7 +216,13 @@ namespace Support_System_Server_v2.Migrations
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
+                    b.Property<string>("SemesterCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SemesterCode");
 
                     b.ToTable("Announcements");
                 });
@@ -216,7 +252,18 @@ namespace Support_System_Server_v2.Migrations
                     b.Property<int>("POVGrade")
                         .HasColumnType("int");
 
+                    b.Property<string>("SemesterCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SemesterCode");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Attendances");
                 });
@@ -229,6 +276,7 @@ namespace Support_System_Server_v2.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CompanyShortName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime?>("DateCreation")
@@ -259,6 +307,10 @@ namespace Support_System_Server_v2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CompanyShortName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<DateTime?>("DateCreation")
                         .HasColumnType("datetime2");
 
@@ -284,6 +336,8 @@ namespace Support_System_Server_v2.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyShortName");
 
                     b.ToTable("Homeworks");
                 });
@@ -530,11 +584,46 @@ namespace Support_System_Server_v2.Migrations
                         .HasForeignKey("SemesterCode");
                 });
 
+            modelBuilder.Entity("Entities.Announcement", b =>
+                {
+                    b.HasOne("Authentication.Entities.Semester", "Semester")
+                        .WithMany()
+                        .HasForeignKey("SemesterCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.Attendance", b =>
+                {
+                    b.HasOne("Authentication.Entities.Semester", "Semester")
+                        .WithMany()
+                        .HasForeignKey("SemesterCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Authentication.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Entities.Calendar", b =>
                 {
                     b.HasOne("Authentication.Entities.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("CompanyShortName");
+                        .HasForeignKey("CompanyShortName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.Homework", b =>
+                {
+                    b.HasOne("Authentication.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyShortName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Offer", b =>
