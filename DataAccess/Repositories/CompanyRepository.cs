@@ -33,6 +33,12 @@ namespace DataAccess.Repositories
             return company;
         }
 
+        public void AddUsersCompany(ICollection<UsersCompanies> usersCompanies)
+        {
+            _context.AddRange(usersCompanies);
+            _context.SaveChanges();
+        }
+
         public void Delete(Company company)
         {
             throw new System.NotImplementedException();

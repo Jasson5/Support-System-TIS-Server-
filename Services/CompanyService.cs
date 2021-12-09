@@ -18,7 +18,8 @@ namespace Services
         public Company AddCompany(Company company)
         {
             var newCompany = _companyRepository.Add(company);
-
+            var userCompany = new UserSemesters();
+            var usersCompanies = new List<UsersCompanies>();
             return newCompany;
         }
 
