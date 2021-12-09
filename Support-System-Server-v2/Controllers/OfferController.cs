@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Support_System_Server_v2.Controllers
 {
-   // [Authorize]
+    [Authorize]
     [Route("api/offer")]
     [ApiController]
     public class OfferController : ControllerBase

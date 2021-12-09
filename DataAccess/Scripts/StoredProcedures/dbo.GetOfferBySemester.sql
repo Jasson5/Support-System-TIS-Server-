@@ -10,5 +10,5 @@ CREATE PROCEDURE dbo.GetOfferBySemester
 AS
 	SELECT  *
 	FROM  Offers o 
-	WHERE o.SemesterCode=@Code
+	WHERE o.SemesterCode = @Code
 GO

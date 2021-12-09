@@ -32,15 +32,10 @@ namespace DataAccess.Repositories
             return userSemesters;
         }
 
-        public void Delete(Semester semester)
-        {
-            _dataAccess.Set<Semester>().Remove(semester);
-            _dataAccess.SaveChanges();
-        }
-
         public Semester FindByCode(string code)
         {
-            var semester = _dataAccess.Set<Semester>().FromSqlRaw($"dbo.GetSemestersByCode '{code}'").AsEnumerable().FirstOrDefault();
+            var semester = _dataAccess.Set<Semester>().FromSqlRaw($"dbo.GetSemesterByCode '{code}'").AsEnumerable().SingleOrDefault();
+
 
             return semester;
         }
