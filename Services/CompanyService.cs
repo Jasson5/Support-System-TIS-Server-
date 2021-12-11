@@ -20,7 +20,7 @@ namespace Services
         {
             var result = _companyRepository.FindByKey(company.ShortName);
             var newCompany = new Company();
-            if (result != null) 
+            if (result == null) 
             {
                 newCompany = _companyRepository.Add(company);
                 var usersCompanies = new List<UsersCompanies>();

@@ -32,7 +32,7 @@ namespace Services
         {
             var result = _semesterRepository.FindByIdnCode(semesterCode, userId);
             var userSemester = new UserSemesters();
-            if (result != null)
+            if (result == null)
             {
                 userSemester.SemesterCode = semesterCode;
                 userSemester.UserId = userId;
