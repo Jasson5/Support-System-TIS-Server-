@@ -2,6 +2,7 @@
 using DataAccess.Interfaces;
 using Entities;
 using Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,25 +18,34 @@ namespace Services
         }
         public Company AddCompany(Company company)
         {
-            var newCompany = _companyRepository.Add(company);
-            var usersCompanies = new List<UsersCompanies>();
-            foreach (var uc in company.Members)
+            var result = _companyRepository.FindByKey(company.ShortName);
+            var newCompany = new Company();
+            if (result != null) 
             {
-                var userCompany = new UsersCompanies()
+                newCompany = _companyRepository.Add(company);
+                var usersCompanies = new List<UsersCompanies>();
+                foreach (var uc in company.Members)
                 {
-                    UserId = uc.Id,
-                    ShortName = newCompany.ShortName
-                };
-                usersCompanies.Add(userCompany);
+                    var userCompany = new UsersCompanies()
+                    {
+                        UserId = uc.Id,
+                        ShortName = newCompany.ShortName
+                    };
+                    usersCompanies.Add(userCompany);
+                }
+                _companyRepository.AddUsersCompany(usersCompanies);
             }
-            _companyRepository.AddUsersCompany(usersCompanies);
+            else
+            {
+                throw new ApplicationException("La compañia ya existe");
+            }
 
             return newCompany;
         }
 
-        public void DeleteCompany(int id)
+        public void DeleteCompany(string key)
         {
-            var company = _companyRepository.FindById(id);
+            var company = _companyRepository.FindByKey(key);
 
             if (company != null)
             {
@@ -44,9 +54,9 @@ namespace Services
         }
 
 
-        public Company FindById(int id)
+        public Company FindByKey(string key)
         {
-            return _companyRepository.FindById(id);
+            return _companyRepository.FindByKey(key);
         }
 
         public ICollection<Company> ListCompanys(int status)

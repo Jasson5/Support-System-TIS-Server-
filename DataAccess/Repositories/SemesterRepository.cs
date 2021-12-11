@@ -40,6 +40,13 @@ namespace DataAccess.Repositories
             return semester;
         }
 
+        public UserSemesters FindByIdnCode(string code, int userId)
+        {
+            var usersemester = _dataAccess.Set<UserSemesters>().FromSqlRaw($"dbo.GetUserSemestersByIdCode '{userId}', '{code}'").AsEnumerable().SingleOrDefault();
+
+            return usersemester;
+        }
+
         public ICollection<Semester> List()
         {
             return _dataAccess.Set<Semester>().ToList();  

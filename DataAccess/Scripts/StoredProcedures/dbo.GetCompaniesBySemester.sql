@@ -11,6 +11,6 @@ AS
 	SELECT  c.Id, c.DateCreation, c.ShortName, c.LongName, c.Society, c.Address, c.Telephone, c.CmpanyEmail, c.CmpanyStatus, c.SemesterCode
 	FROM  Companies c
 	INNER JOIN Semesters s
-		ON c.Semester=s.Code
+		ON c.SemesterCode=s.Code
 		WHERE s.Code=@code 
 GO

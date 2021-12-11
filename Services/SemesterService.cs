@@ -4,6 +4,7 @@ using Authentication.Services.Interfaces;
 using DataAccess.Interfaces;
 using Entities.RequestParameters;
 using Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,11 +30,19 @@ namespace Services
 
         public void AddUserToSemester(int userId, string semesterCode)
         {
+            var result = _semesterRepository.FindByIdnCode(semesterCode, userId);
             var userSemester = new UserSemesters();
-            userSemester.SemesterCode = semesterCode;
-            userSemester.UserId = userId;
+            if (result != null)
+            {
+                userSemester.SemesterCode = semesterCode;
+                userSemester.UserId = userId;
 
-            _semesterRepository.AddUserToSemester(userSemester);
+                _semesterRepository.AddUserToSemester(userSemester);
+            }
+            else 
+            {
+                throw new ApplicationException("El usuario ya esta registrado en este semestre");
+            }
         }
 
         public Semester FindByCode(string code)

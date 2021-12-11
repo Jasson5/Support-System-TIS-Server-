@@ -35,19 +35,19 @@ namespace Support_System_Server_v2.Controllers
         }
 
         [HttpGet]
-        [Route("find-by-id/{id}")]
-        public ActionResult<Company> GetById(int id)
+        [Route("find-by-id/{key}")]
+        public ActionResult<Company> GetByKey(string key)
         {
-            var company = _companyService.FindById(id);
+            var company = _companyService.FindByKey(key);
 
             return Ok(company);
         }
 
         [HttpDelete]
-        [Route("{id}")]
-        public ActionResult Delete(int id)
+        [Route("{key}")]
+        public ActionResult Delete(string key)
         {
-            _companyService.DeleteCompany(id);
+            _companyService.DeleteCompany(key);
 
             return Ok();
         }

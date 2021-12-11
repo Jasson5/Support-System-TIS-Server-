@@ -9,8 +9,8 @@ namespace Services.Interfaces
     {
         Company AddCompany(Company company);
         ICollection<Company> ListCompanys(int status);
-        void DeleteCompany(int id);
+        void DeleteCompany(string key);
         void UpdateCompany(Company company);
-        Company FindById(int id);
+        Company FindByKey(string key);
     }
 }

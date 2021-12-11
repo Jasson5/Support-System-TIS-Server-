@@ -44,9 +44,11 @@ namespace DataAccess.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Company FindById(int id)
+        public Company FindByKey(string key)
         {
-            return _context.Set<Company>().Find(id);
+            var offer = _context.Set<Company>().FromSqlRaw($"dbo.GetCompaniesByKey '{key}'").AsEnumerable().FirstOrDefault();
+
+            return offer;
         }
 
         public ICollection<Company> List(int status)
@@ -58,8 +60,8 @@ namespace DataAccess.Repositories
 
         public void Update(Company entity)
         {
-            var company = _context.Set<Company>()
-                .FirstOrDefault(c => c.Id == entity.Id);
+
+            var company = FindByKey(entity.ShortName);
 
             company.CmpanyStatus = entity.CmpanyStatus;
 

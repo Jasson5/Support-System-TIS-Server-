@@ -10,7 +10,7 @@ CREATE PROCEDURE dbo.GetCompanies
 AS
 	SELECT  c.Id, c.DateCreation, c.ShortName, c.LongName, c.Society, c.Address, c.Telephone, c.CmpanyEmail, c.CmpanyStatus, c.SemesterCode, u.GivenName, u.Email
 	FROM  ((UsersCompanies uc
-	INNER JOIN Companies c ON uc.CompanyId = c.Id)
+	INNER JOIN Companies c ON uc.ShortName = c.ShortName)
 	INNER JOIN Users u ON uc.UserId = u.Id)
 	WHERE c.CmpanyStatus=@status
 GO
