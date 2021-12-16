@@ -7,6 +7,10 @@
     "mssql4": {
       "type": "mssql",
       "connectionId": "SupportSystemTISDatabase"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "SupportSystemTISDatabase"
     }
   }
 }

@@ -9,3 +9,5 @@ AS
 	FROM  Attendances att
 	WHERE att.SemesterCode = @Code
 GO
+
+/*No es util */

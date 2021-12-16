@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Support_System_Server_v2.Migrations
 {
-    public partial class Support : Migration
+    public partial class SupportSystem : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

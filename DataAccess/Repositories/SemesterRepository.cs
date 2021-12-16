@@ -61,7 +61,7 @@ namespace DataAccess.Repositories
 
         public ICollection<User> ListUsersBySemester(string search = "", string code = "")
         {
-            var users = _dataAccess.Set<User>().FromSqlRaw($"dbo.GetUsersBySemester '{code}', '{search}'").AsEnumerable();
+            var users = _dataAccess.Set<User>().FromSqlRaw($"dbo.GetUsersByNonSemester '{code}', '{search}'").AsEnumerable();
 
             return users.ToList();
         }
