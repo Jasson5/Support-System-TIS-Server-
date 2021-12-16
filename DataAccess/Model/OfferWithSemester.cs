@@ -8,6 +8,8 @@ namespace DataAccess.Model
     {
         public int id { get; set; }
 
+        public DateTime DateCreation { get; set; }
+
         public string Description { get; set; }
 
         public DateTime DateEnd { get; set; }

@@ -6,7 +6,7 @@ namespace DataAccess.Interfaces
     public interface IAnnouncementRepository
     {
         Announcement Add(Announcement announcement);
-        ICollection<Announcement> ListAnnouncements();
+        ICollection<Announcement> ListAnnouncements(string code);
         void Update(Announcement announcement);
         Announcement FindById(int id);
         void Delete(Announcement announcement);

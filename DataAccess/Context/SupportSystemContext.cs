@@ -24,9 +24,11 @@ namespace DataAccess.Context
         public DbSet<Semester> Semesters { get; set; }
         public DbSet<UsersCompanies> UsersCompanies { get; set; }
         public DbSet<UserSemesters> UserSemesters { get; set; }
+        public DbSet<FinalGrade> FinalGrades { get; set; }
 
         //CUSTOM
         public virtual DbSet<OfferWithSemester> OfferWithSemesters { get; set; }
+        public virtual DbSet<CompanyWithMembers> CompanyWithMembers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

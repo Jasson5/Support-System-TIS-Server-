@@ -1,6 +1,3 @@
-USE SupportSystemTIS
-GO
-
 IF OBJECT_ID('dbo.GetSemestersByUser', 'P') IS NOT NULL
 	DROP PROCEDURE dbo.GetSemestersByUser
 GO

@@ -10,8 +10,6 @@ namespace Entities
         [StringLength(500)]
         public string Description { get; set; }
 
-        [Required]
-        [StringLength(1000)]
         public string DocumentUrl { get; set; }
 
         [Required]

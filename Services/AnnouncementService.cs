@@ -37,9 +37,9 @@ namespace Services
             return _announcementRepository.FindById(id);
         }
 
-        public ICollection<Announcement> ListAnnouncements()
+        public ICollection<Announcement> ListAnnouncements(string code)
         {
-            var announcement = _announcementRepository.ListAnnouncements();
+            var announcement = _announcementRepository.ListAnnouncements(code);
 
             return announcement.ToList();
         }

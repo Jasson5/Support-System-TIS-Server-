@@ -29,14 +29,14 @@ namespace Support_System_Server_v2.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        public ActionResult<ICollection<Announcement>> Get()
+        [Route("{code}")]
+        public ActionResult<ICollection<Announcement>> Get(string code)
         {
-            return Ok(_announcementService.ListAnnouncements());
+            return Ok(_announcementService.ListAnnouncements(code));
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("find-by-id/{id}")]
         public ActionResult<Announcement> GetById(int id)
         {
             var announcement = _announcementService.GeyById(id);

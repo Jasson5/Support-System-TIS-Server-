@@ -11,6 +11,7 @@ namespace DataAccess.Interfaces
         void AddUsersCompany(ICollection<UsersCompanies> usersCompanies);
         ICollection<Company> List(int status);
         void Delete(Company company);
+        void DeleteUserCompany(string companyName);
         void Update(Company company);
         Company FindByKey(string key);
     }

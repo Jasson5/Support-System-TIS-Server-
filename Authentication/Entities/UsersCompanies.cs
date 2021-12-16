@@ -13,6 +13,9 @@ namespace Authentication.Entities
         public int UserId { get; set; }
 
         public string ShortName { get; set; }
+        public string SemesterCode { get; set; }
+
+        public string Role { get; set; }
 
     }
 }

@@ -29,7 +29,9 @@ namespace Services
                     var userCompany = new UsersCompanies()
                     {
                         UserId = uc.Id,
-                        ShortName = newCompany.ShortName
+                        ShortName = newCompany.ShortName,
+                        Role = uc.Roles.First().Name,
+                        SemesterCode = company.Semester.Code
                     };
                     usersCompanies.Add(userCompany);
                 }
@@ -49,7 +51,15 @@ namespace Services
 
             if (company != null)
             {
-                _companyRepository.Delete(company);
+                try
+                {
+                    _companyRepository.DeleteUserCompany(key);
+                    _companyRepository.Delete(company);
+                } 
+                catch (Exception exception)
+                {
+                    throw new ApplicationException(exception.Message);
+                }
             }
         }
 

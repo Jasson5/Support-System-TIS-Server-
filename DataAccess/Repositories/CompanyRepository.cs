@@ -1,5 +1,6 @@
 ﻿using Authentication.Entities;
 using DataAccess.Interfaces;
+using DataAccess.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -41,7 +42,13 @@ namespace DataAccess.Repositories
 
         public void Delete(Company company)
         {
-            throw new System.NotImplementedException();
+            _context.Set<Company>().Remove(company);
+            _context.SaveChanges();
+        }
+
+        public void DeleteUserCompany(string companyName)
+        {
+            _context.Set<UsersCompanies>().FromSqlRaw($"dbo.DeleteUserCompany '{companyName}'");
         }
 
         public Company FindByKey(string key)
@@ -53,15 +60,33 @@ namespace DataAccess.Repositories
 
         public ICollection<Company> List(int status)
         {
-            var offers = _context.Set<Company>().FromSqlRaw($"dbo.GetCompanies '{status}'").AsEnumerable();
+            var result = _context.Set<CompanyWithMembers>().FromSqlRaw($"dbo.GetCompanies '{status}'").AsNoTracking().AsEnumerable();
 
-            return offers.ToList();
+            return result
+                .GroupBy(c => c.ShortName)
+                .Select(c => new Company
+                {
+                    DateCreation = c.First().DateCreation,
+                    ShortName = c.First().ShortName,
+                    LongName = c.First().LongName,
+                    Society = c.First().Society,
+                    Address = c.First().Address,
+                    Telephone = c.First().Telephone,
+                    CmpanyEmail = c.First().CmpanyEmail,
+                    Semester = new Semester { Name = c.First().Name , Code = c.First().Code},
+                    Members = c.Select(cm=> new User
+                    { 
+                        GivenName = cm.GivenName,
+                        Email = cm.Email,
+                        Role = cm.Role,
+                    }).ToList()
+                }).ToList();
         }
 
         public void Update(Company entity)
         {
-
-            var company = FindByKey(entity.ShortName);
+            var company = _context.Set<Company>()
+                .SingleOrDefault(c => c.ShortName == entity.ShortName);
 
             company.CmpanyStatus = entity.CmpanyStatus;
 

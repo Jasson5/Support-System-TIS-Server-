@@ -1,6 +1,3 @@
-USE SupportSystemTIS
-GO
-
 IF OBJECT_ID('dbo.GetOfferBySemester', 'P') IS NOT NULL
 	DROP PROCEDURE dbo.GetOfferBySemester
 GO

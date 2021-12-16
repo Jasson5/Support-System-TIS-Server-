@@ -1,7 +1,4 @@
-﻿USE SupportSystemTIS
-GO
-
-IF OBJECT_ID('dbo.GetAttendanceByUser', 'P') IS NOT NULL
+﻿IF OBJECT_ID('dbo.GetAttendanceByUser', 'P') IS NOT NULL
 	DROP PROCEDURE dbo.GetAttendanceByUser
 GO
 

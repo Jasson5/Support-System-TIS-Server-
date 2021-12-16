@@ -4,16 +4,14 @@ using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Support_System_Server_v2.Migrations
 {
     [DbContext(typeof(SupportSystemContext))]
-    [Migration("20211209230831_SupportSystem")]
-    partial class SupportSystem
+    partial class SupportSystemContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,6 +153,12 @@ namespace Support_System_Server_v2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SemesterCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ShortName")
                         .HasColumnType("nvarchar(max)");
 
@@ -166,12 +170,63 @@ namespace Support_System_Server_v2.Migrations
                     b.ToTable("UsersCompanies");
                 });
 
+            modelBuilder.Entity("DataAccess.Model.CompanyWithMembers", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CmpanyEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateCreation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GivenName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LongName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Society")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Telephone")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CompanyWithMembers");
+                });
+
             modelBuilder.Entity("DataAccess.Model.OfferWithSemester", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreation")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateEnd")
                         .HasColumnType("datetime2");
@@ -212,9 +267,7 @@ namespace Support_System_Server_v2.Migrations
                         .HasMaxLength(500);
 
                     b.Property<string>("DocumentUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1000)")
-                        .HasMaxLength(1000);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SemesterCode")
                         .IsRequired()
@@ -243,25 +296,16 @@ namespace Support_System_Server_v2.Migrations
                     b.Property<int>("AttendanceStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("DateCreation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Note")
+                    b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("POVGrade")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SemesterCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime?>("DateCreation")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SemesterCode");
 
                     b.HasIndex("UserId");
 
@@ -275,9 +319,9 @@ namespace Support_System_Server_v2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CompanyShortName")
+                    b.Property<string>("CompanyName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DateCreation")
                         .HasColumnType("datetime2");
@@ -295,9 +339,31 @@ namespace Support_System_Server_v2.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyShortName");
-
                     b.ToTable("Calendars");
+                });
+
+            modelBuilder.Entity("Entities.FinalGrade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateCreation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FinalGrades");
                 });
 
             modelBuilder.Entity("Entities.Homework", b =>
@@ -595,24 +661,9 @@ namespace Support_System_Server_v2.Migrations
 
             modelBuilder.Entity("Entities.Attendance", b =>
                 {
-                    b.HasOne("Authentication.Entities.Semester", "Semester")
-                        .WithMany()
-                        .HasForeignKey("SemesterCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Authentication.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Entities.Calendar", b =>
-                {
-                    b.HasOne("Authentication.Entities.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyShortName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

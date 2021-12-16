@@ -19,19 +19,10 @@ namespace DataAccess.Repositories
 
         public Attendance Add(Attendance attendance)
         {
-            if (attendance.Semester != null)
-            {
-                var semester = _dataAccess.Set<Semester>().Find(attendance.Semester.Code);
-
-                if (semester != null)
-                {
-                    attendance.Semester = semester;
-                }
-            }
 
             if (attendance.User != null)
             {
-                var user = _dataAccess.Set<User>().Find(attendance.Semester.Code);
+                var user = _dataAccess.Set<User>().Find(attendance.User.Id);
 
                 if (user != null)
                 {
@@ -69,10 +60,8 @@ namespace DataAccess.Repositories
             var AttendanceToEdit = _dataAccess.Set<Attendance>().Find(attendance.Id);
 
             AttendanceToEdit.AttendanceDate = attendance.AttendanceDate;
-            AttendanceToEdit.Note = attendance.Note;
             AttendanceToEdit.AttendanceStatus = attendance.AttendanceStatus;
             AttendanceToEdit.AttendanceGrade = attendance.AttendanceGrade;
-            AttendanceToEdit.POVGrade = attendance.POVGrade;
             _dataAccess.SaveChanges();
         }
     }

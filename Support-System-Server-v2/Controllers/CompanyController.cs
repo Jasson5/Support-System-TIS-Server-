@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Support_System_Server_v2.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/company")]
     [ApiController]
     public class CompanyController : ControllerBase
     {
@@ -53,7 +53,7 @@ namespace Support_System_Server_v2.Controllers
         }
 
         [HttpPatch]
-        [Route("{id}")]
+        [Route("")]
         public ActionResult<Company> Update(Company company)
         {
             _companyService.UpdateCompany(company);

@@ -1,4 +1,5 @@
-﻿using DataAccess.Interfaces;
+﻿using Authentication.Entities;
+using DataAccess.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,16 @@ namespace DataAccess.Repositories
 
         public Announcement Add(Announcement announcement)
         {
+            if (announcement.Semester != null)
+            {
+                var semester = _dataAccess.Set<Semester>().Find(announcement.Semester.Code);
+
+                if (semester != null)
+                {
+                    announcement.Semester = semester;
+                }
+            }
+
             _dataAccess.Set<Announcement>().Add(announcement);
             _dataAccess.SaveChanges();
 
@@ -37,9 +48,9 @@ namespace DataAccess.Repositories
             return announcement;
         }
 
-        public ICollection<Announcement> ListAnnouncements() 
+        public ICollection<Announcement> ListAnnouncements(string code) 
         {
-            var announcements = _dataAccess.Set<Announcement>().FromSqlRaw($"dbo.GetAnnouncements").AsEnumerable();
+            var announcements = _dataAccess.Set<Announcement>().FromSqlRaw($"dbo.GetAnnouncementBySemester '{code}'").AsEnumerable();
 
             return announcements.ToList();
         }

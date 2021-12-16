@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Support_System_Server_v2.Migrations
 {
-    public partial class SupportSystem : Migration
+    public partial class Support : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,11 +47,69 @@ namespace Support_System_Server_v2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Calendars",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateCreation = table.Column<DateTime>(nullable: true),
+                    DayDate = table.Column<DateTime>(nullable: false),
+                    DayDescription = table.Column<string>(nullable: false),
+                    DayObservation = table.Column<string>(nullable: false),
+                    CompanyName = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Calendars", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CompanyWithMembers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateCreation = table.Column<DateTime>(nullable: true),
+                    ShortName = table.Column<string>(nullable: true),
+                    LongName = table.Column<string>(nullable: true),
+                    Society = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    Telephone = table.Column<int>(nullable: false),
+                    CmpanyEmail = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    GivenName = table.Column<string>(nullable: true),
+                    Role = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyWithMembers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FinalGrades",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateCreation = table.Column<DateTime>(nullable: true),
+                    Grade = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    CompanyName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FinalGrades", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OfferWithSemesters",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    DateCreation = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     DateEnd = table.Column<DateTime>(nullable: false),
                     DocumentOfferUrl = table.Column<string>(nullable: true),
@@ -103,7 +161,9 @@ namespace Support_System_Server_v2.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: false),
-                    ShortName = table.Column<string>(nullable: true)
+                    ShortName = table.Column<string>(nullable: true),
+                    SemesterCode = table.Column<string>(nullable: true),
+                    Role = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -238,7 +298,7 @@ namespace Support_System_Server_v2.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateCreation = table.Column<DateTime>(nullable: true),
                     Description = table.Column<string>(maxLength: 500, nullable: false),
-                    DocumentUrl = table.Column<string>(maxLength: 1000, nullable: false),
+                    DocumentUrl = table.Column<string>(nullable: true),
                     SemesterCode = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -311,50 +371,19 @@ namespace Support_System_Server_v2.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateCreation = table.Column<DateTime>(nullable: true),
                     AttendanceDate = table.Column<DateTime>(nullable: false),
-                    Note = table.Column<string>(nullable: true),
                     AttendanceStatus = table.Column<int>(nullable: false),
                     AttendanceGrade = table.Column<int>(nullable: false),
-                    POVGrade = table.Column<int>(nullable: false),
-                    SemesterCode = table.Column<string>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(nullable: false),
+                    CompanyName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Attendances", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Attendances_Semesters_SemesterCode",
-                        column: x => x.SemesterCode,
-                        principalTable: "Semesters",
-                        principalColumn: "Code",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Attendances_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Calendars",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DateCreation = table.Column<DateTime>(nullable: true),
-                    DayDate = table.Column<DateTime>(nullable: false),
-                    DayDescription = table.Column<string>(nullable: false),
-                    DayObservation = table.Column<string>(nullable: false),
-                    CompanyShortName = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Calendars", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Calendars_Companies_CompanyShortName",
-                        column: x => x.CompanyShortName,
-                        principalTable: "Companies",
-                        principalColumn: "ShortName",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -434,19 +463,9 @@ namespace Support_System_Server_v2.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attendances_SemesterCode",
-                table: "Attendances",
-                column: "SemesterCode");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Attendances_UserId",
                 table: "Attendances",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Calendars_CompanyShortName",
-                table: "Calendars",
-                column: "CompanyShortName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_SemesterCode",
@@ -489,6 +508,12 @@ namespace Support_System_Server_v2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Calendars");
+
+            migrationBuilder.DropTable(
+                name: "CompanyWithMembers");
+
+            migrationBuilder.DropTable(
+                name: "FinalGrades");
 
             migrationBuilder.DropTable(
                 name: "Homeworks");

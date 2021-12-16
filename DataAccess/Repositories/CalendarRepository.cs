@@ -51,7 +51,7 @@ namespace DataAccess.Repositories
             CalendarToEdit.DayDate = calendar.DayDate;
             CalendarToEdit.DayDescription = calendar.DayDescription;
             CalendarToEdit.DayObservation = calendar.DayObservation;
-            CalendarToEdit.Company = calendar.Company;
+            CalendarToEdit.CompanyName = calendar.CompanyName;
             _dataAccess.SaveChanges();
         }
     }

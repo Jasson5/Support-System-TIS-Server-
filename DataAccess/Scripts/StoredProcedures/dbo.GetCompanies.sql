@@ -1,17 +1,14 @@
-﻿USE SupportSystemTIS
-GO
-
-IF OBJECT_ID('dbo.GetCompanies', 'P') IS NOT NULL
+﻿IF OBJECT_ID('dbo.GetCompanies', 'P') IS NOT NULL
 	DROP PROCEDURE dbo.GetCompanies
 GO
 
 CREATE PROCEDURE dbo.GetCompanies
 @status INT
 AS
-	SELECT  c.Id, c.DateCreation, c.ShortName, c.LongName, c.Society, c.Address, c.Telephone, c.CmpanyEmail, c.CmpanyStatus, c.SemesterCode, u.GivenName, u.Email
+	SELECT  c.Id, c.DateCreation, c.ShortName, c.LongName, c.Society, c.Address, c.Telephone, c.CmpanyEmail, s.Name, s.Code, u.GivenName, u.Email, uc.Role
 	FROM  ((UsersCompanies uc
 	INNER JOIN Companies c ON uc.ShortName = c.ShortName)
 	INNER JOIN Users u ON uc.UserId = u.Id)
+	LEFT JOIN Semesters s ON s.Code = c.SemesterCode
 	WHERE c.CmpanyStatus=@status
 GO
-

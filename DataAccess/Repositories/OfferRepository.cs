@@ -60,6 +60,7 @@ namespace DataAccess.Repositories
             return offers.Select(o => new Offer
             {
                 Id = o.id,
+                DateCreation = o.DateCreation,
                 Description = o.Description,
                 DateEnd = o.DateEnd,
                 DocumentOfferUrl = o.DocumentOfferUrl,
