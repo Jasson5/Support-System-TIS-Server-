@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Helpers;
 using Services.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -25,6 +26,7 @@ namespace Support_System_Server_v2.Controllers
         public ActionResult<Attendance> Post(Attendance attendance)
         {
             attendance.DateCreation = TimeZoneHelper.GetSaWesternStandardTime();
+            attendance.AttendanceDate = Convert.ToDateTime(attendance.DateCreation.ToString("dd-MM-yyyy"));
             return _attendanceService.AddAttendance(attendance);
         }
 
@@ -33,6 +35,13 @@ namespace Support_System_Server_v2.Controllers
         public ActionResult<ICollection<Attendance>> Get()
         {
             return Ok(_attendanceService.ListAttendances());
+        }
+
+        [HttpGet]
+        [Route("find-by-company/{shortName}")]
+        public ActionResult<ICollection<Attendance>> GetByCompany(string shortName)
+        {
+            return Ok(_attendanceService.ListAttendancesByCompany(shortName));
         }
 
         [HttpGet]

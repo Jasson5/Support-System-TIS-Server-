@@ -12,5 +12,6 @@ namespace Services.Interfaces
         void DeleteCompany(string key);
         void UpdateCompany(Company company);
         Company FindByKey(string key);
+        ICollection<Company> FindBySemester(string code);
     }
 }

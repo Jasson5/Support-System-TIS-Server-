@@ -7,6 +7,7 @@ namespace DataAccess.Interfaces
     {
         Attendance Add(Attendance attendance);
         ICollection<Attendance> ListAttendances();
+        ICollection<Attendance> ListAttendancesByCompany(string companyName);
         void Update(Attendance attendance);
         Attendance FindById(int id);
         void Delete(Attendance attendance);

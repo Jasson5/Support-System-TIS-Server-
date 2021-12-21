@@ -43,6 +43,15 @@ namespace Support_System_Server_v2.Controllers
             return Ok(company);
         }
 
+        [HttpGet]
+        [Route("find-by-semester/{code}")]
+        public ActionResult<Company> GetBySemester(string code)
+        {
+            var company = _companyService.FindBySemester(code);
+
+            return Ok(company);
+        }
+
         [HttpDelete]
         [Route("{key}")]
         public ActionResult Delete(string key)

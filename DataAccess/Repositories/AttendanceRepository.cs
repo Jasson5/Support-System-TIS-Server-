@@ -1,5 +1,6 @@
 ﻿using Authentication.Entities;
 using DataAccess.Interfaces;
+using DataAccess.Model;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,6 @@ namespace DataAccess.Repositories
 
         public Attendance Add(Attendance attendance)
         {
-
             if (attendance.User != null)
             {
                 var user = _dataAccess.Set<User>().Find(attendance.User.Id);
@@ -54,6 +54,21 @@ namespace DataAccess.Repositories
 
             return attendances.ToList();
         }
+
+        public ICollection<Attendance> ListAttendancesByCompany(string companyName)
+        {
+            var result = _dataAccess.Set<AttendanceWithUser>().FromSqlRaw($"dbo.GetAttendanceByCompany '{companyName}'").AsEnumerable();
+
+            return result.Select(a => new Attendance
+            {
+                Id = a.Id,
+                AttendanceDate = a.AttendanceDate,
+                AttendanceStatus = a.AttendanceStatus,
+                AttendanceGrade = a.AttendanceGrade,
+                CompanyName = a.CompanyName,
+                User = new User { Id = a.UserId, GivenName = a.GivenName}
+            }).ToList();
+        }    
 
         public void Update(Attendance attendance)
         {

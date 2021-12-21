@@ -14,5 +14,6 @@ namespace DataAccess.Interfaces
         void DeleteUserCompany(string companyName);
         void Update(Company company);
         Company FindByKey(string key);
+        ICollection<Company> FindBySemester(string code);
     }
 }

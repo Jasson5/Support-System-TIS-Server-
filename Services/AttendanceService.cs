@@ -44,6 +44,13 @@ namespace Services
             return attendance.ToList();
         }
 
+        public ICollection<Attendance> ListAttendancesByCompany(string shortName)
+        {
+            var attendance = _attendanceRepository.ListAttendancesByCompany(shortName);
+
+            return attendance.ToList();
+        }
+
         public void UpdateAttendance(Attendance attendance)
         {
             _attendanceRepository.Update(attendance);

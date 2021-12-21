@@ -8,6 +8,7 @@ namespace Services.Interfaces
     {
         Attendance AddAttendance(Attendance attendance);
         ICollection<Attendance> ListAttendances();
+        ICollection<Attendance> ListAttendancesByCompany(string shortName);
         void DeleteAttendance(int id);
         void UpdateAttendance(Attendance attendance);
         Attendance GeyById(int id);
