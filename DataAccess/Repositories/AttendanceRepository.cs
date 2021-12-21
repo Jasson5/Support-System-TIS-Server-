@@ -68,7 +68,14 @@ namespace DataAccess.Repositories
                 CompanyName = a.CompanyName,
                 User = new User { Id = a.UserId, GivenName = a.GivenName}
             }).ToList();
-        }    
+        }
+
+        public ICollection<GradeAverageVM> ListGradesByCompany(string companyName)
+        {
+            var gradeAverage = _dataAccess.Set<GradeAverageVM>().FromSqlRaw($"dbo.GetAverageByAttendance '{companyName}'").AsEnumerable();
+
+            return gradeAverage.ToList();
+        }
 
         public void Update(Attendance attendance)
         {

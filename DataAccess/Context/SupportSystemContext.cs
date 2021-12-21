@@ -30,6 +30,7 @@ namespace DataAccess.Context
         public virtual DbSet<OfferWithSemester> OfferWithSemesters { get; set; }
         public virtual DbSet<CompanyWithMembers> CompanyWithMembers { get; set; }
         public virtual DbSet<AttendanceWithUser> AttendanceWithUsers { get; set; }
+        public virtual DbSet<GradeAverageVM> GradeAverages { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
