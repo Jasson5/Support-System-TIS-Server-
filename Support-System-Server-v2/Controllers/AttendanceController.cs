@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DataAccess.Model;
+using Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Helpers;
@@ -42,6 +43,13 @@ namespace Support_System_Server_v2.Controllers
         public ActionResult<ICollection<Attendance>> GetByCompany(string shortName)
         {
             return Ok(_attendanceService.ListAttendancesByCompany(shortName));
+        }
+
+        [HttpGet]
+        [Route("grade-by-company/{shortName}")]
+        public ActionResult<ICollection<GradeAverageVM>> GetGradeByCompany(string shortName)
+        {
+            return Ok(_attendanceService.ListGradesByCompany(shortName));
         }
 
         [HttpGet]

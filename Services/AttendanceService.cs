@@ -1,4 +1,5 @@
 ﻿using DataAccess.Interfaces;
+using DataAccess.Model;
 using Entities;
 using Services.Interfaces;
 using System.Collections.Generic;
@@ -47,6 +48,13 @@ namespace Services
         public ICollection<Attendance> ListAttendancesByCompany(string shortName)
         {
             var attendance = _attendanceRepository.ListAttendancesByCompany(shortName);
+
+            return attendance.ToList();
+        }
+
+        public ICollection<GradeAverageVM> ListGradesByCompany(string companyName)
+        {
+            var attendance = _attendanceRepository.ListGradesByCompany(companyName);
 
             return attendance.ToList();
         }
