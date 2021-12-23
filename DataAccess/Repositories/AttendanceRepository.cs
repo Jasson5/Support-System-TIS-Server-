@@ -44,7 +44,7 @@ namespace DataAccess.Repositories
 
         public Attendance FindByDate(DateTime date, int userId)
         {
-            var attendance = _dataAccess.Set<Attendance>().FromSqlRaw($"dbo.GetAttendanceByDatenUser '{date}', '{userId}'").AsEnumerable().SingleOrDefault();
+            var attendance = _dataAccess.Set<Attendance>().FromSqlRaw($"dbo.GetAttendanceByDatenUser '{date.ToString("MM/dd/yyyy")}', '{userId}'").AsEnumerable().SingleOrDefault();
 
             return attendance;
         }

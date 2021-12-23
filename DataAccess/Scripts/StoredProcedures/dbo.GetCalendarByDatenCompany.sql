@@ -7,6 +7,7 @@ CREATE PROCEDURE dbo.GetCalendarByDatenCompany
 @ShortName NVARCHAR(MAX)
 AS
 	SELECT ca.*
-	FROM  Attendances att, Calendars ca
-	WHERE att.AttendanceDate = @Date and att.AttendanceDate = ca.DayDate and att.CompanyName = @ShortName
+	FROM Calendars ca
+	WHERE convert(varchar, ca.DayDate, 101) = @Date and ca.CompanyName = @ShortName
 GO
+

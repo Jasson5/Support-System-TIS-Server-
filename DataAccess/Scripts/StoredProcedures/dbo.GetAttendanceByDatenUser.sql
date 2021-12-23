@@ -8,5 +8,5 @@ CREATE PROCEDURE dbo.GetAttendanceByDatenUser
 AS
 	SELECT att.*, u.GivenName
 	FROM  Attendances att, Users u
-	WHERE att.UserId = @UserId and att.UserId = u.Id and att.AttendanceDate = @Date
+	WHERE att.UserId = @UserId and att.UserId = u.Id and convert(varchar, att.AttendanceDate, 101) = @Date
 GO

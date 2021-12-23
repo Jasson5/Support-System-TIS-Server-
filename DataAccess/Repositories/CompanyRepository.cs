@@ -86,6 +86,33 @@ namespace DataAccess.Repositories
                  }).ToList();
         }
 
+        public Company FindByUserNSemester(int userId, string code)
+        {
+            var result = _context.Set<CompanyWithMembers>().FromSqlRaw($"dbo.GetCompaniesBySemester '{userId}','{code}'").AsNoTracking().AsEnumerable();
+
+            return result
+                 .GroupBy(c => c.ShortName)
+                 .Select(c => new Company
+                 {
+                     DateCreation = c.First().DateCreation,
+                     ShortName = c.First().ShortName,
+                     LongName = c.First().LongName,
+                     Society = c.First().Society,
+                     Address = c.First().Address,
+                     Telephone = c.First().Telephone,
+                     CmpanyEmail = c.First().CmpanyEmail,
+                     Semester = new Semester { Name = c.First().Name, Code = c.First().Code },
+                     Members = c.Select(cm => new User
+                     {
+                         Id = cm.UserId,
+                         GivenName = cm.GivenName,
+                         Email = cm.Email,
+                         FirstName = cm.FirstName,
+                         LastName = cm.LastName
+                     }).ToList()
+                 }).ToList().FirstOrDefault();
+        }
+
         public ICollection<Company> List(int status)
         {
             var result = _context.Set<CompanyWithMembers>().FromSqlRaw($"dbo.GetCompanies '{status}'").AsNoTracking().AsEnumerable();

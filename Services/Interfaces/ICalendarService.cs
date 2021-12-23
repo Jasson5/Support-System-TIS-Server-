@@ -1,4 +1,5 @@
 ﻿using Entities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,6 +11,6 @@ namespace Services.Interfaces
         ICollection<Calendar> ListCalendars();
         void DeleteCalendar(int id);
         void UpdateCalendar(Calendar calendar);
-        Calendar GeyById(int id);
+        Calendar GeyById(string companyName, DateTime date);
     }
 }

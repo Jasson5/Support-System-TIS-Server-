@@ -87,6 +87,11 @@ namespace Services
             return _companyRepository.FindBySemester(code);
         }
 
+        public Company FindByUserNSemester(int userId, string code)
+        {
+            return _companyRepository.FindByUserNSemester(userId,code);
+        }
+
         public ICollection<Company> ListCompanys(int status)
         {
             var company = _companyRepository.List(status);

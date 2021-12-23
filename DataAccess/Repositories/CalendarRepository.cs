@@ -33,7 +33,7 @@ namespace DataAccess.Repositories
 
         public Calendar FindByDate(DateTime date, string Shortname)
         {
-            var calendar = _dataAccess.Set<Calendar>().FromSqlRaw($"dbo.GetCalendarByDatenCompany '{date}', '{Shortname}'").AsEnumerable().SingleOrDefault();
+            var calendar = _dataAccess.Set<Calendar>().FromSqlRaw($"dbo.GetCalendarByDatenCompany '{date.ToString("MM/dd/yyyy")}', '{Shortname}'").AsEnumerable().FirstOrDefault();
 
             return calendar;
         }

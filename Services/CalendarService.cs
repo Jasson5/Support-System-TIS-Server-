@@ -42,9 +42,9 @@ namespace Services
         }
 
 
-        public Calendar GeyById(int id)
+        public Calendar GeyById(string companyName, DateTime date)
         {
-            return _calendarRepository.FindById(id);
+            return _calendarRepository.FindByDate(date, companyName);
         }
 
         public ICollection<Calendar> ListCalendars()

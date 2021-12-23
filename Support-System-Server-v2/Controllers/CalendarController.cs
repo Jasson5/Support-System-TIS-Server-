@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Helpers;
 using Services.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -29,17 +30,10 @@ namespace Support_System_Server_v2.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        public ActionResult<ICollection<Calendar>> Get()
+        [Route("{companyName}/{date}")]
+        public ActionResult<Calendar> GetById(string companyName, DateTime date)
         {
-            return Ok(_calendarService.ListCalendars());
-        }
-
-        [HttpGet]
-        [Route("{id}")]
-        public ActionResult<Calendar> GetById(int id)
-        {
-            var calendar = _calendarService.GeyById(id);
+            var calendar = _calendarService.GeyById(companyName, date);
 
             return Ok(calendar);
         }

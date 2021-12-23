@@ -5,7 +5,7 @@ GO
 CREATE PROCEDURE dbo.GetFInalGradeByCompany
 @ShortName NVARCHAR(MAX)
 AS
-	SELECT *
+	SELECT f.*
 	FROM  FinalGrades f
 	WHERE f.CompanyName = @ShortName
 GO

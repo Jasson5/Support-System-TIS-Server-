@@ -52,6 +52,15 @@ namespace Support_System_Server_v2.Controllers
             return Ok(company);
         }
 
+        [HttpGet]
+        [Route("user-and-company/{userId}/{code}")]
+        public ActionResult<Company> GetBySemester(int userId,string code)
+        {
+            var company = _companyService.FindByUserNSemester(userId,code);
+
+            return Ok(company);
+        }
+
         [HttpDelete]
         [Route("{key}")]
         public ActionResult Delete(string key)

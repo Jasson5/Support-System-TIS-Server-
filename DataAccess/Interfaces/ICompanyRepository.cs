@@ -15,5 +15,6 @@ namespace DataAccess.Interfaces
         void Update(Company company);
         Company FindByKey(string key);
         ICollection<Company> FindBySemester(string code);
+        Company FindByUserNSemester(int userId, string code);
     }
 }
