@@ -1,6 +1,7 @@
 ﻿using DataAccess.Interfaces;
 using Entities;
 using Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,7 +17,16 @@ namespace Services
         }
         public Calendar AddCalendar(Calendar calendar)
         {
-            var newCalendar = _calendarRepository.Add(calendar);
+            var result = _calendarRepository.FindByDate(calendar.DayDate, calendar.CompanyName);
+            var newCalendar = new Calendar();
+            if (result == null)
+            {
+                newCalendar = _calendarRepository.Add(calendar);
+            }
+            else
+            {
+                throw new ApplicationException("El calendario en la fecha dada ya existe");
+            }
 
             return newCalendar;
         }

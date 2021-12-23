@@ -4,6 +4,7 @@ using DataAccess.Model;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -39,6 +40,13 @@ namespace DataAccess.Repositories
         {
             _dataAccess.Set<Attendance>().Remove(attendance);
             _dataAccess.SaveChanges();
+        }
+
+        public Attendance FindByDate(DateTime date, int userId)
+        {
+            var attendance = _dataAccess.Set<Attendance>().FromSqlRaw($"dbo.GetAttendanceByDatenUser '{date}', '{userId}'").AsEnumerable().SingleOrDefault();
+
+            return attendance;
         }
 
         public Attendance FindById(int id)

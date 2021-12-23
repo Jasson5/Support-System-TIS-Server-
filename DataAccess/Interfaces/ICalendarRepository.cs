@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using System;
+using Entities;
 using System.Collections.Generic;
 
 namespace DataAccess.Interfaces
@@ -9,6 +10,7 @@ namespace DataAccess.Interfaces
         ICollection<Calendar> ListCalendars();
         void Update(Calendar calendar);
         Calendar FindById(int id);
+        Calendar FindByDate(DateTime date, string Shortname);
         void Delete(Calendar calendar);
     }
 }

@@ -2,6 +2,7 @@
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,6 +29,13 @@ namespace DataAccess.Repositories
         {
             _dataAccess.Set<Calendar>().Remove(calendar);
             _dataAccess.SaveChanges();
+        }
+
+        public Calendar FindByDate(DateTime date, string Shortname)
+        {
+            var calendar = _dataAccess.Set<Calendar>().FromSqlRaw($"dbo.GetCalendarByDatenCompany '{date}', '{Shortname}'").AsEnumerable().SingleOrDefault();
+
+            return calendar;
         }
 
         public Calendar FindById(int id)

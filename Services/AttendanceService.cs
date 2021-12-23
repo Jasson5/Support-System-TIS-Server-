@@ -2,6 +2,7 @@
 using DataAccess.Model;
 using Entities;
 using Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +18,16 @@ namespace Services
         }
         public Attendance AddAttendance(Attendance attendance)
         {
-            var newAttendance = _attendanceRepository.Add(attendance);
+            var result = _attendanceRepository.FindByDate(attendance.AttendanceDate, attendance.User.Id);
+            var newAttendance = new Attendance();
+            if (result == null)
+            {
+                newAttendance = _attendanceRepository.Add(attendance);
+            }
+            else
+            {
+                throw new ApplicationException("La asistencia en la fecha dada ya existe");
+            }
 
             return newAttendance;
         }
