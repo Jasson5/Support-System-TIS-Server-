@@ -27,7 +27,6 @@ namespace Support_System_Server_v2.Controllers
         public ActionResult<Attendance> Post(Attendance attendance)
         {
             attendance.DateCreation = TimeZoneHelper.GetSaWesternStandardTime();
-            attendance.AttendanceDate = Convert.ToDateTime(attendance.DateCreation.ToString("dd-MM-yyyy"));
             return _attendanceService.AddAttendance(attendance);
         }
 

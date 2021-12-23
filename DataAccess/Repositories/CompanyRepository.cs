@@ -49,6 +49,7 @@ namespace DataAccess.Repositories
         public void DeleteUserCompany(string companyName)
         {
             _context.Set<UsersCompanies>().FromSqlRaw($"dbo.DeleteUserCompany '{companyName}'");
+            _context.SaveChanges();
         }
 
         public Company FindByKey(string key)

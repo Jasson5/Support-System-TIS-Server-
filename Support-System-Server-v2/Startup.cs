@@ -176,6 +176,10 @@ namespace Support_System_Server_v2
             //Semester
             services.AddTransient<ISemesterRepository, SemesterRepository>();
             services.AddTransient<ISemesterService, SemesterService>();
+
+            //FinalGrade
+            services.AddTransient<IFinalGradeRepository, FinalGradeRepository>();
+            services.AddTransient<IFinalGradeService, FinalGradeService>();
         }
     }
 }

@@ -11,10 +11,12 @@ namespace Services
     public class CompanyService : ICompanyService
     {
         private readonly ICompanyRepository _companyRepository;
+        private readonly IFinalGradeRepository _finalGradeRepository;
 
-        public CompanyService(ICompanyRepository companyRepository)
+        public CompanyService(ICompanyRepository companyRepository, IFinalGradeRepository finalGradeRepository)
         {
             this._companyRepository = companyRepository;
+            this._finalGradeRepository = finalGradeRepository;
         }
         public Company AddCompany(Company company)
         {
@@ -24,6 +26,7 @@ namespace Services
             {
                 newCompany = _companyRepository.Add(company);
                 var usersCompanies = new List<UsersCompanies>();
+                var finalGrades = new List<FinalGrade>();
                 foreach (var uc in company.Members)
                 {
                     var userCompany = new UsersCompanies()
@@ -34,8 +37,17 @@ namespace Services
                         SemesterCode = company.Semester.Code
                     };
                     usersCompanies.Add(userCompany);
+                    var finalGrade = new FinalGrade()
+                    {
+                        DateCreation = (DateTime)company.DateCreation,
+                        CompanyName = newCompany.ShortName,
+                        UserId = uc.Id,
+                        Grade = 0
+                    };
+                    finalGrades.Add(finalGrade);
                 }
                 _companyRepository.AddUsersCompany(usersCompanies);
+                _finalGradeRepository.Add(finalGrades);
             }
             else
             {
@@ -55,6 +67,7 @@ namespace Services
                 {
                     _companyRepository.DeleteUserCompany(key);
                     _companyRepository.Delete(company);
+                    _finalGradeRepository.Delete(key);
                 } 
                 catch (Exception exception)
                 {
