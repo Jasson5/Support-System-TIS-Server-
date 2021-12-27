@@ -1,4 +1,5 @@
 ﻿using DataAccess.Interfaces;
+using DataAccess.Model;
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,13 @@ namespace DataAccess.Repositories
             var finalGrade = _dataAccess.Set<FinalGrade>().FromSqlRaw($"dbo.GetFInalGradeByCompany '{companyName}'").AsEnumerable();
 
             return finalGrade.ToList();
+        }
+
+        public ICollection<FinalGradeBySemester> ListFinalGradeBySemester(string semesterCode)
+        {
+            var finalGrades = _dataAccess.Set<FinalGradeBySemester>().FromSqlRaw($"dbo.GetFInalGradesBySemester '{semesterCode}'");
+
+            return finalGrades.ToList();
         }
 
         public void Update(FinalGrade finalGrade)
