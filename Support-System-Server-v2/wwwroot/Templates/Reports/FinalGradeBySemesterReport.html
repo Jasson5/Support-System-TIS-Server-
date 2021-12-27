@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <style type="text/css">
+        @font-face {
+            font-family: Courier;
+            src: url(http://jabusoft-misc.s3-sa-east-1.amazonaws.com/fonts/cour.ttf);
+        }
+
+        body {
+            font-family: Courier;
+            text-transform: uppercase;
+        }
+
+
+        table {
+            width: 100%;
+        }
+
+        .align-center {
+            text-align: center;
+        }
+
+        .container {
+            padding: 1% 2% 2% 2%;
+            float: left;
+        }
+
+        .row {
+            width: 100%;
+            float: left;
+            margin-top: 1%;
+        }
+
+        .col2 {
+            width: 20%;
+            float: left;
+        }
+
+        .col6 {
+            width: 60%;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col2">
+                <img src="#Logo#" width="100%" height="auto" />
+            </div>
+            <div class="col6">
+                <h1 class="align-center"><strong>#semester#</strong></h1>
+            </div>
+            <div class="col2">
+                <img src="#Logo#" width="100%" height="auto" />
+            </div>
+        </div>
+        <div class="row">
+            <table>
+                <tr>
+                    <th>Estudiante</th>
+                    <th>Nota</th>
+                    <th>Empresa</th>
+                    <th>Resultado</th>
+                </tr>
+                {VALUES TO POPULATE}
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
