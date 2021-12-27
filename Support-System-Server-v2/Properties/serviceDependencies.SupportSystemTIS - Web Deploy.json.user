@@ -8,6 +8,10 @@
       "restored": true,
       "restoreTime": "2021-12-09T12:17:37.2622488Z"
     },
+    "mssql2": {
+      "restored": true,
+      "restoreTime": "2021-12-24T01:21:09.1824879Z"
+    },
     "mssql1": {
       "restored": true,
       "restoreTime": "2021-12-16T10:34:10.6875767Z"
@@ -18,6 +22,10 @@
       "Type": "subscription",
       "Value": "0ce4a2e8-2fb5-4728-bdf2-27132ec401be"
     },
+    "mssql2.subscriptionId": {
+      "Type": "subscription",
+      "Value": "0ce4a2e8-2fb5-4728-bdf2-27132ec401be"
+    },
     "mssql4.resourceGroupName": {
       "Type": "resourceGroup",
       "Value": "DefaultResourceGroup-CQ"
@@ -25,6 +33,10 @@
     "mssql4.subscriptionId": {
       "Type": "subscription",
       "Value": "0ce4a2e8-2fb5-4728-bdf2-27132ec401be"
+    },
+    "mssql2.resourceGroupName": {
+      "Type": "resourceGroup",
+      "Value": "DefaultResourceGroup-CQ"
     },
     "mssql1.subscriptionId": {
       "Type": "subscription",
