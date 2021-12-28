@@ -180,6 +180,9 @@ namespace Support_System_Server_v2
             //FinalGrade
             services.AddTransient<IFinalGradeRepository, FinalGradeRepository>();
             services.AddTransient<IFinalGradeService, FinalGradeService>();
+
+            //Report
+            services.AddTransient<IReportService, ReportService>();
         }
     }
 }
