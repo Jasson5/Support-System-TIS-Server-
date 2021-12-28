@@ -28,6 +28,13 @@ namespace Support_System_Server_v2.Controllers
             return Ok(_finalGradeService.ListFinalGrades(shortName));
         }
 
+        [HttpGet]
+        [Route("by-semester/{semester}")]
+        public ActionResult<ICollection<FinalGrade>> GetApprovedStudents(string semester)
+        {
+            return Ok(_finalGradeService.ListApprovedStudents(semester));
+        }
+
         [HttpPatch]
         [Route("{id}")]
         public ActionResult<FinalGrade> Update(FinalGrade calendar)

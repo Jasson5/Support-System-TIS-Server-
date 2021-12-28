@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DataAccess.Model;
+using Entities;
 using System.Collections.Generic;
 
 namespace Services.Interfaces
@@ -7,5 +8,6 @@ namespace Services.Interfaces
     {
         ICollection<FinalGrade> ListFinalGrades(string companyName);
         void Update(FinalGrade finalGrade);
+        ICollection<FinalGradeBySemester> ListApprovedStudents(string semesterCode);
     }
 }

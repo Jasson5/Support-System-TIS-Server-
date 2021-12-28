@@ -1,4 +1,5 @@
 ﻿using DataAccess.Interfaces;
+using DataAccess.Model;
 using Entities;
 using Services.Interfaces;
 using System;
@@ -14,6 +15,11 @@ namespace Services
         public FinalGradeService(IFinalGradeRepository finalGradeRepository)
         {
             this._finalGradeRepository = finalGradeRepository;
+        }
+
+        public ICollection<FinalGradeBySemester> ListApprovedStudents(string semesterCode)
+        {
+            return _finalGradeRepository.ListFinalGradeBySemester(semesterCode);
         }
 
         public ICollection<FinalGrade> ListFinalGrades(string companyName)
