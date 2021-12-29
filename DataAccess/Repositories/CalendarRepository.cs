@@ -45,9 +45,9 @@ namespace DataAccess.Repositories
             return calendar;
         }
 
-        public ICollection<Calendar> ListCalendars()
+        public ICollection<Calendar> ListCalendars(string companyName)
         {
-            var calendars = _dataAccess.Set<Calendar>().FromSqlRaw($"dbo.GetCalendars").AsEnumerable();
+            var calendars = _dataAccess.Set<Calendar>().FromSqlRaw($"dbo.GetCalendarByCompany  '{companyName}'").AsEnumerable();
 
             return calendars.ToList();
         }

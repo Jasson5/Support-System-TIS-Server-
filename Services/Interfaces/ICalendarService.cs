@@ -8,7 +8,7 @@ namespace Services.Interfaces
     public interface ICalendarService
     {
         Calendar AddCalendar(Calendar calendar);
-        ICollection<Calendar> ListCalendars();
+        ICollection<Calendar> ListCalendars(string companyName);
         void DeleteCalendar(int id);
         void UpdateCalendar(Calendar calendar);
         Calendar GeyById(string companyName, DateTime date);

@@ -38,6 +38,16 @@ namespace Support_System_Server_v2.Controllers
             return Ok(calendar);
         }
 
+
+        [HttpGet]
+        [Route("{companyName}")]
+        public ActionResult<Calendar> GetById(string companyName)
+        {
+            var calendar = _calendarService.ListCalendars(companyName);
+
+            return Ok(calendar);
+        }
+
         [HttpDelete]
         [Route("{id}")]
         public ActionResult Delete(int id)

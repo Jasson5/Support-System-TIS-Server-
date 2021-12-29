@@ -47,9 +47,9 @@ namespace Services
             return _calendarRepository.FindByDate(date, companyName);
         }
 
-        public ICollection<Calendar> ListCalendars()
+        public ICollection<Calendar> ListCalendars(string companyName)
         {
-            var calendar = _calendarRepository.ListCalendars();
+            var calendar = _calendarRepository.ListCalendars(companyName);
 
             return calendar.ToList();
         }
