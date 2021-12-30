@@ -24,30 +24,46 @@ namespace Services
             var newCompany = new Company();
             if (result == null) 
             {
-                newCompany = _companyRepository.Add(company);
-                var usersCompanies = new List<UsersCompanies>();
-                var finalGrades = new List<FinalGrade>();
-                foreach (var uc in company.Members)
+                var flag = true;
+                foreach (var us in company.Members)
                 {
-                    var userCompany = new UsersCompanies()
-                    {
-                        UserId = uc.Id,
-                        ShortName = newCompany.ShortName,
-                        Role = uc.Roles.First().Name,
-                        SemesterCode = company.Semester.Code
-                    };
-                    usersCompanies.Add(userCompany);
-                    var finalGrade = new FinalGrade()
-                    {
-                        DateCreation = (DateTime)company.DateCreation,
-                        CompanyName = newCompany.ShortName,
-                        UserId = uc.Id,
-                        Grade = 0
-                    };
-                    finalGrades.Add(finalGrade);
+                    var IsElegible = _companyRepository.FindByUSC(company.Semester.Code, us.Id);
+                    if (IsElegible != null) {
+                        flag = false;
+                        break;
+                    }
                 }
-                _companyRepository.AddUsersCompany(usersCompanies);
-                _finalGradeRepository.Add(finalGrades);
+                if (flag)
+                {
+                    newCompany = _companyRepository.Add(company);
+                    var usersCompanies = new List<UsersCompanies>();
+                    var finalGrades = new List<FinalGrade>();
+                    foreach (var uc in company.Members)
+                    {
+                        var userCompany = new UsersCompanies()
+                        {
+                            UserId = uc.Id,
+                            ShortName = newCompany.ShortName,
+                            Role = uc.Roles.First().Name,
+                            SemesterCode = company.Semester.Code
+                        };
+                        usersCompanies.Add(userCompany);
+                        var finalGrade = new FinalGrade()
+                        {
+                            DateCreation = (DateTime)company.DateCreation,
+                            CompanyName = newCompany.ShortName,
+                            UserId = uc.Id,
+                            Grade = 0
+                        };
+                        finalGrades.Add(finalGrade);
+                    }
+                    _companyRepository.AddUsersCompany(usersCompanies);
+                    _finalGradeRepository.Add(finalGrades);
+                }
+                else 
+                {
+                    throw new ApplicationException("Un usuario ya pertenece a una compañia");
+                }
             }
             else
             {

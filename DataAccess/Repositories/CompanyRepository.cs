@@ -86,6 +86,14 @@ namespace DataAccess.Repositories
                  }).ToList();
         }
 
+        //
+        public UsersCompanies FindByUSC(string code, int userId)
+        {
+            var result = _context.Set<UsersCompanies>().FromSqlRaw($"dbo.GetUsersinCompanies '{code}', '{userId}'").AsEnumerable().FirstOrDefault();
+
+            return result;
+        }
+
         public Company FindByUserNSemester(int userId, string code)
         {
             var result = _context.Set<CompanyWithMembers>().FromSqlRaw($"dbo.GetCompaniesBySemester '{userId}','{code}'").AsNoTracking().AsEnumerable();
