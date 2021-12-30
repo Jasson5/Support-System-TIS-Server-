@@ -48,8 +48,12 @@ namespace DataAccess.Repositories
 
         public void DeleteUserCompany(string companyName)
         {
-            _context.Set<UsersCompanies>().FromSqlRaw($"dbo.DeleteUserCompany '{companyName}'");
-            _context.SaveChanges();
+            var userdelete = _context.Set<UsersCompanies>().FromSqlRaw($"dbo.DeleteUserCompany '{companyName}'").AsEnumerable();
+            foreach (var u in userdelete)
+            {
+                _context.Set<UsersCompanies>().Remove(u);
+                _context.SaveChanges();
+            }
         }
 
         public Company FindByKey(string key)

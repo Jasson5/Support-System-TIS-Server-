@@ -5,7 +5,7 @@ GO
 CREATE PROCEDURE dbo.DeleteUserCompany
 @ShortName NVARCHAR(MAX)
 AS
-	DELETE 
-    FROM  UsersCompanies	
+	Select *
+	FROM  UsersCompanies
     WHERE ShortName = @ShortName
 GO
