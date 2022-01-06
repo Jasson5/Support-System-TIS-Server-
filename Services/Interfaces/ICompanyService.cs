@@ -3,6 +3,8 @@ using Entities;
 using System.Collections;
 using System.Collections.Generic;
 
+//Interfaces para el servicio de GrupoEmpresa.
+
 namespace Services.Interfaces
 {
     public interface ICompanyService

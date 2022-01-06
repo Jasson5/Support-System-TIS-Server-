@@ -2,6 +2,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
+//Entidad de Anuncio modelada con sus atributos: Descripción, URL del Documento, Semestre.
+
 namespace Entities
 {
     public class Announcement : Entity

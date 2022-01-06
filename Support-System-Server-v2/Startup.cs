@@ -40,9 +40,11 @@ namespace Support_System_Server_v2
         {
             RegisterTypes(services);
 
+            //LLamado del startup helper libreria para la authentication
             Authentication.StartupHelper.RegisterTypes(services);
             Reports.StartupHelper.RegisterTypes(services);
 
+            //Cors union con frontend
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
@@ -52,17 +54,20 @@ namespace Support_System_Server_v2
                 });
             });
 
+            //Configuracion de las cookies
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //Conexion con la base de datos
             services.AddDbContext<SupportSystemContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SupportSystemTISDatabase"), b => b.MigrationsAssembly("Support-System-Server-v2"));
             });
 
+            //Conexion de identities con autentificacion
             services.AddIdentity<IdentityUser, IdentityRole>(options => {
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
@@ -77,8 +82,10 @@ namespace Support_System_Server_v2
                 options.Lockout.AllowedForNewUsers = true;
             });
 
+            //Reseteo de token cuando se loguee nuevamente
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
+            //Envio de Emails
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             services
@@ -128,8 +135,8 @@ namespace Support_System_Server_v2
             }
 
             ContextInitializer.SeedData(userManager, roleManager, Configuration);
-            app.UseMiddleware<ExceptionHandler>();
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseMiddleware<ExceptionHandler>(); //uso de middleware para .json
+            app.UseCors(MyAllowSpecificOrigins); //uso del corse
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseRouting();
@@ -144,6 +151,7 @@ namespace Support_System_Server_v2
             });
         }
 
+        //Iniciacion de interfaces repositorios y servicios
         public static void RegisterTypes(IServiceCollection services)
         {
             //Context

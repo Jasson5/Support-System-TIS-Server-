@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+//Endpoints de NotaFinal
+
 namespace Support_System_Server_v2.Controllers
 {
     [Route("api/final-grade")]
@@ -21,6 +23,7 @@ namespace Support_System_Server_v2.Controllers
             this._finalGradeService = finalGradeService;
         }
 
+        //Get/Obtener notas finales por el nombre corto de la grupo empresa
         [HttpGet]
         [Route("{shortName}")]
         public ActionResult<ICollection<FinalGrade>> Get(string shortName)
@@ -28,6 +31,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(_finalGradeService.ListFinalGrades(shortName));
         }
 
+        //Get/Obtener notas finales por el codigo del semestre
         [HttpGet]
         [Route("by-semester/{semester}")]
         public ActionResult<ICollection<FinalGrade>> GetApprovedStudents(string semester)
@@ -35,6 +39,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(_finalGradeService.ListApprovedStudents(semester));
         }
 
+        //Patch/Actualizar notas finales por su ID
         [HttpPatch]
         [Route("{id}")]
         public ActionResult<FinalGrade> Update(FinalGrade calendar)

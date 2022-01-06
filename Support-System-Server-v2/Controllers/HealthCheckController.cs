@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+//Control de salud del backend(se muestra si esta funcionando)
+
 namespace Support_System_Server_v2.Controllers
 {
 

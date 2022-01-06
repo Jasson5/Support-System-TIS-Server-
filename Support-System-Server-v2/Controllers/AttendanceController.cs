@@ -8,6 +8,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+//Endpoints de Asistencia
+
 namespace Support_System_Server_v2.Controllers
 {
     [Authorize]
@@ -30,6 +32,7 @@ namespace Support_System_Server_v2.Controllers
             return _attendanceService.AddAttendance(attendance);
         }
 
+        //Get/Obtencion de asistencias
         [HttpGet]
         [Route("")]
         public ActionResult<ICollection<Attendance>> Get()
@@ -37,6 +40,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(_attendanceService.ListAttendances());
         }
 
+        //Get/Obtencion de asistencias por nombre corto de la grupo empresa
         [HttpGet]
         [Route("find-by-company/{shortName}")]
         public ActionResult<ICollection<Attendance>> GetByCompany(string shortName)
@@ -44,6 +48,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(_attendanceService.ListAttendancesByCompany(shortName));
         }
 
+        //Get/Obtencion de la nota de asistencia por nombre corto de la grupo empresa
         [HttpGet]
         [Route("grade-by-company/{shortName}")]
         public ActionResult<ICollection<GradeAverageVM>> GetGradeByCompany(string shortName)
@@ -51,6 +56,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(_attendanceService.ListGradesByCompany(shortName));
         }
 
+        //Get/Obtencion Asistencia por su ID
         [HttpGet]
         [Route("{id}")]
         public ActionResult<Attendance> GetById(int id)
@@ -60,6 +66,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(attendance);
         }
 
+        //Delete/Eliminar asistencia por su ID
         [HttpDelete]
         [Route("{id}")]
         public ActionResult Delete(int id)
@@ -69,6 +76,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok();
         }
 
+        //Patch/Actualizar asistencia por su ID
         [HttpPatch]
         [Route("{id}")]
         public ActionResult<Attendance> Update(Attendance attendance)

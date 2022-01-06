@@ -4,6 +4,8 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
+
+//Throws o Errores que se transforman en .json para que el front los pueda leer.
 namespace Entities.Exceptions
 {
     public class ExceptionHandler

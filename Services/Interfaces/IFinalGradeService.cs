@@ -2,6 +2,8 @@
 using Entities;
 using System.Collections.Generic;
 
+//Interfaces para el servicio de Nota Final.
+
 namespace Services.Interfaces
 {
     public interface IFinalGradeService

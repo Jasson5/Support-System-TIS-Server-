@@ -2,6 +2,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
+
+//Entidad Calendario(Donde se guardan las anotaciones de la clase), con los atributos DiaDeLaClase, DescripcionDelDia,
+//ObservacionesParaLaSiguiente, GrupoEmpresa.
+
 namespace Entities
 {
     public class Calendar : Entity

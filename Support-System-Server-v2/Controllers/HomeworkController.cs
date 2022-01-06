@@ -6,6 +6,8 @@ using Services.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 
+//Endpoints de Tarea
+
 namespace Support_System_Server_v2.Controllers
 {
     [Authorize]
@@ -28,6 +30,7 @@ namespace Support_System_Server_v2.Controllers
             return _homeworkService.AddHomework(homework);
         }
 
+        //Get/Obtener las tareas
         [HttpGet]
         [Route("")]
         public ActionResult<ICollection<Homework>> Get()
@@ -35,6 +38,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(_homeworkService.ListHomeworks());
         }
 
+        //Get/Obtener tareas por su ID
         [HttpGet]
         [Route("{id}")]
         public ActionResult<Homework> GetById(int id)
@@ -44,6 +48,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(homework);
         }
 
+        //Delete/Eliminar tareas por su ID
         [HttpDelete]
         [Route("{id}")]
         public ActionResult Delete(int id)
@@ -53,6 +58,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok();
         }
 
+        //Patch/Actualizar tareas por su ID
         [HttpPatch]
         [Route("{id}")]
         public ActionResult<Homework> Update(Homework homework)

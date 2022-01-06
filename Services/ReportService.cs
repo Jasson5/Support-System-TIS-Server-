@@ -8,6 +8,8 @@ using System;
 using System.IO;
 using System.Linq;
 
+//Logica del servicio de Reporte (No se usa debido a el deploy gratuito de Azure no permite hacer PDFs)
+
 namespace Services
 {
     public class ReportService : IReportService

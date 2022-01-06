@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+//Interfaces para el servicio de Anuncios.
+
 namespace Services.Interfaces
 {
     public interface IAnnouncementService

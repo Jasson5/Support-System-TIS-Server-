@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+//Endpoints de semestre
+
 namespace Support_System_Server_v2.Controllers
 {
     [Authorize]
@@ -39,6 +41,7 @@ namespace Support_System_Server_v2.Controllers
             return Created("api/semesters", newSemester);
         }
 
+        //Get/Obtener semestres
         [HttpGet]
         [Route("")]
         public ActionResult<ICollection<Semester>> Get()
@@ -46,6 +49,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(_semesterService.ListSemesters());
         }
 
+        //Get/Obtener semestre por su codigo
         [HttpGet]
         [Route("{code}")]
         public ActionResult<Semester> GetByCode(string code)
@@ -55,6 +59,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(semester);
         }
 
+        //Get/Obtener usuario especifico en semestres
         [HttpGet]
         [Route("list-by-user/{userId}")]
         public ActionResult<Semester> GetByUserId(int userId)
@@ -64,6 +69,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(semester);
         }
 
+        //Get/Obtener lista de usuarios por semestre
         [HttpGet]
         [Route("list-users-by-semester")]
         public ActionResult<Semester> LisUsersBySemester([FromQuery] UsersRequestParameters query)
@@ -73,6 +79,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(semester);
         }
 
+        //Get/Obtener para que un usuario ingrese al semestre por su respectivo codigo
         [HttpGet]
         [Route("join-to-semester/{userId}/{semesterCode}")]
         public async Task<ActionResult> JoinToSemester(int userId, string semesterCode)

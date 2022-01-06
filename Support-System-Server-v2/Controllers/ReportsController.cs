@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
+//Endpoints del reporte
+
 namespace Support_System_Server_v2.Controllers
 {
     [Route("api/report")]
@@ -15,6 +17,7 @@ namespace Support_System_Server_v2.Controllers
             _reportService = reportService;
         }
 
+        //Post para imprimir el reporte PDF
         [HttpPost]
         [Route("print")]
         public ActionResult Post(ReportParams parameters)

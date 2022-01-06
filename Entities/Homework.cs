@@ -2,6 +2,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
+//Entidad Tarea con atributos Titulo, DescripcionDeLaTarea, Link del repositorio donde se almacenara los archivos, FechaDeEntrega,
+//Estado de la tarea, Nota de la Tarea, Grupo Empresa a la que se asigno la tarea.
+
 namespace Entities
 {
     public class Homework : Entity

@@ -3,6 +3,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+//Verificacion del Claim Token
+
 namespace Support_System_Server_v2.Controllers
 {
     public class MainController : ControllerBase

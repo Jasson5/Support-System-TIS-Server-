@@ -2,6 +2,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
+//Entidad Convocatoria con los atributos Descripción, FechaPlazo de la convocatoria, Semestre, Link del repositorio donde se almacenaran
+// los documentos publicados de convocatoria, Minimo y Maximo de usuarios que permitira en una GrupoEmpresa para esa Convocatoria.
+
 namespace Entities
 {
     public class Offer : Entity

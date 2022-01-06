@@ -6,6 +6,8 @@ using Services.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 
+//Endpoints de Anuncio
+
 namespace Support_System_Server_v2.Controllers
 {
     [Authorize]
@@ -28,6 +30,7 @@ namespace Support_System_Server_v2.Controllers
             return _announcementService.AddAnnouncement(announcement);
         }
 
+        //Get/Obtencion por codigo de semestre
         [HttpGet]
         [Route("{code}")]
         public ActionResult<ICollection<Announcement>> Get(string code)
@@ -35,6 +38,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(_announcementService.ListAnnouncements(code));
         }
 
+        //Get/Obtencion por su ID
         [HttpGet]
         [Route("find-by-id/{id}")]
         public ActionResult<Announcement> GetById(int id)
@@ -44,6 +48,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(announcement);
         }
 
+        //Delete/Eliminar por ID
         [HttpDelete]
         [Route("{id}")]
         public ActionResult Delete(int id)
@@ -53,6 +58,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok();
         }
 
+        //Patch/Actualizar por ID
         [HttpPatch]
         [Route("{id}")]
         public ActionResult<Announcement> Update(Announcement announcement)

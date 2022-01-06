@@ -7,6 +7,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+//Endpoints de Calendario
+
 namespace Support_System_Server_v2.Controllers
 {
     [Authorize]
@@ -29,6 +31,7 @@ namespace Support_System_Server_v2.Controllers
             return _calendarService.AddCalendar(calendar);
         }
 
+        //Get/Obtener Calendario(Observaciones) por empresa y fecha
         [HttpGet]
         [Route("{companyName}/{date}")]
         public ActionResult<Calendar> GetById(string companyName, DateTime date)
@@ -38,7 +41,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(calendar);
         }
 
-
+        //Get/Obtener Calendario(Observaciones) por empresa
         [HttpGet]
         [Route("{companyName}")]
         public ActionResult<Calendar> GetById(string companyName)
@@ -48,6 +51,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok(calendar);
         }
 
+        //Delete/Eliminar por su ID
         [HttpDelete]
         [Route("{id}")]
         public ActionResult Delete(int id)
@@ -57,6 +61,7 @@ namespace Support_System_Server_v2.Controllers
             return Ok();
         }
 
+        //Patch/Actualizar por su ID
         [HttpPatch]
         [Route("{id}")]
         public ActionResult<Calendar> Update(Calendar calendar)

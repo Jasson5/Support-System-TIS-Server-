@@ -2,6 +2,8 @@
 using Entities.RequestParameters;
 using System.Collections.Generic;
 
+//Interfaces para el servicio de Semestre.
+
 namespace Services.Interfaces
 {
     public interface ISemesterService

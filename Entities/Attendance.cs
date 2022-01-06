@@ -2,6 +2,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
+
+//Entidad Asistencia con los atributos DiaDeAsistencia, EstadoDeAsistencia, NotaPorAsistencia, Usuario, GrupoEmpresa.
 namespace Entities
 {
     public class Attendance : Entity
