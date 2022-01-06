@@ -5,6 +5,7 @@ namespace DataAccess.Interfaces
 {
     public interface ISemesterRepository
     {
+        //Interface para el repositorio de semestre
         Semester Add(Semester semester);
         ICollection<Semester> List();
         ICollection<Semester> ListByUserId(int userId);

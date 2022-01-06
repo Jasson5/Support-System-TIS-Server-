@@ -5,6 +5,7 @@ GO
 CREATE PROCEDURE dbo.GetSemesterByCode
 @Code NVARCHAR(MAX)
 AS
+--Obtener semestre por su codigo
 	SELECT  *
 	FROM  Semesters s
 	WHERE s.Code = @Code

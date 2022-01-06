@@ -7,11 +7,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Authentication.Entities
 {
+    //Entidad Company de la base de datos 
     public class Company 
     {
+        //clave primaria de de Company es el nombre corto (ShortName) de la compania
         [Key]
         [StringLength(50)]
-        public string ShortName { get; set; }
+        public string ShortName { get; set; }  
 
         public int Id { get; set; }
 
@@ -36,6 +38,7 @@ namespace Authentication.Entities
         [Required]
         public int CmpanyStatus { get; set; }
 
+        //Miembros pertenecientas a la compañia
         [NotMapped]
         public ICollection<User> Members { get; set;}
 

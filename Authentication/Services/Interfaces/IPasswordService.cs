@@ -2,6 +2,7 @@
 {
     public interface IPasswordService
     {
+        //interfaz para el servicio de contrasenia
         string GeneratePassword(int length);
     }
 }

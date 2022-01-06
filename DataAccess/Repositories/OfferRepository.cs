@@ -18,7 +18,7 @@ namespace DataAccess.Repositories
             _dataAccess = dataAccess;
         }
 
-        public Offer Add(Offer offer)
+        public Offer Add(Offer offer) //Añadir convocatoria
         {
             if (offer.Semester != null)
             {
@@ -36,7 +36,7 @@ namespace DataAccess.Repositories
             return offer;
         }
 
-        public Offer FindById(int id)
+        public Offer FindById(int id) //Encontrar convocatoria por Id
         {
             var result = _dataAccess.Set<OfferWithSemester>().FromSqlRaw($"dbo.GetOfferById '{id}'").AsEnumerable().SingleOrDefault();
             var offer = new Offer
@@ -53,7 +53,7 @@ namespace DataAccess.Repositories
             return offer;
         }
 
-        public ICollection<Offer> ListOffers(string code)
+        public ICollection<Offer> ListOffers(string code) //Listar convocatorias de un semestre dado
         {
             var offers = _dataAccess.Set<OfferWithSemester>().FromSqlRaw($"dbo.GetOfferBySemester '{code}'").AsEnumerable();
 
@@ -70,7 +70,7 @@ namespace DataAccess.Repositories
             }).ToList();
         }
 
-        public void Update(Offer offer)
+        public void Update(Offer offer) //Actualizar convocatoria
         {
             var OfferToEdit = _dataAccess.Set<Offer>().Find(offer.Id);
 

@@ -2,6 +2,7 @@
 {
     public class FinalGradeBySemester
     {
+        //Clase de apoyo 
         public int Id { get; set; }
         public int Grade { get; set; }
         public string GivenName { get; set; }

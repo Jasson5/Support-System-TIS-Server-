@@ -1,5 +1,6 @@
 ﻿namespace Authentication.Entities
 {
+    //Configuraciones de Email
     public class EmailSettings
     {
         public string SmtpClientHost { get; set; }

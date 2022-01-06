@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Authentication.Entities
 {
+    //Entidad User de la base de datos
     public class User
     {
         public int Id { get; set; }

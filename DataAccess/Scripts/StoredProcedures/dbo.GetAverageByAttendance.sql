@@ -5,6 +5,7 @@ GO
 CREATE PROCEDURE dbo.GetAverageByAttendance
 @ShortName NVARCHAR(MAX)
 AS
+--Obtiene el promedio total de todas las asistencias de un usario y su id, filtrado por compania
 	SELECT AVG(ALL att.AttendanceGrade) as [GradeAverage], u.Id, 
 		sum(case when att.AttendanceStatus = 1 then 1 else 0 end)Presentes, 
 		sum(case when att.AttendanceStatus = 2 then 1 else 0 end)Tardes,

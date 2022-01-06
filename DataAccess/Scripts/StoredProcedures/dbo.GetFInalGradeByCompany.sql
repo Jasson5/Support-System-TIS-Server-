@@ -5,6 +5,7 @@ GO
 CREATE PROCEDURE dbo.GetFInalGradeByCompany
 @ShortName NVARCHAR(MAX)
 AS
+--Obtener notas finales de una compania
 	SELECT f.*
 	FROM  FinalGrades f
 	WHERE f.CompanyName = @ShortName

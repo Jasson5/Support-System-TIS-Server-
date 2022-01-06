@@ -5,6 +5,7 @@ GO
 CREATE PROCEDURE dbo.GetCompaniesByKey
 @Key NVARCHAR(MAX)
 AS
+--Obtener informacion de las companias por su clave primaria(ShortName)
 	SELECT  *
 	FROM  Companies c
 	WHERE c.ShortName=@Key

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Authentication.Entities
 {
+    //Tabla intermedia entre User y Semester de la base de datos, esto porque en caso de reprobacion un usuerio deberia poder inscribirse el siguienet semestre
     public class UserSemesters
     {
         [Key]

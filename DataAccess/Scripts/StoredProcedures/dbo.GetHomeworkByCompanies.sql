@@ -5,6 +5,7 @@ GO
 CREATE PROCEDURE dbo.GetHomeworkByCompanies
 @ShortName NVARCHAR(MAX)
 AS
+--Obtener Homeworks por medio de la compania
 	SELECT h.*
 	FROM  Homeworks h
 	WHERE h.CompanyShortName = @ShortName

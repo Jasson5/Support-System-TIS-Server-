@@ -8,6 +8,7 @@ namespace DataAccess.Interfaces
 {
     public interface IRepository<T> where T : Entity
     {
+        //Interface generica para un repositorio de tipo T
         IQueryable<T> List { get; }
         T Add(T entity);
         void Delete(T entity);

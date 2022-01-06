@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Authentication.Entities
 {
+    ////Tabla intermedia entre User y Company de la base de datos, esto porque un usario puede repetir la materia y debe estar en otra compañia para eso
     public class UsersCompanies
     {
         [Key]

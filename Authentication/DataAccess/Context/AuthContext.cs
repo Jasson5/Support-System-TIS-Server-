@@ -12,7 +12,7 @@ namespace Authentication.DataAccess.Context
 
         public DbSet<User> Users { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder) //Creacion de usuario admin por defecto en el sistema
         {
             modelBuilder.Entity<User>()
                 .HasData(new

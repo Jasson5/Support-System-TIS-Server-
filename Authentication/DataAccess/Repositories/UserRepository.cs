@@ -36,7 +36,7 @@ namespace Authentication.DataAccess.Repositories
             this.context = context;
         }
 
-        public IQueryable<User> List
+        public IQueryable<User> List //Lista al usuario
         {
             get
             {
@@ -44,7 +44,7 @@ namespace Authentication.DataAccess.Repositories
             }
         }
 
-        public async Task<bool> ChangePassword(User user)
+        public async Task<bool> ChangePassword(User user) //Cambiar contrasenia del usuario
         {
             var identityUser = await userManager.FindByNameAsync(user.Username);
 
@@ -74,34 +74,34 @@ namespace Authentication.DataAccess.Repositories
             }
         }
 
-        public User FindById(int id)
+        public User FindById(int id) //Busca el usuario por su id
         {
             return context.Set<User>().Find(id);
         }
 
-        public User FindByUsername(string username)
+        public User FindByUsername(string username)//Busca el usuario por su Nombre de usuario
         {
             return context.Set<User>().SingleOrDefault(u => u.Username == username);
         }
 
-        public async Task<IdentityUser> FindIdentityUserByEmail(string email)
+        public async Task<IdentityUser> FindIdentityUserByEmail(string email) //Busca por Email
         {
             return await userManager.FindByEmailAsync(email);
         }
 
-        public async Task<IdentityUser> FindIdentityUserByName(string username)
+        public async Task<IdentityUser> FindIdentityUserByName(string username) //Busca por nombre
         {
             return await userManager.FindByNameAsync(username);
         }
 
-        public async Task<IList<string>> GetRoles(IdentityUser user)
+        public async Task<IList<string>> GetRoles(IdentityUser user)//Obtiene los roles del usuario
         {
             var roles = userManager.GetRolesAsync(user);
 
             return await roles;
         }
 
-        public async Task<User> Login(User user)
+        public async Task<User> Login(User user) //Logica de Login
         {
             var result = await signInManager.PasswordSignInAsync(user.Username, user.Password, false, false);
             var identityUser = await FindIdentityUserByName(user.Username);
@@ -135,7 +135,7 @@ namespace Authentication.DataAccess.Repositories
             }
         }
 
-        public async Task<bool> RegisterUser(User user)
+        public async Task<bool> RegisterUser(User user) //Logica de Registro de Usuario
         {
             var newUser = new IdentityUser
             {
@@ -162,7 +162,7 @@ namespace Authentication.DataAccess.Repositories
             return result.Succeeded;
         }
 
-        public async Task<bool> UpdateUser(User user)
+        public async Task<bool> UpdateUser(User user) //Actualizacion de usuario
         {
             var identityUser = userManager.FindByNameAsync(user.Username).Result;
             var roles = GetRoles(identityUser);
@@ -201,7 +201,7 @@ namespace Authentication.DataAccess.Repositories
             return result.Succeeded;
         }
 
-        public async Task<bool> UpdateUserWithoutEmail(User user)
+        public async Task<bool> UpdateUserWithoutEmail(User user) //Actualizacion de usuario sin email
         {
             var identityUser = userManager.FindByNameAsync(user.Username).Result;
             var roles = GetRoles(identityUser);
@@ -227,6 +227,7 @@ namespace Authentication.DataAccess.Repositories
             return result.Succeeded;
         }
 
+        //Generador de Token 
         private async Task<string> GenerateJwtToken(User user, IdentityUser identityUser)
         {
             var claims = new List<Claim>

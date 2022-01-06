@@ -6,6 +6,7 @@ namespace DataAccess.Model
 {
     public class GradeAverageVM
     {
+        //Clase de apoyo 
         public int Id { get; set; }
         public int GradeAverage { get; set; }
         public int Presentes { get; set; }

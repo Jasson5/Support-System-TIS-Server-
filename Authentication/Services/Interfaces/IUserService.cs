@@ -7,6 +7,7 @@ namespace Authentication.Services.Interfaces
 {
     public interface IUserService
     {
+        //Interfaz para el servicio de usuario
         Task<bool> RegisterUser(User user);
         Task<bool> RegisterCompleteUser(User user);
         Task<User> Login(User user);

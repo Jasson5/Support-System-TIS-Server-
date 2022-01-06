@@ -19,7 +19,7 @@ namespace DataAccess.Repositories
             _dataAccess = dataAccess;
         }
 
-        public Attendance Add(Attendance attendance)
+        public Attendance Add(Attendance attendance) //aniade asistencia hecha por Administrador
         {
             if (attendance.User != null)
             {
@@ -36,34 +36,34 @@ namespace DataAccess.Repositories
             return attendance;
         }
 
-        public void Delete(Attendance attendance)
+        public void Delete(Attendance attendance) //Borra asistencia hecha por Administrador
         {
             _dataAccess.Set<Attendance>().Remove(attendance);
             _dataAccess.SaveChanges();
         }
 
-        public Attendance FindByDate(DateTime date, int userId)
+        public Attendance FindByDate(DateTime date, int userId) //Encuentra asistencia por fecha 
         {
             var attendance = _dataAccess.Set<Attendance>().FromSqlRaw($"dbo.GetAttendanceByDatenUser '{date.ToString("MM/dd/yyyy")}', '{userId}'").AsEnumerable().SingleOrDefault();
 
             return attendance;
         }
 
-        public Attendance FindById(int id)
+        public Attendance FindById(int id) //Encuentra asistencia por Id
         {
             var attendance = _dataAccess.Set<Attendance>().FromSqlRaw($"dbo.GetAttendanceById '{id}'").AsEnumerable().SingleOrDefault();
 
             return attendance;
         }
 
-        public ICollection<Attendance> ListAttendances()
+        public ICollection<Attendance> ListAttendances() // Lista asitencias
         {
             var attendances = _dataAccess.Set<Attendance>().FromSqlRaw($"dbo.GetAttendances").AsEnumerable();
 
             return attendances.ToList();
         }
 
-        public ICollection<Attendance> ListAttendancesByCompany(string companyName)
+        public ICollection<Attendance> ListAttendancesByCompany(string companyName) //Lista las asistencias en funcion a la compania especificada
         {
             var result = _dataAccess.Set<AttendanceWithUser>().FromSqlRaw($"dbo.GetAttendanceByCompany '{companyName}'").AsEnumerable();
 
@@ -78,14 +78,14 @@ namespace DataAccess.Repositories
             }).ToList();
         }
 
-        public ICollection<GradeAverageVM> ListGradesByCompany(string companyName)
+        public ICollection<GradeAverageVM> ListGradesByCompany(string companyName) //Da las notas en funcion a la compania
         {
             var gradeAverage = _dataAccess.Set<GradeAverageVM>().FromSqlRaw($"dbo.GetAverageByAttendance '{companyName}'").AsEnumerable();
 
             return gradeAverage.ToList();
         }
 
-        public void Update(Attendance attendance)
+        public void Update(Attendance attendance)//Actualiza asistencia
         {
             var AttendanceToEdit = _dataAccess.Set<Attendance>().Find(attendance.Id);
 
