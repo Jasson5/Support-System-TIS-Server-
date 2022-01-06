@@ -16,7 +16,7 @@ namespace DataAccess.Repositories
             _dataAccess = dataAccess;
         }
 
-        public Homework Add(Homework homework)
+        public Homework Add(Homework homework) //Aniadir tarea
         {
             _dataAccess.Set<Homework>().Add(homework);
             _dataAccess.SaveChanges();
@@ -24,27 +24,27 @@ namespace DataAccess.Repositories
             return homework;
         }
 
-        public void Delete(Homework homework)
+        public void Delete(Homework homework) //Eliminar tarea
         {
             _dataAccess.Set<Homework>().Remove(homework);
             _dataAccess.SaveChanges();
         }
 
-        public Homework FindById(int id)
+        public Homework FindById(int id) //Encontrar tarea por Id 
         {
             var homework = _dataAccess.Set<Homework>().FromSqlRaw($"dbo.GetHomeworkById '{id}'").AsEnumerable().SingleOrDefault();
 
             return homework;
         }
 
-        public ICollection<Homework> ListHomeworks()
+        public ICollection<Homework> ListHomeworks()//Listar tareas
         {
             var homeworks = _dataAccess.Set<Homework>().FromSqlRaw($"dbo.GetHomeworks").AsEnumerable();
 
             return homeworks.ToList();
         }
 
-        public void Update(Homework homework)
+        public void Update(Homework homework) //Actualizar tareas
         {
             var HomeworkToEdit = _dataAccess.Set<Homework>().Find(homework.Id);
 

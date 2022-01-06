@@ -5,6 +5,7 @@ GO
 CREATE PROCEDURE dbo.DeleteUserCompany
 @ShortName NVARCHAR(MAX)
 AS
+--devuelve toda la informacion de UsersCompanies filtrado por compania
 	Select *
 	FROM  UsersCompanies
     WHERE ShortName = @ShortName

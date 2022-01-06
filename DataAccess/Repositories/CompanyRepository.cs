@@ -17,7 +17,7 @@ namespace DataAccess.Repositories
             this._context = context;
         }
 
-        public Company Add(Company company)
+        public Company Add(Company company) //Aniade compania
         {
             if (company.Semester != null)
             {
@@ -34,19 +34,19 @@ namespace DataAccess.Repositories
             return company;
         }
 
-        public void AddUsersCompany(ICollection<UsersCompanies> usersCompanies)
+        public void AddUsersCompany(ICollection<UsersCompanies> usersCompanies) //Aniade usuarios a la compania
         {
             _context.AddRange(usersCompanies);
             _context.SaveChanges();
         }
 
-        public void Delete(Company company)
+        public void Delete(Company company) //Elimina Compania
         {
             _context.Set<Company>().Remove(company);
             _context.SaveChanges();
         }
 
-        public void DeleteUserCompany(string ShortName)
+        public void DeleteUserCompany(string ShortName) //Elimina usuario de una compania por su nombre corto 
         {
             var userdelete = _context.Set<UsersCompanies>().FromSqlRaw($"dbo.DeleteUserCompany '{ShortName}'").AsEnumerable().ToList();
             
@@ -54,14 +54,14 @@ namespace DataAccess.Repositories
                 _context.SaveChanges();
         }
 
-        public Company FindByKey(string key)
+        public Company FindByKey(string key) //Encontrar campania por su clave primaria (nombre corto)
         {
             var offer = _context.Set<Company>().FromSqlRaw($"dbo.GetCompaniesByKey '{key}'").AsEnumerable().FirstOrDefault();
 
             return offer;
         }
 
-        public ICollection<Company> FindBySemester(string code)
+        public ICollection<Company> FindBySemester(string code) //Listar companias por semestre
         {
             var result = _context.Set<CompanyWithMembers>().FromSqlRaw($"dbo.GetCompaniesBySemester '{code}'").AsNoTracking().AsEnumerable();
 
@@ -89,14 +89,14 @@ namespace DataAccess.Repositories
         }
 
         //
-        public UsersCompanies FindByUSC(string code, int userId)
+        public UsersCompanies FindByUSC(string code, int userId) //Obtener datos de UserCompanies (usarios en compañias)
         {
             var result = _context.Set<UsersCompanies>().FromSqlRaw($"dbo.GetUsersinCompanies '{code}', '{userId}'").AsEnumerable().FirstOrDefault();
 
             return result;
         }
 
-        public Company FindByUserNSemester(int userId, string code)
+        public Company FindByUserNSemester(int userId, string code) //Encontrar compania por usuario y semestre
         {
             var result = _context.Set<CompanyWithMembers>().FromSqlRaw($"dbo.GetCompaniesBySemester '{userId}','{code}'").AsNoTracking().AsEnumerable();
 
@@ -123,7 +123,7 @@ namespace DataAccess.Repositories
                  }).ToList().FirstOrDefault();
         }
 
-        public ICollection<Company> List(int status)
+        public ICollection<Company> List(int status) //Lista de companias
         {
             var result = _context.Set<CompanyWithMembers>().FromSqlRaw($"dbo.GetCompanies '{status}'").AsNoTracking().AsEnumerable();
 
@@ -148,7 +148,7 @@ namespace DataAccess.Repositories
                 }).ToList();
         }
 
-        public void Update(Company entity)
+        public void Update(Company entity) //Actualizar companias
         {
             var company = _context.Set<Company>()
                 .SingleOrDefault(c => c.ShortName == entity.ShortName);

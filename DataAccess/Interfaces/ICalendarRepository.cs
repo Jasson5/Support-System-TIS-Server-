@@ -6,6 +6,7 @@ namespace DataAccess.Interfaces
 {
     public interface ICalendarRepository
     {
+        //Interface para el repositorio de calendario
         Calendar Add(Calendar calendar);
         ICollection<Calendar> ListCalendars(string companyName);
         void Update(Calendar calendar);

@@ -4,6 +4,7 @@ namespace DataAccess.Model
 {
     public class AttendanceWithUser
     {
+        //Clase de apoyo 
         public int Id { get; set; }
         public DateTime AttendanceDate { get; set; }
         public int AttendanceStatus { get; set; }

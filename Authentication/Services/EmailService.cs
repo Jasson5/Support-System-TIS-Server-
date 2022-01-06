@@ -15,7 +15,7 @@ namespace Authentication.Services
             this.emailSettings = emailSettings.Value;
         }
 
-        public void SendEmail(Email email)
+        public void SendEmail(Email email) //envia Email
         {
             var mailMessage = new MailMessage
             {

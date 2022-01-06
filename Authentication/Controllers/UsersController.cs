@@ -64,14 +64,14 @@ namespace Authentication.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<User> GetUser(int id)
+        public ActionResult<User> GetUser(int id) //Obtener usuario por su Id
         {
             return Ok(userService.FindById(id));
         }
 
         [HttpPost]
         [Route("changepassword")]
-        public async Task<ActionResult> ChangePassword([FromBody] User user)
+        public async Task<ActionResult> ChangePassword([FromBody] User user) //Cambio de contrasenia
         {
             if (!ModelState.IsValid)
             {
@@ -87,14 +87,14 @@ namespace Authentication.Controllers
 
         [HttpGet]
         [Route("")]
-        public ActionResult<ICollection<User>> Get()
+        public ActionResult<ICollection<User>> Get() //obtener usuarios 
         {
             return Ok(userService.ListUsers());
         }
 
         [HttpPatch]
         [Route("{id}")]
-        public async Task<ActionResult<User>> Update(User user)
+        public async Task<ActionResult<User>> Update(User user) //Actualizacion de usuarios por su id
         {
             if (!ModelState.IsValid)
             {
@@ -110,7 +110,7 @@ namespace Authentication.Controllers
 
         [HttpPatch]
         [Route("without-email/{id}")]
-        public async Task<ActionResult<User>> UpdateWithoutEmail(User user)
+        public async Task<ActionResult<User>> UpdateWithoutEmail(User user)//Actualizacion de usuarios por su id
         {
             if (!ModelState.IsValid)
             {

@@ -35,12 +35,12 @@ namespace Authentication.Services
             this.configuration = configuration;
         }
 
-        public Task<bool> ChangePassword(User user)
+        public Task<bool> ChangePassword(User user)//cambiar contrasenia del usuario
         {
             return userRepository.ChangePassword(user);
         }
 
-        public User FindById(int id)
+        public User FindById(int id) //encontrar a un usario por su id
         {
             var user = userRepository.FindById(id);
             var identityUser = userRepository.FindIdentityUserByName(user.Username).Result;
@@ -50,12 +50,12 @@ namespace Authentication.Services
             return user;
         }
 
-        public Task<IdentityUser> FindIdentityUserByName(string username)
+        public Task<IdentityUser> FindIdentityUserByName(string username) //Encontrar a un usuario por su nombre
         {
             return userRepository.FindIdentityUserByName(username);
         }
 
-        public ICollection<User> ListUsers()
+        public ICollection<User> ListUsers() //Listar usuarios
         {
             var users = userRepository.List;
             var userList = new List<User>();
@@ -71,13 +71,13 @@ namespace Authentication.Services
             return userList;
         }
 
-        public Task<User> Login(User user)
+        public Task<User> Login(User user) // Login/Ingreso del usuario a su cuenta
         {
             var registeredUser = userRepository.FindByUsername(user.Username);
 
-            if (registeredUser != null)
+            if (registeredUser != null) //verificar que el usuario este registrado
             {
-                if (registeredUser.IsEnabled)
+                if (registeredUser.IsEnabled)//Verificar que la cuenta este habilitada
                 {
                     return userRepository.Login(user);
                 }
@@ -92,18 +92,18 @@ namespace Authentication.Services
             }
         }
 
-        public Task<bool> RegisterCompleteUser(User user)
+        public Task<bool> RegisterCompleteUser(User user) //Registrar un usuario
         {
             user.Username = user.Username;
             user.GivenName = user.FirstName + ' ' + user.LastName;
             user.Password = user.Password;
             user.IsEnabled = true;
 
-            if (FindIdentityUserByName(user.Username).Result != null)
+            if (FindIdentityUserByName(user.Username).Result != null) //Verificar si el nombre del usuario exista en la base de datos
             {
                 throw new ApplicationException("No se puede registrar al usuario, el nombre de usuario ya está en uso");
             }
-            else
+            else //si no existe crea el usario
             {
                 var userCreated = userRepository.RegisterUser(user);
 
@@ -111,7 +111,7 @@ namespace Authentication.Services
             }
         }
 
-        public async Task<bool> RegisterUser(User user)
+        public async Task<bool> RegisterUser(User user) //metodo no usado de version pasada para enviar por Email el usuario par poder ingresar
         {
             var identityUser = userRepository.FindIdentityUserByEmail(user.Email);
 
@@ -179,7 +179,7 @@ namespace Authentication.Services
             }
         }
 
-        public async Task<bool> UpdateUser(User user)
+        public async Task<bool> UpdateUser(User user) //No usado por ser de versiones anteriores
         {
             var identityUser = userRepository.FindIdentityUserByEmail(user.Email);
             var registeredUser = userRepository.FindByUsername(user.Username);
@@ -213,17 +213,17 @@ namespace Authentication.Services
             }
         }
 
-        public async Task<bool> UpdateUserWithoutEmail(User user)
+        public async Task<bool> UpdateUserWithoutEmail(User user) //Actualizar usuario
         {
             var registeredUser = userRepository.FindByUsername(user.Username);
 
-            if (registeredUser != null)
+            if (registeredUser != null)//Verifica si el usuario esta registrado 
             {
                 var result = await userRepository.UpdateUserWithoutEmail(user);
 
                 return result;
             }
-            else
+            else //Si no esta registrado da error
             {
                 throw new ApplicationException("El usuario no esta registrado");
             }

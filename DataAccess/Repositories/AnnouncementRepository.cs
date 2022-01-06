@@ -17,7 +17,7 @@ namespace DataAccess.Repositories
             _dataAccess = dataAccess;
         }
 
-        public Announcement Add(Announcement announcement)
+        public Announcement Add(Announcement announcement) //aniade publicacion hecha por Administrador
         {
             if (announcement.Semester != null)
             {
@@ -35,27 +35,27 @@ namespace DataAccess.Repositories
             return announcement;
         }
 
-        public void Delete(Announcement announcement)
+        public void Delete(Announcement announcement) //Borra publicacion hecha por Administrador
         {
             _dataAccess.Set<Announcement>().Remove(announcement);
             _dataAccess.SaveChanges();
         }
 
-        public Announcement FindById(int id)
+        public Announcement FindById(int id) //Encuentra publicacion por Id
         {
             var announcement = _dataAccess.Set<Announcement>().FromSqlRaw($"dbo.GetAnnouncementById '{id}'").AsEnumerable().SingleOrDefault();
 
             return announcement;
         }
 
-        public ICollection<Announcement> ListAnnouncements(string code) 
+        public ICollection<Announcement> ListAnnouncements(string code) //Lista publicaciones 
         {
             var announcements = _dataAccess.Set<Announcement>().FromSqlRaw($"dbo.GetAnnouncementBySemester '{code}'").AsEnumerable();
 
             return announcements.ToList();
         }
 
-        public void Update(Announcement announcement) 
+        public void Update(Announcement announcement) //Actualiza publicaciones
         {
             var AnnouncementToEdit = _dataAccess.Set<Announcement>().Find(announcement.Id);
 

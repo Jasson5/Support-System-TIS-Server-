@@ -6,6 +6,7 @@ namespace DataAccess.Model
 {
     public class CompanyWithMembers
     {
+        //Clase de apoyo 
         public int Id { get; set; }
         public DateTime? DateCreation { get; set; }
         public string ShortName { get; set; }

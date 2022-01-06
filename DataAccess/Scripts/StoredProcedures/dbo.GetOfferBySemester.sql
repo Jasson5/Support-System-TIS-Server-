@@ -5,6 +5,7 @@ GO
 CREATE PROCEDURE dbo.GetOfferBySemester
 @Code NVARCHAR(MAX)
 AS
+--Obtener Offer (convocatoria) por medio del semestre
 	SELECT  o.Id, o.DateCreation, o.DateEnd, o.Description, o.DocumentOfferUrl, o.MaxUsers, o.MinUsers, o.SemesterCode
 	FROM  Offers o 
 	WHERE o.SemesterCode = @Code

@@ -7,12 +7,14 @@ namespace Authentication.DataAccess.Context
     {
         public static void SeedData(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
+            //Creacion de roles y usuarios
             SeedRoles(roleManager, configuration);
             SeedUsers(userManager, configuration);
         }
 
         public static void SeedRoles(RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
+            //Especificacion de roles
             var roles = configuration["Roles"].Split(',');
 
             foreach (var role in roles)
@@ -31,6 +33,7 @@ namespace Authentication.DataAccess.Context
 
         public static void SeedUsers(UserManager<IdentityUser> userManager, IConfiguration configuration)
         {
+            //Relacion de usuario con el rol
             var roles = configuration["Roles"].Split(',');
 
             if (userManager.FindByEmailAsync("jeysonerikvaldiviabernal@gmail.com").Result == null)

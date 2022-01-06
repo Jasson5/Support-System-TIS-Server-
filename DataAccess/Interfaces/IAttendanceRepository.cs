@@ -7,6 +7,7 @@ namespace DataAccess.Interfaces
 {
     public interface IAttendanceRepository
     {
+        //Interface para el repositorio de asistencia
         Attendance Add(Attendance attendance);
         ICollection<Attendance> ListAttendances();
         ICollection<Attendance> ListAttendancesByCompany(string companyName);

@@ -1,5 +1,6 @@
 ﻿namespace Authentication.Entities
 {
+    //Entidad Email
     public class Email
     {
         public string Subject { get; set; }

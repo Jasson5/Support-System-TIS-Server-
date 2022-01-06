@@ -6,6 +6,7 @@ namespace DataAccess.Model
 {
     public class OfferWithSemester
     {
+        //Clase de apoyo 
         public int id { get; set; }
 
         public DateTime DateCreation { get; set; }

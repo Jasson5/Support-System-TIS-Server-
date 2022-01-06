@@ -9,6 +9,7 @@ namespace Authentication.DataAccess.Interfaces
 {
     public interface IUserRepository
     {
+        //interfaces para el repositorio de usuario
         Task<bool> RegisterUser(User user);
         Task<User> Login(User user);
         Task<IdentityUser> FindIdentityUserByEmail(string email);

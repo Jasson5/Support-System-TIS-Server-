@@ -5,6 +5,7 @@ GO
 CREATE PROCEDURE dbo.GetFInalGradesBySemester
 @Code NVARCHAR(MAX)
 AS
+--Obtener notas finales con datos de su respectivo semestre y usario, filtrado por semestre
 	SELECT f.Id, f.Grade, u.GivenName, s.Name, c.ShortName
 	FROM  FinalGrades f
 	LEFT JOIN Companies c ON c.ShortName = f.CompanyName

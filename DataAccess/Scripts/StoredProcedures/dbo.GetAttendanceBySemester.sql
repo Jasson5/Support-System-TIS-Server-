@@ -5,6 +5,7 @@ GO
 CREATE PROCEDURE dbo.GetAttendanceBySemester
 @Code NVARCHAR(MAX)
 AS
+--Obtiene las asistencias por semestre
 	SELECT att.*
 	FROM  Attendances att
 	WHERE att.SemesterCode = @Code

@@ -14,7 +14,7 @@ namespace DataAccess.Context
         public SupportSystemContext(DbContextOptions<SupportSystemContext> options) : base(options)
         {
         }
-
+        //Pasa a la base de datos todas sus entidades
         public DbSet<Company> Companies { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Calendar> Calendars { get; set; }
@@ -26,7 +26,7 @@ namespace DataAccess.Context
         public DbSet<UserSemesters> UserSemesters { get; set; }
         public DbSet<FinalGrade> FinalGrades { get; set; }
 
-        //CUSTOM
+        //CUSTOM (Clases de apoyo)
         public virtual DbSet<OfferWithSemester> OfferWithSemesters { get; set; }
         public virtual DbSet<CompanyWithMembers> CompanyWithMembers { get; set; }
         public virtual DbSet<AttendanceWithUser> AttendanceWithUsers { get; set; }

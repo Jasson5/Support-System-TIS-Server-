@@ -7,6 +7,7 @@ namespace DataAccess.Interfaces
 {
     public interface ICompanyRepository
     {
+        //Interface para el repositorio de compania
         Company Add(Company company);
         void AddUsersCompany(ICollection<UsersCompanies> usersCompanies);
         ICollection<Company> List(int status);
