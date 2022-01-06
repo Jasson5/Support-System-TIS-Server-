@@ -5,7 +5,7 @@ GO
 CREATE PROCEDURE dbo.DeleteFinalGradeByCompany
 @ShortName NVARCHAR(MAX)
 AS
-	DELETE 
+	Select *
     FROM  FinalGrades	
     WHERE CompanyName = @ShortName
 GO

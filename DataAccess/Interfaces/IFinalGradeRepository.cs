@@ -10,6 +10,6 @@ namespace DataAccess.Interfaces
         ICollection<FinalGrade> ListFinalGrade(string companyName);
         ICollection<FinalGradeBySemester> ListFinalGradeBySemester(string semesterCode);
         void Update(FinalGrade finalGrade);
-        void Delete(string companyName);
+        void Delete(string CompanyName);
     }
 }

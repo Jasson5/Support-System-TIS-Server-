@@ -25,10 +25,12 @@ namespace DataAccess.Repositories
             _dataAccess.SaveChanges();
         }
 
-        public void Delete(string companyName)
+        public void Delete(string CompanyName)
         {
-            _dataAccess.Set<FinalGrade>().FromSqlRaw($"dbo.DeleteUserCompany '{companyName}'");
+            var gradedelete = _dataAccess.Set<FinalGrade>().FromSqlRaw($"dbo.DeleteFinalGradeByCompany '{CompanyName}'").AsEnumerable().ToList();
+            _dataAccess.Set<FinalGrade>().RemoveRange(gradedelete);
             _dataAccess.SaveChanges();
+
         }
 
         public ICollection<FinalGrade> ListFinalGrade(string companyName)
